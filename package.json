@@ -8,5 +8,11 @@
   },
   "author": "Luke Kavanagh <luke.kavanagh@ft.com> (http://github.com/kavanagh)",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "koa": "^0.12.2",
+    "koa-route": "^2.2.0",
+    "koa-trace": "^1.0.0",
+    "koa-views": "^2.1.0",
+    "swig": "^1.4.2"
+  }
 }
