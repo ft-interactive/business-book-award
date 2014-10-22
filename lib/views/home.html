@@ -4,9 +4,10 @@
 
 {% block content %}
 <h1>{{title}}</h1>
-<nav>
-<a href="/books/2014/winner/unknown">2014 winner</a>
-<a href="/books/2014/shortlisted/unknown">2014 shortlisted 1</a>
-<a href="/books/2014/shortlisted/unknown2">2014 shortlisted 2</a>
-</nav>
+<ul>
+{% for book in books %}
+<li><a href="/books/{{ book.year }}/{{ book.rank }}/{{ book.slug }}"><img src="
+http://image.webservices.ft.com/v1/images/raw/http://interactivegraphics.ft-static.com/static/sites/2014/business-books-of-the-decade/covers/{{ book.cover }}?source=business_books_ofthe_decade&amp;width=200"/>{{ book.title }}</a></li>
+{% endfor %}
+</ul>
 {% endblock %}
