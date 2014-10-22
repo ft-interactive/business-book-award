@@ -1,0 +1,12 @@
+{
+  "name": "business-book-of-the-decade",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "start": "node --harmony ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luke Kavanagh <luke.kavanagh@ft.com> (http://github.com/kavanagh)",
+  "license": "ISC",
+  "dependencies": {}
+}
