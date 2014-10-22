@@ -1,6 +1,11 @@
 var http = require('http')
 var lib = require('./lib');
-var app = lib();
+var pkg = require('./package.json');
+var app = lib({
+  name: pkg.name,
+  proxy: true
+});
 var server = http.createServer(app.callback());
-
-server.listen(process.env.PORT || 3000);
+var port = process.env.PORT || 3000;
+server.listen(port);
+console.log(app.name + ' listening on ' + port);
