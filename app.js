@@ -3,7 +3,8 @@ var lib = require('./lib');
 var pkg = require('./package.json');
 var app = lib({
   name: pkg.name,
-  proxy: true
+  proxy: true,
+  dummydata: true
 });
 var server = http.createServer(app.callback());
 var port = process.env.PORT || 3000;
