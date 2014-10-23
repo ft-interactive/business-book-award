@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}{{page.title}}{% endblock %}
+{% block title %}{{ book.title }} by {{book.author}} - {{site.name}}{% endblock %}
 
 {% block content %}
 <h1>{{ book.title }}</h1>
@@ -8,13 +8,10 @@
 <p><strong>{{ book.rank }}:</strong> <a href="/books/{{ book.year }}">{{book.year}}</a><p>
 <p><img src="
 http://image.webservices.ft.com/v1/images/raw/http://interactivegraphics.ft-static.com/static/sites/2014/business-books-of-the-decade/covers/{{ book.cover }}?source=business_books_ofthe_decade&amp;width=200"/></p>
-{% if book.categories.length %}
-<h2>Categories</h2>
-<ul>
 {% for category in book.categories %}
-<li><a href="/categories/{{ category.slug }}">{{ category.name }}</a></li>
+  {% if loop.first %}<h2>Categories</h2><ul>{% endif %}
+    <li><a href="/categories/{{ category.slug }}">{{ category.name }}</a></li>
+  {% if loop.last %}</ul>{% endif %}
 {% endfor %}
-</ul>
-{% endif %}
 <a href="/">Home</a>
 {% endblock %}
