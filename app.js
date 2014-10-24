@@ -4,7 +4,8 @@ var pkg = require('./package.json');
 var app = lib({
   name: pkg.name,
   proxy: true,
-  dummydata: true,
+  dummydata: process.env.DUMMY_DATA === 'true',
+  cacheViews: process.env.CACHE_VIEWS === 'true',
   theme: pkg.theme
 });
 var server = http.createServer(app.callback());
