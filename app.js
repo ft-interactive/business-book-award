@@ -5,7 +5,10 @@ var app = lib({
   name: pkg.name,
   proxy: true,
   dummydata: true,
-  theme: process.env.APP_THEME_NAME ? '../node_modules/' + process.env.APP_THEME_NAME : null
+  theme: {
+    views: '../node_modules/business-books-of-the-decade-frontend/dist/views',
+    public: '../node_modules/business-books-of-the-decade-frontend/dist'
+  }
 });
 var server = http.createServer(app.callback());
 var port = process.env.PORT || 3000;
