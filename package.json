@@ -24,5 +24,9 @@
   },
   "engines": {
     "node": "0.11.13"
+  },
+  "theme": {
+    "views": "../node_modules/business-books-of-the-decade-frontend/dist/views",
+    "public": "../node_modules/business-books-of-the-decade-frontend/dist"
   }
 }
