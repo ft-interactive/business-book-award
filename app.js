@@ -6,6 +6,7 @@ var app = lib({
   proxy: true,
   dummydata: process.env.DUMMY_DATA === 'true',
   cacheViews: process.env.CACHE_VIEWS === 'true',
+  staticBaseUrl: '/',
   theme: pkg.theme
 });
 var server = http.createServer(app.callback());
