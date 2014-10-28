@@ -29,5 +29,8 @@
   "theme": {
     "views": "../node_modules/business-books-of-the-decade-frontend/dist/views",
     "public": "../node_modules/business-books-of-the-decade-frontend/dist/public"
+  },
+  "devDependencies": {
+    "nodemon": "^1.2.1"
   }
 }
