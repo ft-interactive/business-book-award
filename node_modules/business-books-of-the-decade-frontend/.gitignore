@@ -1,0 +1,8 @@
+.DS_Store
+.tm_properties
+/node_modules/
+/bower_components/
+/.sass-cache/
+/.tmp/
+/dist/
+.igdeploy

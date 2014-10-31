@@ -1,0 +1,65 @@
+
+/*
+Tipue drop 4.0
+Copyright (c) 2014 Tipue
+Tipue drop is released under the MIT License
+http://www.tipue.com/drop
+*/
+
+
+#tipue_drop_input {
+
+}
+#tipue_drop_content {
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid oColorsGetPaletteColor(pink-tint3);
+  margin-top: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  z-index: 50;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 13px;
+  box-shadow: 0 15px 40px oColorsGetPaletteColor(pink-tint3);
+}
+#tipue_drop_wrapper {
+}
+#tipue_drop_wrapper a {
+  text-decoration: none;
+  display: block;
+  clear: both;
+}
+.tipue_drop_item {
+  background-color: #fff;
+}
+.tipue_drop_item:hover {
+  background-color: #f7f7f7;
+}
+.tipue_drop_head {
+  display: none;
+}
+.tipue_drop_image {
+  width: 60px;
+  height: auto;
+  outline: none;
+}
+.tipue_drop_left {
+  display: table-cell;
+  vertical-align: top;
+  padding: 10px 10px 20px 15px;
+}
+.tipue_drop_right {
+  display: table-cell;
+  vertical-align: top;
+  padding: 10px 15px 20px 0;
+}
+.tipue_drop_right_title {
+}
+.tipue_drop_right_text {
+  color: #333333;
+  padding-top: 3px;
+  font-size: 11px;
+}
