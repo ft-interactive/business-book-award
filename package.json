@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node --harmony ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "DUMMY_DATA=true nodemon --harmony ./app.js -e js,html,css,csv",
+    "watch": "DUMMY_DATA=true nodemon --harmony ./app.js -e js,html,css,csv"
   },
   "author": "Luke Kavanagh <luke.kavanagh@ft.com> (http://github.com/kavanagh)",
   "license": "ISC",
