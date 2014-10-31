@@ -6,7 +6,6 @@
     "start": "node --harmony ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "DUMMY_DATA=true nodemon --harmony ./app.js -e js,html,css,csv",
-    "postinstall": "cd ./node_modules/business-books-of-the-decade-frontend && npm install && bower install && grunt"
   },
   "author": "Luke Kavanagh <luke.kavanagh@ft.com> (http://github.com/kavanagh)",
   "license": "ISC",

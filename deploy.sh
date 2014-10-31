@@ -23,7 +23,7 @@ DEPLOY="deploy-$BRANCH-$VERSION"
 
 
 # enure the front-end is built
-npm run postinstall
+cd ./node_modules/business-books-of-the-decade-frontend && npm install && bower install && grunt && cd ../..
 
 # Create new deploy branch based on current branch
 git checkout -b $DEPLOY
