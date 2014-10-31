@@ -6,6 +6,9 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, 'js');
+        </script>
 
         <!--#include virtual="/inc/extras-head-1.html" -->
 
@@ -634,11 +637,17 @@
 
         <!--#include virtual="/inc/extras-foot-1.html" -->
 
+        <!--[if gt IE 8]><!-->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <!-- build:js({.tmp,app,.}) scripts/bottom.js -->
+        <!--<![endif]-->
+        <!--[if lte IE 8]>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <![endif]-->
+        
         <script src="scripts/vendor/tipuedrop/tipuedrop_content.js"></script>
+
+        <!-- build:js({.tmp,app,.}) scripts/bottom.js -->
         <script src="scripts/vendor/tipuedrop/tipuedrop.js"></script>
-        <script src="bower_components/ondomready/ondomready.js"></script>
         <script src="scripts/main-bundle.js"></script>
         <!-- endbuild -->
 

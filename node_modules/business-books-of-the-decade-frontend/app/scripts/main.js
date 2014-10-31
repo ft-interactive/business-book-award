@@ -1,36 +1,28 @@
-'use strict';
+$(document).ready(function() {
+  'use strict';
+  require('fastclick')(document.body); // github.com/ftlabs/fastclick
 
-onDomReady(function () {
-  if ('querySelector' in document &&
-      'localStorage' in window &&
-      'addEventListener' in window &&
-      'classList' in document.createElement('_')) {
-    document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, 'js');
+  var filterBarToggleElement = '<a href="#filterbar" class="js-filter-bar-toggle top-bar__action" role="button"><span class="visuallyhidden">Menu</span></a>';
+  $('.js-filter-bar-toggle-placeholder').append(filterBarToggleElement);
 
-    require('fastclick')(document.body); // github.com/ftlabs/fastclick
+  var filterBar = $('.js-filter-bar');
 
-    var filterBarToggleElement = '<a href="#filterbar" class="js-filter-bar-toggle top-bar__action" role="button"><span class="visuallyhidden">Menu</span></a>';
-    document.querySelector('.js-filter-bar-toggle-placeholder').innerHTML = filterBarToggleElement;
-
-    var filterBar = document.querySelector('.js-filter-bar');
-
-    [].forEach.call(document.querySelectorAll('.js-filter-bar-toggle'), function (el) {
-      el.addEventListener('click', function(e) {
-        e.preventDefault();
-        filterBar.classList.toggle('filter-bar--hidden');
-      }, false);
-    });
-
-    // Prevent search form submission
-    document.querySelector('.js-search-form').addEventListener('submit', function(e) {
+  $('.js-filter-bar-toggle').each(function(el) {
+    $(el).on('click', function(e) {
       e.preventDefault();
-    }, false);
+      filterBar.toggleClass('filter-bar--hidden');
+    });
+  });
 
-    // Submit the filter form on change
-    document.querySelector('.js-filter-form-select').addEventListener('change', function() {
-      document.querySelector('.js-filter-form').submit();
-    }, false);
+  // Prevent search form submission
+  $('.js-search-form').on('submit', function(e) {
+    e.preventDefault();
+  });
 
-    $('.js-tipue-drop').tipuedrop();
-  }
+  // Submit the filter form on change
+  $('.js-filter-form-select').on('change', function() {
+    $('.js-filter-form').submit();
+  });
+
+  $('.js-tipue-drop').tipuedrop();
 });

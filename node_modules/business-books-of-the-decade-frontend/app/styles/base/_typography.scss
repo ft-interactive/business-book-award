@@ -37,6 +37,8 @@ h6 {
   text-align: center;
   margin-top: .5em;
   margin-bottom: .5em;
+  padding-left: $gutter;
+  padding-right: $gutter;
 
   @include mq(tablet) {
     margin-top: 1em;
