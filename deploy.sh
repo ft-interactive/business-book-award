@@ -21,17 +21,21 @@ BRANCH=`git symbolic-ref -q --short HEAD`
 VERSION=`git describe`
 DEPLOY="deploy-$BRANCH-$VERSION"
 
+
 # enure the front-end is built
 npm run postinstall
 
 # Create new deploy branch based on current branch
 git checkout -b $DEPLOY
 
+
 ############################################
 # Perform pre-deploy build steps - could run a grunt task here
 
 echo $VERSION > .semver
 git add .semver
+git add -f node_modules
+
 
 #
 ############################################
