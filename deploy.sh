@@ -48,7 +48,7 @@ git commit -m "Deploying $VERSION to Heroku"
 git push $1 -f $DEPLOY:master
 
 # Switch it back to the branch we were working on
-#git checkout $BRANCH
+git checkout $BRANCH
 
 # Delete the deploy branch
-#git branch -D $DEPLOY
+git branch -D $DEPLOY

@@ -14,19 +14,19 @@ var options = {
 
 if (prod) {
   options.theme = {
-    views: '../node_modules/business-books-of-the-decade-frontend/dist/views',
-    public: '../node_modules/business-books-of-the-decade-frontend/dist/public',
-    data: '../node_modules/business-books-of-the-decade-frontend/dist/views/data.js',
-    favicon: './public/favicon.ico',
-    filters: '../node_modules/business-books-of-the-decade-frontend/dist/views/filters.js'
-  };
-} else {
-  options.theme = {
     views: './views',
     public: './public',
     data: './views/data.js',
     favicon: './public/favicon.ico',
     filters: './views/filters.js'
+  };
+} else {
+  options.theme = {
+    views: '../node_modules/business-books-of-the-decade-frontend/.tmp/views',
+    public: '../node_modules/business-books-of-the-decade-frontend/.tmp',
+    data: '../node_modules/business-books-of-the-decade-frontend/.tmp/views/data.js',
+    favicon: './public/favicon.ico',
+    filters: '../node_modules/business-books-of-the-decade-frontend/.tmp/views/filters.js'
   };
 }
 
