@@ -19,7 +19,7 @@ fi
 # Store current branch and version
 BRANCH=`git symbolic-ref -q --short HEAD`
 VERSION=`git describe`
-DEPLOY="deploy-$BRANCH-$VERSION"
+DEPLOY="deploy-$BRANCH"
 
 
 # enure the front-end is built
@@ -32,9 +32,9 @@ git checkout -b $DEPLOY
 ############################################
 # Perform pre-deploy build steps - could run a grunt task here
 
-echo $VERSION > .semver
-git add .semver
 git add -f node_modules
+echo $VERSION > .semver
+git add .semver;
 
 
 #
@@ -47,7 +47,7 @@ git commit -m "Deploying $VERSION to Heroku"
 git push $1 -f $DEPLOY:master
 
 # Switch it back to the branch we were working on
-git checkout $BRANCH
+#git checkout $BRANCH
 
 # Delete the deploy branch
-git branch -D $DEPLOY
+#git branch -D $DEPLOY
