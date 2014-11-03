@@ -9,7 +9,8 @@ var options = {
   proxy: true,
   staticBaseUrl: prod ? '/' : 'http://localhost:9000/',
   dummydata: process.env.DUMMY_DATA === 'true',
-  cacheViews: prod ? 'memory' : false
+  cacheViews: prod ? 'memory' : false,
+  compress: true
 };
 
 if (prod) {
