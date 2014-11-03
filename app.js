@@ -22,11 +22,11 @@ if (prod) {
   };
 } else {
   options.theme = {
-    views: '../node_modules/business-books-of-the-decade-frontend/.tmp/views',
-    public: '../node_modules/business-books-of-the-decade-frontend/.tmp',
-    data: '../node_modules/business-books-of-the-decade-frontend/.tmp/views/data.js',
+    views: './views',
+    public: './public',
+    data: './views/data.js',
     favicon: './public/favicon.ico',
-    filters: '../node_modules/business-books-of-the-decade-frontend/.tmp/views/filters.js'
+    filters: './views/filters.js'
   };
 }
 

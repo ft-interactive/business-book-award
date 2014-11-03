@@ -22,9 +22,6 @@ VERSION=`git describe`
 DEPLOY="deploy-$BRANCH"
 
 
-# enure the front-end is built
-cd ./node_modules/business-books-of-the-decade-frontend && npm install && bower install && grunt && cd ../..
-
 # Create new deploy branch based on current branch
 git checkout -b $DEPLOY
 
@@ -32,9 +29,13 @@ git checkout -b $DEPLOY
 ############################################
 # Perform pre-deploy build steps - could run a grunt task here
 
-git add -f node_modules
+# enure the front-end is built
+cd ./node_modules/business-books-of-the-decade-frontend && npm install && bower install && grunt && cd ../..
+cp -R ./node_modules/business-books-of-the-decade-frontend/dist/public ./lib
+cp -R ./node_modules/business-books-of-the-decade-frontend/dist/views ./lib
+
 echo $VERSION > .semver
-git add .semver;
+git add .
 
 
 #
