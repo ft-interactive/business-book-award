@@ -10,7 +10,7 @@
   "author": "Luke Kavanagh <luke.kavanagh@ft.com> (http://github.com/kavanagh)",
   "license": "ISC",
   "dependencies": {
-    "business-books-of-the-decade-frontend": "ft-interactive/business-books-of-the-decade-frontend",
+    "business-books-of-the-decade-frontend": "ft-interactive/business-books-of-the-decade-frontend#master",
     "dsv": "0.0.3",
     "koa": "^0.12.2",
     "koa-compose": "^2.3.0",
