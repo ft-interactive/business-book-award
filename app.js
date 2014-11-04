@@ -10,7 +10,8 @@ var options = {
   staticBaseUrl: prod ? '/' : 'http://localhost:9000/',
   dummydata: process.env.DUMMY_DATA === 'true',
   cacheViews: prod ? 'memory' : false,
-  compress: true
+  compress: true,
+  baseUrl: process.env.BASE_URL || ''
 };
 
 if (prod) {
