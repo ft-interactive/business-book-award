@@ -21,6 +21,7 @@
     "koa-helmet": "0.0.1",
     "koa-html-minifier": "^1.0.1",
     "koa-is-json": "^1.0.0",
+    "koa-json-filter": "0.0.1",
     "koa-request-id": "^1.0.0",
     "koa-response-time": "^1.0.2",
     "koa-router": "^3.5.0",
