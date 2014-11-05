@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "business-books-of-the-decade-frontend": "ft-interactive/business-books-of-the-decade-frontend#master",
+    "co": "^3.1.0",
+    "co-request": "^0.2.0",
     "dsv": "0.0.3",
     "koa": "^0.12.2",
     "koa-cash": "^1.0.1",
@@ -35,6 +37,7 @@
     "mime-db": "^1.1.2",
     "ms": "^0.6.2",
     "mz": "^1.0.2",
+    "remarkable": "^1.3.0",
     "speakingurl": "^0.16.0",
     "statuses": "^1.2.0",
     "swig": "kavanagh/swig",
