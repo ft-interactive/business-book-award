@@ -8,7 +8,6 @@ var options = {
   name: pkg.name,
   proxy: true,
   staticBaseUrl: prod ? '/' : 'http://localhost:9000/',
-  dummydata: process.env.DUMMY_DATA === 'true',
   cacheViews: prod,
   compress: true,
   baseUrl: process.env.BASE_URL || ''
