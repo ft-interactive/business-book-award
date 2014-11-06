@@ -1,11 +1,9 @@
 var http = require('http')
 var lib = require('./lib');
-var pkg = require('./package.json');
 
 var prod = process.env.NODE_ENV === 'production';
 
 var options = {
-  name: pkg.name,
   proxy: true,
   staticBaseUrl: prod ? '/' : 'http://localhost:9000/',
   cacheViews: prod,
