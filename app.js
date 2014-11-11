@@ -2,10 +2,10 @@ var http = require('http')
 var lib = require('./lib');
 
 var prod = process.env.NODE_ENV === 'production';
-
+var staticBaseUrl = prod ? (process.env.STATIC_BASE ? process.env.STATIC_BASE : '/') : 'http://localhost:9000/';
 var options = {
   proxy: true,
-  staticBaseUrl: prod ? '/' : 'http://localhost:9000/',
+  staticBaseUrl: staticBaseUrl,
   cacheViews: prod,
   compress: true,
   baseUrl: process.env.BASE_URL || ''
