@@ -4,7 +4,7 @@
   width: 40%;
   margin-right: 12px;
   padding-top: 3px; // align with top of text
-  
+
   @include mq(tablet) {
     padding-top: 5px; // align with top of text
     width: 28%;
@@ -14,7 +14,7 @@
     width: 25%;
   }
 }
-.book__details{
+.book__details {
   margin-left: 41%;
   @include mq(tablet) {
     margin-left: 29%;
@@ -24,7 +24,7 @@
   }
 }
 .book__title {
-  margin-bottom: .2em;
+  margin-bottom: 0.2em;
   line-height: 1.375;
   font-size: 1.3em;
 
@@ -33,7 +33,7 @@
   }
 }
 .book__byline {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   font-size: 0.9em;
 
   @include mq(tablet) {
@@ -64,25 +64,27 @@
 .book__actions {
   margin-bottom: 2em;
 }
-.book__highlight{
+.book__highlight {
   @include text-size(small);
   float: left;
   margin: 1.5em 15% 1.5em -70%;
   padding-left: 1em;
   font-style: italic;
   border-left: 8px solid oColorsGetPaletteColor(grey-tint1);
-  p:first-child {
-    margin-top: 2px;
-  }
-  p:last-child{
-    margin-bottom: 4px;
-  }
+
   @include mq(tablet) {
     margin-left: 0;
     margin-top: 2em;
     margin-bottom: 2em;
-    border: none;
+    border: 0;
     padding: 0;
     float: none;
+  }
+
+  p:first-child {
+    margin-top: 2px;
+  }
+  p:last-child {
+    margin-bottom: 4px;
   }
 }

@@ -5,7 +5,7 @@
   margin-right: -$gutter/2;
   background: oColorsGetColorFor(box, background);
   border-top: 2px solid oColorsGetPaletteColor(grey-tint1);
-  
+
   @include mq(tablet) {
     max-width: 800px;
     margin: 2.1em auto;
@@ -15,7 +15,7 @@
 
 }
 .subnavigation__item {
-  
+
 }
 .subnavigation__action {
   display: block;
@@ -42,8 +42,8 @@
       position: absolute;
       display: block;
       top: 50%;
-      right: .0625em;
-      margin-top: -.625em;
+      right: 0.0625em;
+      margin-top: -0.625em;
       font-size: 2em;
       line-height: 1;
     }

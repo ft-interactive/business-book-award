@@ -6,7 +6,7 @@ $badge-size: 20px;
   position: relative;
   top: $badge-offset;
   border-radius: 999px; // because 50% won't render well in older Webkits
-  color: #fff;
+  color: #ffffff;
   font-weight: normal;
   display: inline-block;
   font-style: normal;
@@ -21,14 +21,14 @@ $badge-size: 20px;
   }
 }
 .badge--winner {
-  background-color: #AF526C;
+  background-color: #af526c;
 
   &:after {
     content: "W";
   }
 }
 .badge--shortlist {
-  background-color: #2A72A2;
+  background-color: #2a72a2;
 
   &:after {
     content: "SL";

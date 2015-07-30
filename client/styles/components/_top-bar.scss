@@ -13,7 +13,7 @@
     top: 100%;
     margin-top: 1px; // avoid covering the bottom border of the top bar
     height: 5px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
   }
 }
 .top-bar__action {
@@ -28,11 +28,11 @@
   background-position: center center;
   background-repeat: no-repeat;
 
-  .no-js & {
-    display: none !important;
-  }
-
   @include mq(tablet) {
     display: none;
+  }
+
+  .no-js & {
+    display: none !important;
   }
 }

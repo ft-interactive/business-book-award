@@ -1,4 +1,5 @@
 .filter-bar {
+  box-sizing: border-box;
   position: absolute;
   top: 50px;
   padding: 15px $gutter;
@@ -6,12 +7,7 @@
   width: 100%;
   border-bottom: 2px solid oColorsGetPaletteColor(grey-tint1);
   margin-bottom: 1em;
-  @include oGridBoxSizing(border-box);
   background: oColorsGetColorFor(box, background);
-
-  .no-js & {
-    display: none !important;
-  }
 
   @include mq(tablet) {
     border-top-left-radius: 2px;
@@ -19,13 +15,17 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: $gutter*.75;
-    padding-right: $gutter*.75;
+    padding-left: $gutter*0.75;
+    padding-right: $gutter*0.75;
     position: static;
   }
 
   @include mq(document) {
     max-width: 1060px;
+  }
+
+  .no-js & {
+    display: none !important;
   }
 }
 .filter-bar--hidden {

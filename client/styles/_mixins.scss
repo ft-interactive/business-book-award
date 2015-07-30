@@ -4,7 +4,7 @@
 }
 
 @mixin grid-column($n-columns, $context: 12) {
-  @include oGridBoxSizing(border-box);
+  box-sizing: border-box;
   width: span($n-columns, $context);
   padding-left: $gutter/2;
   padding-right: $gutter/2;

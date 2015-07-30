@@ -4,7 +4,7 @@
   box-sizing: border-box;
 
   @include mq(mobileLandscape) {
-    width:  33.3333333333333%;
+    width: 33.3333333333333%;
   }
   @include mq(tablet) {
     width: 25%;

@@ -1,9 +1,7 @@
 @import "origami-settings";
 @import "o-fonts/main";
-
-@import "o-grid/src/scss/variables";
-@import "o-grid/src/scss/utils";
-@import "o-ft-forms/main";
+@import "o-grid/main";
+@import "o-forms/main";
 
 
 @import "var";

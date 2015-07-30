@@ -9,7 +9,7 @@ $mq-breakpoints: (
   document:        980px
 );
 
-$gutter: $o-grid-responsive-half-gutter * 2;
+$gutter: 20px;
 
 $text-sizes: (
   tinier:  11px,
@@ -17,4 +17,3 @@ $text-sizes: (
   smaller: 13px,
   small:   14px
 );
-
