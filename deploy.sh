@@ -30,9 +30,8 @@ git checkout -b $DEPLOY
 # Perform pre-deploy build steps - could run a grunt task here
 
 # enure the front-end is built
-cd ./node_modules/business-books-of-the-decade-frontend && npm install && bower install && grunt && cd ../..
-cp -R ./node_modules/business-books-of-the-decade-frontend/dist/public ./lib
-cp -R ./node_modules/business-books-of-the-decade-frontend/dist/views ./lib
+bower install && grunt
+
 
 echo $VERSION > .semver
 git add .

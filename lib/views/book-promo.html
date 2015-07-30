@@ -1,0 +1,22 @@
+<div class="book-promo" itemscope itemtype="http://schema.org/Book">
+    <a href="{{ router.url('book', book) }}" class="fauxlink">
+        <div class="book-promo__prizes">
+            <i class="badge badge--{{ book.rank|lower }}"></i>
+            <span class="visuallyhidden">{{ book.rank|capitalize }}</span>
+            {{ book.year }}
+        </div>
+        <div class="book-promo__media">
+            <img src="{{ book.cover | image_service(600) }}" alt="{{ book.title }} by {{ book.author }}" itemprop="image" />
+        </div>
+        <div class="book-promo__content">
+            <h3 class="book-promo__title">
+                <span class="fauxlink__target" itemprop="name">
+                    {{ book.title }}
+                </span>
+            </h3>
+            <div class="book-promo__byline">
+                <span class="text-quiet" itemprop="author">{{ book.author }}</span>
+            </div>
+        </div>
+    </a>
+</div>

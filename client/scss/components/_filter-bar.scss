@@ -1,0 +1,38 @@
+.filter-bar {
+  position: absolute;
+  top: 50px;
+  padding: 15px $gutter;
+  z-index: 1;
+  width: 100%;
+  border-bottom: 2px solid oColorsGetPaletteColor(grey-tint1);
+  margin-bottom: 1em;
+  @include oGridBoxSizing(border-box);
+  background: oColorsGetColorFor(box, background);
+
+  .no-js & {
+    display: none !important;
+  }
+
+  @include mq(tablet) {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $gutter*.75;
+    padding-right: $gutter*.75;
+    position: static;
+  }
+
+  @include mq(document) {
+    max-width: 1060px;
+  }
+}
+.filter-bar--hidden {
+  display: none;
+
+  @include mq(tablet) {
+    // Always display the filter bar on large screens
+    display: block;
+  }
+}

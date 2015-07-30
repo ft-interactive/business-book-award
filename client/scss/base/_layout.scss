@@ -1,0 +1,56 @@
+html {
+  overflow-y: auto; // Force scrollbar to avoid repaints during page load
+}
+html,
+body {
+  background: oColorsGetColorFor(page, background);
+}
+.container {
+  position: relative;
+  @include oGridBoxSizing(border-box);
+  padding-left: $gutter/2;
+  padding-right: $gutter/2;
+  max-width: mq-get-breakpoint-width(tablet);
+  margin-left: auto;
+  margin-right: auto;
+  @include mq(tablet) {
+    max-width: 800px;
+  }
+  @include mq(document) {
+    max-width: 1060px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.header__logo {
+  margin: 0 auto;
+  height: auto;
+  max-width: 240px;
+}
+
+.content-index{
+  margin-bottom: 3em;
+}
+
+.content-primary {
+  margin-bottom: 2em;
+  @include mq(document) {
+    float: left;
+    width: 60%;
+    box-sizing: border-box;
+    padding: 0 $gutter 0 0;
+  }
+}
+.content-secondary {
+  margin-bottom: 3em; // Create extra space at the bottom of the page
+  @include mq(document) {
+    float: right;
+    box-sizing: border-box;
+    width: 40%;
+    margin-top: -1em;
+    padding: 1em .5em;
+    background: oColorsGetColorFor(box, background);
+    min-height: 720px;
+  }
+}

@@ -1,0 +1,30 @@
+.filter-form {
+  @include mq(tablet) {
+    float: left;
+    width: 35%;
+  }
+}
+.filter-form__inner {
+  padding-left: 80px;
+}
+.filter-form__label {
+  float: left;
+  margin-left: -80px;
+  padding-top: 9px;
+}
+.filter-form__select {
+  float: left;
+
+  // Reposition background and prevent text from appearing above it
+  padding-right: 25px;
+  background-size: 18px 18px;
+  background-origin: padding-box;
+  background-position: 98% center;
+
+  // Normalize height and size with the text fields
+  padding-top: 5px;
+  padding-bottom: 4px;
+}
+.filter-form__submit {
+  
+}
