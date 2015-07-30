@@ -1,5 +1,5 @@
-FT Business Books of the Decade
-===============================
+Business Book of the Year
+=========================
 
 In development you'll want to start the server and watch for changes
 
