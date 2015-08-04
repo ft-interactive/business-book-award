@@ -31,7 +31,13 @@ var defaultOptions = {
   cacheViews: false,
   compress: false,
   baseUrl: '',
-  theme: {}
+  theme: {
+    views: '../views',
+    public: '../public',
+    data: '../views/data.js',
+    favicon: '../public/favicon.ico',
+    filters: '../views/filters.js'
+  }
 };
 
 module.exports = function (options) {

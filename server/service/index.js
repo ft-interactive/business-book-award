@@ -160,8 +160,8 @@ function onDataReceived(data) {
     if (row.rank === 'winner') {
       winners.push(row);
     }
-    row.cover = !row.cover ? null : ('http://interactive.ftdata.co.uk/static/sites/business-book-of-the-year/covers/' + row.cover);
-    row.synopsis = !row.synopsis ? null : ('http://interactive.ftdata.co.uk/static/sites/business-book-of-the-year/synopses/' + row.synopsis);
+    row.cover = !row.cover ? null : ('http://ig.ft.com/static/sites/business-book-of-the-year/covers/' + row.cover);
+    row.synopsis = !row.synopsis ? null : ('http://ig.ft.com/static/sites/business-book-of-the-year/synopses/' + row.synopsis);
     row.slug = getSlug(row.title + ' by ' + row.author.replace(/\,\ */g, '&').replace(/\'/, ''));
     row.highlight.text = row.highlight.text + '&nbsp;—&nbsp;' + (row.highlight.type === 'FT' && row.link ? '<a href="' + row.link + '" target="_blank">Read&nbsp;the&nbsp;complete&nbsp;FT&nbsp;review</a>' : '_' + row.highlight.type + '_');
     row.highlight.html = md.render(row.highlight.text);
