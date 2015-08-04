@@ -1,6 +1,11 @@
 var qs = require('querystring');
 
 exports.image_service = function (input, width, height) {
+
+  if (!input) {
+    return '';
+  }
+
   var args = {
     source: 'ig_business_books_ofthe_decade'
   };
