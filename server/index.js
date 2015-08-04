@@ -1,6 +1,5 @@
 var koa = require('koa');
 var router = require('koa-router');
-var views = require('koa-views');
 var trace = require('koa-trace');
 var favicon = require('koa-favicon');
 var requestId = require('koa-request-id');
@@ -15,40 +14,25 @@ var helmet = require('koa-helmet');
 var jsonFilter = require('koa-json-filter');
 var path = require('path');
 var _ = require('lodash');
-var swig = require('swig');
+var views = require('./middleware/swig');
 var printRequestId = require('./middleware/print-request-id');
 var cacheControl = require('./middleware/cache-control');
 var dataService = require('./middleware/data-service');
 var responseCache = require('./middleware/response-cache');
 var rejectNoSource = require('./middleware/reject-no-source.js');
 var nav = require('./middleware/navigation')();
+var filters = require('./utils/filters');
 var prod = process.env.NODE_ENV === 'production';
 var pkg = require('../package.json');
 
-var defaultOptions = {
-  name: '',
-  proxy: false,
-  cacheViews: false,
-  compress: false,
-  baseUrl: '',
-  theme: {
-    views: '../views',
-    public: '../public',
-    data: '../views/data.js',
-    favicon: '../public/favicon.ico',
-    filters: '../views/filters.js'
-  }
-};
+var baseUrl = process.env.BASE_URL || '';
 
-module.exports = function (options) {
-  options = _.merge(_.cloneDeep(defaultOptions), options);
-
-  console.log('Starting to with options', options);
+module.exports = function () {
 
   var app = koa();
 
   app.name = pkg.name;
-  app.proxy = options.proxy;
+  app.proxy = true;
 
   app.use(requestId());
   app.use(responseTime());
@@ -58,54 +42,27 @@ module.exports = function (options) {
 
   if (!prod) app.debug();
 
-  if (options.compress) {
-    app.use(require('koa-compress')());
-  }
-
+  app.use(require('koa-compress')());
   app.use(helmet.hsts());
   app.use(helmet.xframe());
   app.use(helmet.iexss());
   app.use(helmet.ienoopen());
   app.use(helmet.contentTypeOptions());
   app.use(helmet.hidePoweredBy());
-  app.use(favicon(path.resolve(__dirname, options.theme.favicon)));
+  app.use(favicon(path.resolve(__dirname, '../public/favicon.ico')));
   app.use(conditional());
   app.use(etag());
-  app.use(serve(path.resolve(__dirname, options.theme.public), {maxage: 2629740000 /* 1 month */}));
-
-  var filters = require(path.resolve(__dirname, options.theme.filters));
-
-  for (key in filters) {
-    if (typeof filters[key] === 'function') {
-      swig.setFilter(key, filters[key]);
-    }
-  }
-
-  app.use(views(options.theme.views, {
-    cache: !!options.cacheViews ? 'memory' : false,
-    map: {
-      html: 'swig'
-    }
-  }));
-
-  var viewData = require(options.theme.data);
+  app.use(serve(path.resolve(__dirname, '../public'), {maxage: 2629740000 /* 1 month */}));
+  app.use(views.midddleware);
 
   app.use(function*(next) {
-    this.locals = {
-      site: {
-        name: 'Business book of the year',
-        staticBaseUrl: options.staticBaseUrl,
-        baseUrl: options.baseUrl
-      },
-      viewData: viewData,
-      page: {
-        title: null,
-        canonicalUrl: this.request.url
-      },
-      router: {
-        url: function(routeName, params) {
-          return unescape(app.url(routeName, params));
-        }
+    this.locals.page = {
+      title: null,
+      canonicalUrl: this.request.url
+    };
+    this.locals.router = {
+      url: function(routeName, params) {
+        return unescape(app.url(routeName, params));
       }
     };
     yield next;
@@ -130,7 +87,7 @@ module.exports = function (options) {
 
   var urlFn = app.url;
   app.url = function(name, path) {
-    return options.baseUrl + urlFn(name, path);
+    return baseUrl + urlFn(name, path);
   };
 
   if (prod) app.use(htmlMinifier({collapseWhitespace: true}));
@@ -218,7 +175,7 @@ module.exports = function (options) {
   app.get('/__refresh', require('./api/refresh-data'));
   app.get(['/__health', '/v1/__health'], require('./api/health')());
   app.get('/__gtg', require('./api/gtg')());
-  app.get('/__about', require('./api/about-index')({ baseUrl: options.baseUrl }));
+  app.get('/__about', require('./api/about-index')({ baseUrl: baseUrl }));
 
   return app;
 }

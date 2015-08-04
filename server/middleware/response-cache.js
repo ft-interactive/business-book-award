@@ -11,7 +11,7 @@ module.exports = function(opts) {
     }
   });
 
-  service.on('refresh', function(){
+  service.on('refresh', function() {
     console.log('Reset the response cache');
     cache.reset();
   });
