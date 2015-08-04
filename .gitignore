@@ -1,8 +1,8 @@
 .env
 .DS_Store
 .tm_properties
+.sass-cache
 node_modules
 bower_components
-.sass-cache
 public
 npm-debug.log
