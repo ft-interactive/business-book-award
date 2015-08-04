@@ -20,40 +20,14 @@ gulp.task('images', () => {
 gulp.task('copy', () => {
   return gulp.src([
     'client/**/*',
-    '!client/**/*.{html,scss,js,jpg,png,gif,svg}', // all handled by other tasks
+    '!client/**/*.{scss,js,jpg,png,gif,svg}', // all handled by other tasks
   ], {dot: true})
     .pipe(gulp.dest('public'));
 });
 
 
-// minifies all HTML, CSS and JS (.tmp & client => dist)
-gulp.task('html', done => {
-  const assets = $.useref.assets({searchPath: ['.tmp', 'client', '.']});
-
-  gulp.src('client/**/*.html')
-    .pipe(assets)
-    .pipe($.if('*.js', $.uglify({
-      output: {
-        inline_script: true, // eslint-disable-line camelcase
-        beautify: false,
-      },
-    })))
-    .pipe($.if('*.css', $.minifyCss()))
-    .pipe(assets.restore())
-    .pipe($.useref())
-    .pipe(gulp.dest('public'))
-    .on('end', () => {
-      gulp.src('dist/**/*.html')
-        .pipe($.smoosher())
-        .pipe($.minifyHtml())
-        .pipe(gulp.dest('public'))
-        .on('end', done);
-    });
-});
-
-
 // clears out the dist and .tmp folders
-gulp.task('clean', del.bind(null, ['.tmp', 'dist/*', '!dist/.git'], {dot: true}));
+gulp.task('clean', del.bind(null, ['public/*', '!public/.git'], {dot: true}));
 
 
 // runs a development server (serving up .tmp and client)
@@ -61,9 +35,9 @@ gulp.task('serve', ['watch'], done => {
   const bs = require('browser-sync').create();
 
   bs.init({
-    files: ['.tmp/**/*', 'client/**/*'],
+    files: ['public/**/*', 'client/**/*'],
     server: {
-      baseDir: ['.tmp', 'client'],
+      baseDir: ['public', 'client'],
       routes: {
         '/bower_components': 'bower_components',
       },
@@ -87,7 +61,7 @@ gulp.task('serve:dist', ['default'], done => {
 // builds scripts with browserify
 gulp.task('scripts', () => {
   return obt.build.js(gulp, {
-    buildFolder: '.tmp',
+    buildFolder: 'public',
     js: './client/scripts/main.js',
     buildJs: 'scripts/main.bundle.js',
   }).on('error', function (error) {
@@ -100,7 +74,7 @@ gulp.task('scripts', () => {
 // builds stylesheets with sass/autoprefixer
 gulp.task('styles', () => {
   return obt.build.sass(gulp, {
-    buildFolder: '.tmp',
+    buildFolder: 'public',
     sass: './client/styles/main.scss',
     buildCss: 'styles/main.css',
   }).on('error', function (error) {
@@ -148,6 +122,6 @@ gulp.task('default', done => {
   runSequence(
     ['clean', 'scsslint'/*, 'jshint'*/],
     ['scripts', 'styles', 'copy'],
-    ['html', 'images'],
+    ['images'],
   done);
 });

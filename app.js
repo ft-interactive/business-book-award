@@ -1,22 +1,14 @@
 var http = require('http')
-var lib = require('./lib');
+var lib = require('./server');
 
 var prod = process.env.NODE_ENV === 'production';
-var staticBaseUrl = prod ? (process.env.STATIC_BASE ? process.env.STATIC_BASE : '/') : 'http://localhost:9000/';
+var staticBaseUrl = process.env.STATIC_BASE ? process.env.STATIC_BASE : '/';
 var options = {
   proxy: true,
   staticBaseUrl: staticBaseUrl,
   cacheViews: prod,
   compress: true,
   baseUrl: process.env.BASE_URL || ''
-};
-
-options.theme = {
-  views: './views',
-  public: './public',
-  data: './views/data.js',
-  favicon: './public/favicon.ico',
-  filters: './views/filters.js'
 };
 
 var app = lib(options);

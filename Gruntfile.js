@@ -55,8 +55,8 @@ module.exports = function (grunt) {
                 },
                 files: [
                     ['<%= config.app %>/{,*/}*.html'],
-                    '.tmp/styles/{,*/}*.css',
-                    '.tmp/scripts/{,*/}*.js',
+                    'public/styles/{,*/}*.css',
+                    'public/scripts/{,*/}*.js',
                     '<%= config.app %>/images/{,*/}*'
                 ]
             }
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
                             }
                             else next();
                         },
-                        connect.static('.tmp'),
+                        connect.static('public'),
                         connect.static('app'),
                         connect.directory('app')
                     ]
@@ -103,14 +103,14 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '.tmp',
+                        'public',
                         '<%= config.dist %>/*',
                         '!<%= config.dist %>/.git*'
                     ]
                 }]
             },
-            upload: '.tmp/.upload',
-            server: '.tmp',
+            upload: 'public/.upload',
+            server: 'public',
             theme: [
                 '<%= config.dist %>/scripts',
                 '<%= config.dist %>/styles',
@@ -139,8 +139,8 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    '.tmp/styles/main.css': '<%= config.app %>/styles/main.scss',
-                    '.tmp/styles/oldie.css': '<%= config.app %>/styles/oldie.scss'
+                    'public/styles/main.css': '<%= config.app %>/styles/main.scss',
+                    'public/styles/oldie.css': '<%= config.app %>/styles/oldie.scss'
                 }
             }
         },
@@ -148,7 +148,7 @@ module.exports = function (grunt) {
         browserify: {
             main: {
                 src: ['<%= config.app %>/scripts/main.js', '<%= config.app %>/scripts/vendor/tipuedrop/tipuedrop.js'],
-                dest: '.tmp/scripts/main-bundle.js',
+                dest: 'public/scripts/main-bundle.js',
                 options: {
                     watch: true,
                     debug: true,
@@ -166,9 +166,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '.tmp/styles/',
+                    cwd: 'public/styles/',
                     src: '{,*/}*.css',
-                    dest: '.tmp/styles/'
+                    dest: 'public/styles/'
                 }]
             }
         },
@@ -181,9 +181,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '.tmp/styles/',
+                    cwd: 'public/styles/',
                     src: '{,*/}*.css',
-                    dest: '.tmp/styles/'
+                    dest: 'public/styles/'
                 }]
             }
         },
@@ -338,7 +338,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     cwd: '<%= config.app %>/views',
-                    dest: '.tmp/views',
+                    dest: 'public/views',
                     src: [
                         '*.js'
                     ]
@@ -349,7 +349,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '<%= config.dist %>',
                     src: ['**/*'],
-                    dest: '.tmp/.upload',
+                    dest: 'public/.upload',
                     dot: true
                 }],
             },
@@ -357,14 +357,14 @@ module.exports = function (grunt) {
                 expand: true,
                 dot: true,
                 cwd: '<%= config.app %>/images',
-                dest: '.tmp/images/',
+                dest: 'public/images/',
                 src: '**/*.{jpg,png}'
             },
             styles: {
                 expand: true,
                 dot: true,
                 cwd: '<%= config.app %>/styles',
-                dest: '.tmp/styles/',
+                dest: 'public/styles/',
                 src: '{,*/}*.css'
             },
             themePublic: {
@@ -379,7 +379,7 @@ module.exports = function (grunt) {
         },
         igdeploy: {
             options: {
-                src: '.tmp/.upload',
+                src: 'public/.upload',
                 destPrefix: '/var/opt/customer/apps/interactive.ftdata.co.uk/var/www/html',
                 baseURL: 'http://www.ft.com/ig/',
             },
@@ -411,53 +411,7 @@ module.exports = function (grunt) {
                     '<%= config.dist %>/index.html': '<%= config.dist %>/index.html'
                 }
             }
-        },
-        cdnify: {
-            theme: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.dist %>',
-                    src: '**/*.html',
-                    dest: '<%= config.dist %>'
-                }],
-                options: {
-                    base: '{{ site.staticBaseUrl }}'
-                }
-            },
-            devtheme: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.app %>/views',
-                    src: '**/*.html',
-                    dest: '.tmp/views'
-                }],
-                options: {
-                    base: '{{ site.staticBaseUrl }}'
-                }
-            },
-            demo: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/.upload',
-                    src: '**/*.{css,html}',
-                    dest: '.tmp/.upload'
-                }],
-                options: {
-                    base: '//interactivegraphics.ft-static.com/<%= igdeploy.demo.options.dest %>/'
-                }
-            },
-            live: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/.upload',
-                    src: '**/*.{css,html}',
-                    dest: '.tmp/.upload'
-                }],
-                options: {
-                    base: '//interactivegraphics.ft-static.com/<%= igdeploy.live.options.dest %>/'
-                }
-            }
-        },
+        }
         concurrent: {
             server: [
                 'browserify:main',
@@ -493,7 +447,6 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'concurrent:server',
-            'cdnify:devtheme',
             'copy:themeJS',
             'connect:livereload',
             'watch'
@@ -513,7 +466,6 @@ module.exports = function (grunt) {
         'copy:distViews',
         'rev',
         'usemin',
-        'cdnify:theme',
         'copy:distViews2',
         'copy:themePublic',
         'copy:bowerAssets',
