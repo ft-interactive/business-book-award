@@ -1,12 +1,16 @@
 var thunkify = require('thunkify');
 var _ = require('lodash');
 var getSlug = require('speakingurl');
-var Remarkable = require('remarkable');
 var request = require('co-request');
 var co = require('co');
 var LRU = require('lru-cache');
 var events = require('events');
 var util = require('util');
+var md = require('markdown-it')({
+  html: true,
+  linkify: true,
+  typographer: true
+});
 
 function Service(){
   return this;
@@ -98,10 +102,7 @@ var categoriesArray = [];
 var yearsArray = [];
 var allBooks = [];
 
-var md = new Remarkable({
-  html: true,
-  linkify: true
-});
+
 
 var synopsisErrorCache = LRU({
   maxAge: 1000 * 60 * 5
