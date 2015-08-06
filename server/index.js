@@ -21,7 +21,6 @@ var dataService = require('./middleware/data-service');
 var responseCache = require('./middleware/response-cache');
 var rejectNoSource = require('./middleware/reject-no-source.js');
 var nav = require('./middleware/navigation')();
-var filters = require('./utils/filters');
 var prod = process.env.NODE_ENV === 'production';
 var pkg = require('../package.json');
 
@@ -53,7 +52,7 @@ module.exports = function () {
   app.use(conditional());
   app.use(etag());
   app.use(serve(path.resolve(__dirname, '../public'), {maxage: 2629740000 /* 1 month */}));
-  app.use(views.midddleware);
+  app.use(views.middleware);
 
   app.use(function*(next) {
     this.locals.page = {
