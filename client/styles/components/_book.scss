@@ -55,7 +55,7 @@
   }
 }
 .book__synopsis {
-  font-family: oFontsGetFontFamilyWithFallbacks(Clarion);
+  font-family: $font-serif;
   p {
     line-height: 1.45;
     max-width: 620px;

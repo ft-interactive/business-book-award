@@ -1,9 +1,10 @@
 var site = {
-  name: 'Business book of the year',
+  name: process.env.SITE_NAME || 'Business book of the year',
   baseurl: {
-    static: process.env.STATIC_BASE ? process.env.STATIC_BASE : '/',
-    site: process.env.BASE_URL || '',
-    ft: '//www.ft.com/'
+    static: process.env.STATIC_BASE ? process.env.STATIC_BASE : '',
+    pages: process.env.PAGES_BASE || '',
+    ft: process.env.FT_HOME || '//www.ft.com/',
+    api: process.env.API_BASE || ''
   }
 };
 

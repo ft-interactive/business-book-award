@@ -8,16 +8,16 @@
  */
 
 html {
-  font-family: oFontsGetFontFamilyWithFallbacks(BentonSans);
+  font-family: $font-sans;
   -moz-osx-font-smoothing: grayscale; /* 1 */
   -webkit-font-smoothing: antialiased; /* 1 */
-  font-size: 62.5%; /* 2 */
-  font-size: calc(1em * 0.625); /* 3 */
+  // font-size: 62.5%; /* 2 */
+  // font-size: calc(1em * 0.625); /* 3 */
   color: oColorsGetColorFor(body, text);
 }
 body {
-  font-size: 1.6em; /* 4 */
-  line-height: 1.375; /* 5 */
+  // font-size: 1.6em; /* 4 */
+  // line-height: 1.375; /* 5 */
 }
 
 h1,
@@ -32,23 +32,22 @@ h6 {
 }
 
 .microsite-name {
-  font-family: oFontsGetFontFamilyWithFallbacks(MillerDisplay);
+  font-family: $font-headline;
   line-height: 1.1;
   text-align: center;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   padding-left: $gutter;
   padding-right: $gutter;
-
+  letter-spacing: -0.01em;
   @include mq(tablet) {
-    margin-top: 1em;
     margin-bottom: 0.75em;
     font-size: 3em;
   }
 }
 
 .headline {
-  font-family: oFontsGetFontFamilyWithFallbacks(BentonSans);
+  font-family: $font-sans;
   padding-left: 8px;
   border-left: 8px solid oColorsGetPaletteColor(grey-tint1);
   border-bottom: 1px solid oColorsGetPaletteColor(grey-tint1);
@@ -63,9 +62,11 @@ h6 {
   margin: 1em auto 0.5em;
   padding-bottom: 0.125em;
   border-bottom: 1px solid oColorsGetPaletteColor(grey-tint1);
-  font-family: oFontsGetFontFamilyWithFallbacks(BentonSans);
+  font-family: $font-sans;
   font-weight: lighter;
   font-size: 2em;
   line-height: 1.1;
   text-align: center;
+  -webkit-font-feature-settings: 'tnum' 1;
+  font-feature-settings: 'tnum' 1;
 }

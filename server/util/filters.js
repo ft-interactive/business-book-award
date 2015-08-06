@@ -7,7 +7,7 @@ exports.image_service = function (input, width, height) {
   }
 
   var args = {
-    source: 'ig_business_books_ofthe_decade'
+    source: 'ig_business_book_award'
   };
 
   if (width) {
@@ -18,7 +18,7 @@ exports.image_service = function (input, width, height) {
     args.height = height;
   }
 
-  return 'http://image.webservices.ft.com/v1/images/raw/' + input + '?' + qs.stringify(args, '&amp;');
+  return 'https://image.webservices.ft.com/v1/images/raw/' + input + '?' + qs.stringify(args, '&amp;');
 };
 
 exports.slice = function(input, a, b) {

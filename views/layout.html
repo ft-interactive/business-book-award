@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en-GB">
+<html class="no-js o-hoverable-on" lang="en-GB">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,17 @@
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, 'js');window.searchOptions = {mode: 'json',contentLocation: '{{ site.baseUrl }}/v1/books?filter=title,author,year,cover,rank,slug&source=bbotd',route: function(book) {return '{{ site.baseUrl }}/books/' + book.year + '/' + book.rank + '/' + book.slug;}};</script>
+        <script>
+        document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, 'js');
+
+        window.searchOptions = {
+            mode: 'json',
+            contentLocation: '{{ site.baseurl.api }}/v1/books?filter=title,author,year,cover,rank,slug&source=bbotd',
+            route: function(book) {
+                return '{{ site.baseurl.pages }}/books/' + book.year + '/' + book.rank + '/' + book.slug;
+            }
+        };
+        </script>
 
         {#
         Chartbeat timer #}
@@ -31,20 +41,17 @@
         <link rel="apple-touch-icon" href="http://im.ft-static.com/m/icons/apple-touch-icon.png">
 
         <meta name="format-detection" content="telephone=no" />
+        <link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-fonts@^1.8,o-forms@^1,o-buttons@^2,o-footer@^3.1" />
         {#
         Serve a different stylesheet for IE8 :
         http://www.theguardian.com/info/developer-blog/2013/oct/14/mobile-first-responsive-ie8 #}
-        <!-- build:css({.tmp,app,.}) styles/main.css -->
         <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="{{ asset('styles/main.css') }}">
         <!--<![endif]-->
-        <!-- endbuild -->
 
-        <!-- build:css({.tmp,app,.}) styles/oldie.css -->
         <!--[if lte IE 8]>
-        <link rel="stylesheet" href="styles/oldie.css">
+        <link rel="stylesheet" href="{{ asset('css/oldie.css') }}">
         <![endif]-->
-        <!-- endbuild -->
         <script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>
     </head>
     <body itemscope itemtype="http://schema.org/WebPage">
@@ -63,7 +70,7 @@
         <header class="header">
             <div class="top-bar">
                 <div class="container">
-                    <div class="header__logo"><a href="{{ router.url('home') }}" class="ft-logo"><img src="images/brand-ft-masthead.png" alt="Financial Times" /></a></div>
+                    <div class="header__logo"><a href="{{ site.baseurl.ft }}" class="ft-logo"><img src="{{ asset('images/brand-ft-masthead.png') }}" alt="Financial Times" /></a></div>
                     <div class="js-filter-bar-toggle-placeholder"></div>
                 </div>
             </div>
@@ -80,7 +87,7 @@
                     <label for="tipue_drop_input" class="visuallyhidden">
                         Search for a book title or author
                     </label>
-                    <input type="text" class="o-ft-forms__field search-form__field js-tipue-drop" autocomplete="off" id="tipue_drop_input" placeholder="Search for a book title or author" value="" />
+                    <input type="text" class="o-forms_text search-form__field js-tipue-drop" autocomplete="off" id="tipue_drop_input" placeholder="Search for a book title or author" value="" />
                     <input type="submit" value="Submit" class="search-form__submit" tabindex="-1" />
                     <div id="tipue_drop_content"></div>
                 </div>
@@ -90,7 +97,7 @@
                     <label for="filter" class="filter-form__label text-quiet text-uppercase text-small">
                         Category
                     </label>
-                    <select name="category" id="filter" class="filter-form__select o-ft-forms__field--select js-filter-form-select">
+                    <select name="category" id="filter" class="filter-form__select o-forms-select js-filter-form-select">
                         {% if book.slug %}
                         <option style="display:none;visibility:hidden;" value="_" selected>Show all</option>
                         {% endif %}
@@ -108,17 +115,82 @@
         
         {% block content %}{% endblock %}
 
-        <!--[if gt IE 8]><!-->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <!--<![endif]-->
-        <!--[if lte IE 8]>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <![endif]-->
-
-        <!-- build:js({.tmp,app,.}) scripts/bottom.js -->
-        <script src="scripts/vendor/tipuedrop/tipuedrop.js"></script>
-        <script src="scripts/main-bundle.js"></script>
-        <!-- endbuild -->
+        <footer class="o-footer o-footer--theme-light" data-o-component="o-footer">
+            <nav class="o-footer__row">
+                <div class="o-footer__col o-footer__col--full-width">
+                    <h3 class="o-footer__title">Sections</h3>
+                    <ul class="o-footer__row o-footer__section-list">
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com">Home</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/world/uk">UK</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/world">World</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/companies">Companies</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/markets">Markets</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/global-economy">Global Economy</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/lex">Lex</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/comment">Comment</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/management">Management</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/personal-finance">Personal Finance</a></li>
+                        <li class="o-footer__link o-footer__section-link o-footer__col"><a href="//www.ft.com/life-arts">Life &amp; Arts</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="o-footer__row o-footer__link-lists">
+                <nav class="o-footer__col o-footer__link-list">
+                    <h3 class="o-footer__title">Services</h3>
+                    <ul>
+                            <li class="o-footer__link"><a href="//ft.com">Corporate subscriptions</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Syndication</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Conferences</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Corporate subscriptions</a></li>
+                    </ul>
+                </nav>
+                <nav class="o-footer__col o-footer__link-list">
+                    
+                    <ul>
+                            <li class="o-footer__link"><a href="//ft.com">Syndication</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Conferences</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">FT Collection</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Jobs</a></li>
+                    </ul>
+                </nav>
+                <nav class="o-footer__col o-footer__link-list">
+                    <h3 class="o-footer__title">Support</h3>
+                    <ul>
+                            <li class="o-footer__link"><a href="//ft.com">Help</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">About us</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Site tour</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Contact us</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Sitemap</a></li>
+                    </ul>
+                </nav>
+                <nav class="o-footer__col o-footer__link-list">
+                    <h3 class="o-footer__title">Legal &amp; Advertising</h3>
+                    <ul>
+                            <li class="o-footer__link"><a href="//ft.com">Advertise with the FT</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Terms &amp; conditions</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Cookie &amp; privacy policy</a></li>
+                            <li class="o-footer__link"><a href="//ft.com">Copyright</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="o-footer__row o-footer__copyright">
+                <div class="o-footer__col o-footer__col--full-width">
+                    <span>&#xA9; THE FINANCIAL TIMES LTD 2015.</span>
+                    <span><abbr title="Financial Times">FT</abbr> and &#x2018;Financial Times&#x2019; are trademarks of The Financial Times Ltd.</span>
+                </div>
+            </div>
+            <div class="o-footer__pearson">
+                <div class="o-footer__row">
+                    <div class="o-footer__col o-footer__col--full-width">
+                        <div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+                        <div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        <script src="https://build.origami.ft.com/v2/bundles/js?modules=o-hoverable@^2"></script>
+        <script src="{{ asset('scripts/main.bundle.js') }}"></script>
 
         <script>
             {# IG Google Analytics account #}

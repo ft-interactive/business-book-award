@@ -49,7 +49,7 @@
 
     {% if book.buyitnow %}
     <div class="book__actions">
-        <a href="{{ book.buyitnow }}" class="o-ft-buttons">Buy it now</a>
+        <a href="{{ book.buyitnow }}" class="o-buttons">Buy it now</a>
     </div>
     {% endif %}
 
@@ -100,7 +100,7 @@
     {% endfor %}
 {% endfor %}
 <div class="text-center">
-    <a href="{{ router.url('home') }}" class="o-ft-buttons o-ft-buttons--standout text-small">Show all books</a>
+    <a href="{{ router.url('home') }}" class="o-buttons o-buttons--standout text-small">Show all books</a>
 </div>
 
 {% endblock %}

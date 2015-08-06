@@ -1,26 +1,28 @@
-$(function() {
-  'use strict';
-  require('fastclick')(document.body); // github.com/ftlabs/fastclick
+'use strict';
+require('fastclick')(document.body); // github.com/ftlabs/fastclick
 
-  var filterBarToggleElement = '<a href="#filterbar" class="js-filter-bar-toggle top-bar__action" role="button"><span class="visuallyhidden">Menu</span></a>';
-  $('.js-filter-bar-toggle-placeholder').append(filterBarToggleElement);
+function on(selector, event, callback) {
+  document.querySelector(selector).addEventListener(event, callback);
+}
 
-  var filterBar = $('.js-filter-bar');
+document.querySelector('.js-filter-bar-toggle-placeholder')
+        .insertAdjacentHTML('beforeend', '<a href="#filterbar" class="js-filter-bar-toggle top-bar__action" role="button"><span class="visuallyhidden">Menu</span></a>');
 
-  $('.js-filter-bar-toggle').on('click', function(e) {
-    e.preventDefault();
-    filterBar.toggleClass('filter-bar--hidden');
-  });
-
-  // Prevent search form submission
-  $('.js-search-form').on('submit', function(e) {
-    e.preventDefault();
-  });
-
-  // Submit the filter form on change
-  $('.js-filter-form-select').on('change', function() {
-    $('.js-filter-form').submit();
-  });
-
-  $('.js-tipue-drop').tipuedrop(window.searchOptions);
+on('.js-filter-bar-toggle', 'click', function(event) {
+  event.preventDefault();
+  var filterBar = document.querySelector('.js-filter-bar');
+  if (!filterBar) return;
+  filterBar.classList.toggle('filter-bar--hidden');
 });
+
+// Prevent search form submission
+on('.js-search-form', 'submit', function(event) {
+  event.preventDefault();
+});
+
+// Submit the filter form on change
+on('.js-filter-form-select', 'change', function(event) {
+  document.querySelector('.js-filter-form').submit();
+});
+
+//$('.js-tipue-drop').tipuedrop(window.searchOptions);

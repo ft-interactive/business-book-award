@@ -39,8 +39,8 @@ module.exports = instance;
 
 var lastEtag;
 var bertha = {
-  view: 'http://bertha.ig.ft.com/view/publish/gss/0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc/books',
-  republish: 'http://bertha.ig.ft.com/republish/publish/gss/0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc/books'
+  view: 'http://bertha.ig.ft.com/view/publish/gss/'+ (process.env.SPREADSHEET_KEY || '0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc') + '/books',
+  republish: 'http://bertha.ig.ft.com/republish/publish/gss/'+ (process.env.SPREADSHEET_KEY || '0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc') + '/books'
 };
 
 function getBethaData(purge, callback) {
@@ -232,7 +232,7 @@ function findBookBySlug(slug, callback) {
       return;
     }
 
-    if (book.synopsisHTML || synopsisErrorCache.has(slug)) {
+    if (book.synopsisHTML || synopsisErrorCache.has(slug) || !book.synopsis) {
       callback(null, book);
       return;
     }
