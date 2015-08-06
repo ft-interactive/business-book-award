@@ -90,7 +90,11 @@ module.exports = function () {
     return baseUrl + urlFn(name, path);
   };
 
-  if (prod) app.use(htmlMinifier({collapseWhitespace: true}));
+  app.use(htmlMinifier({
+    collapseWhitespace: true,
+    minifyJS: true,
+    minifyCSS: true
+  }));
 
   app.param('year', function *(year, next) {
     this.params.year = Number(year);
