@@ -12,11 +12,12 @@
             <h3 class="book-promo__title">
                 <span class="fauxlink__target" itemprop="name">
                     {{ book.title }}
-                </span>
+                </span> <span class="book-promo__year"> – {{ book.year }}</span>
             </h3>
             <div class="book-promo__byline">
                 <span class="text-quiet" itemprop="author">{{ book.author }}</span>
             </div>
+            
         </div>
     </a>
 </div>
