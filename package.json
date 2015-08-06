@@ -96,5 +96,6 @@
     "origami-build-tools": "^3.3.0",
     "run-sequence": "^1.1.2",
     "time-grunt": "~1.0.0"
-  }
+  },
+  "cacheDirectories": ["node_modules", "bower_components"]
 }
