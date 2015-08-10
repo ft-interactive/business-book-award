@@ -7,7 +7,7 @@ exports.image_service = function (input, width, height) {
   }
 
   var args = {
-    source: 'ig_business_book_award'
+    source: 'ft_ig_business_book_award'
   };
 
   if (width) {
