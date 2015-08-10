@@ -1,5 +1,5 @@
 var site = {
-  name: process.env.SITE_NAME || 'Business book of the year',
+  name: process.env.SITE_NAME || 'Best business books',
   baseurl: {
     static: process.env.STATIC_BASE ? process.env.STATIC_BASE : '',
     pages: process.env.PAGES_BASE || '',
