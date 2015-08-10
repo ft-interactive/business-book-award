@@ -47,6 +47,8 @@ var bertha = {
   republish: 'http://bertha.ig.ft.com/republish/publish/gss/'+ (process.env.SPREADSHEET_KEY || '0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc') + '/books'
 };
 
+console.log('Bertha data', bertha.view);
+
 function getBethaData(purge, callback) {
   callback = callback || function(){};
   co(function*(){
@@ -158,10 +160,19 @@ function onDataReceived(data) {
     row.author = row.author.trim();
     row.title = row.title.trim();
     row.rank = row.rank.toLowerCase().trim();
+
     if (row.rank === 'winner') {
       winners.push(row);
     }
-    row.cover = !row.cover ? null : ('http://ig.ft.com/static/sites/business-book-of-the-year/covers/' + row.cover);
+    
+    if (row.cover) {
+      row.cover = 'http://im.ft-static.com/content/images/'+ row.cover +'.img';
+    } else if (row.coveralt) {
+      row.cover = 'http://ig.ft.com/static/sites/business-book-of-the-year/covers/' + row.coveralt;
+    } else {
+      row.cover = null;
+    }
+
     row.synopsis = !row.synopsis ? null : ('http://ig.ft.com/static/sites/business-book-of-the-year/synopses/' + row.synopsis);
     row.slug = getSlug(row.title + ' by ' + row.author.replace(/\,\ */g, '&').replace(/\'/, ''));
     row.highlight.text = row.highlight.text + '&nbsp;—&nbsp;' + (row.highlight.type === 'FT' && row.link ? '<a href="' + row.link + '" target="_blank">Read&nbsp;the&nbsp;complete&nbsp;FT&nbsp;review</a>' : '_' + row.highlight.type + '_');
