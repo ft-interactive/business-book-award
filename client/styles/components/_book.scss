@@ -6,7 +6,6 @@
   padding-top: 3px; // align with top of text
 
   @include mq(tablet) {
-    padding-top: 5px; // align with top of text
     width: 28%;
   }
 
@@ -25,7 +24,6 @@
 }
 .book__title {
   margin-bottom: 0.2em;
-  line-height: 1.375;
   font-size: 1.3em;
 
   @include mq(tablet) {
@@ -57,7 +55,7 @@
 .book__synopsis {
   font-family: $font-serif;
   p {
-    line-height: 1.45;
+    line-height: 1.2;
     max-width: 620px;
   }
 }
