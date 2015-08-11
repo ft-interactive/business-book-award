@@ -1,5 +1,5 @@
 'use strict';
-require('fastclick')(document.body); // github.com/ftlabs/fastclick
+require('fastclick')(document.body);
 
 function on(selector, event, callback) {
   document.querySelector(selector).addEventListener(event, callback);
@@ -25,11 +25,60 @@ on('.js-filter-form-select', 'change', function(event) {
   document.querySelector('.js-filter-form').submit();
 });
 
-//$('.js-tipue-drop').tipuedrop(window.searchOptions);
-
 var books_request;
+var Keys = {
+  UP_ARROW: 38,
+  DOWN_AROW: 40,
+  ENTER: 13
+}
+
+on('.js-tipue-drop', 'keydown', function(event) {
+  var key_code = event.keyCode;
+  var value = event.target.value;
+  var open = event.target.is_open;
+
+  if (!value) {
+    return;
+  }
+
+  if (key_code === Keys.ENTER) {
+    event.preventDefault();
+    go_to_selected();
+    return;
+  } else if (key_code === Keys.UP_ARROW) {
+    event.preventDefault();
+    select_previous();
+    return;
+  } else if (key_code === Keys.DOWN_AROW) {
+    event.preventDefault();
+    if (!open) {
+      show_results();
+    }
+    select_next();
+    return;
+  }
+});
 
 on('.js-tipue-drop', 'keyup', function(event) {
+
+  var value = event.target.value.trim();
+  var key_code = event.keyCode;
+  var last_value = event.target.last_value;
+
+  event.target.last_value = value;
+
+  if (key_code === Keys.UP_ARROW || key_code === Keys.DOWN_AROW) {
+    return;
+  }
+
+  if (last_value && last_value === value) {
+    return;
+  }
+
+  if(!value) {
+    hide_results();
+    return;
+  }
 
   if (!books_request) {
     books_request = fetch(window.searchOptions.contentLocation).then(function(response){
@@ -38,7 +87,8 @@ on('.js-tipue-drop', 'keyup', function(event) {
   }
 
   books_request.then(function(books){
-    view_search_results(event.target, books);
+    var search_results = search(value, books)
+    view_search_results(search_results);
   });
 
 });
@@ -55,60 +105,115 @@ function filter_book_fuzzy(value) {
 function filter_book_exact_title(value) {
   value = value.toLowerCase();
   return function(book) {
-    var s = book.title.toLowerCase().replace(/^(a|the) /).indexOf(value);
+    var s = book.title.toLowerCase()
+                      .replace(/^(a|the) /, '')
+                      .indexOf(value);
     return s === 0;
+  }
+}
+
+function search(query, books) {
+  if (!query) {
+    return [];
+  } else if (query.length < 4) {
+    return books.filter(filter_book_exact_title(query)).slice(0, 6);
+  }
+
+  return books.filter(filter_book_fuzzy(query)).slice(0, 3);
+}
+
+function  go_to_selected() {
+  var selected = document.querySelector('.tipue_drop_item.selected');
+  if (!selected) return;
+  selected.click();
+  hide_results();
+}
+
+function select_previous() {
+  var selected = document.querySelector('.tipue_drop_item.selected');
+  if (selected && selected.previousElementSibling && selected.previousElementSibling.classList.contains('tipue_drop_item')) {
+    selected.classList.remove('selected');
+    selected.previousElementSibling.classList.add('selected');
+    if (typeof selected.previousElementSibling.scrollIntoViewIfNeeded === 'function') {
+      selected.previousElementSibling.scrollIntoViewIfNeeded(false);
+    }
+  } else {
+    var input = document.querySelector('.js-tipue-drop');
+    if (input && typeof input.scrollIntoViewIfNeeded === 'function') {
+      input.scrollIntoViewIfNeeded(false);
+    }
+  }
+}
+
+function select_next() {
+  var selected = document.querySelector('.tipue_drop_item.selected');
+  var next;
+
+  if (selected && selected.nextElementSibling && selected.nextElementSibling.classList.contains('tipue_drop_item')) {
+    next = selected.nextElementSibling;
+  } else {
+    next = document.querySelector('.tipue_drop_item');
+  }
+
+  if (selected && next) {
+    selected.classList.remove('selected');
+  }
+
+  if (next) {
+    next.classList.add('selected');
+    if (typeof next.scrollIntoViewIfNeeded === 'function') {
+      next.scrollIntoViewIfNeeded(false);
+    }
   }
 }
 
 function hide_results() {
   var dropdown = document.getElementById('tipue_drop_content');
-  dropdown.innerHTML = '';
   // hide popup - fade out with speed variable
-  dropdown.style.display = 'none';
+  dropdown.classList.remove('tipue_drop_show');
+
+  var selected = document.querySelector('.tipue_drop_item.selected');
+
+  if (selected) {
+    selected.classList.remove('selected');
+  }
+
+  document.removeEventListener('click', hide_results);
 }
 
-function view_search_results(input, books) {
+function show_results(html) {
+  var dropdown = document.getElementById('tipue_drop_content');
 
-  var value = input.value;
+  if (typeof html === 'string') {
+    dropdown.innerHTML = html;
+  }
 
-  if (!value) {
+  dropdown.classList.add('tipue_drop_show');
+  document.addEventListener('click', hide_results);
+}
+
+function view_search_results(search_results) {
+
+  if (!search_results.length) {
     hide_results();
     return
   }
 
-  
-  var show = 3;
   var route = window.searchOptions.route;
-  var matching;
-
-  if (value.length < 3) {
-    matching = books.filter(filter_book_exact_title(value)).slice(0, 6);
-  } else {
-    matching = books.filter(filter_book_fuzzy(value)).slice(0, 3);
-  }
-
-  if (!matching.length) {
-    hide_results();
-    return;
-  }
-
   var html = '';
 
   html += '<div id="tipue_drop_wrapper"><div class="tipue_drop_head"><div id="tipue_drop_head_text">Suggested results</div></div>';
-  html += matching.map(function(book) {
+  html += search_results.map(function(book) {
     var out = '';
-    out += '<a href="' + route(book) + '"';
-    out += '><div class="tipue_drop_item"><div class="tipue_drop_left">';
+    out += '<a class="tipue_drop_item" href="' + route(book) + '"';
+    out += '><div ><div class="tipue_drop_left">';
     out += '<img src="http://image.webservices.ft.com/v1/images/raw/' + book.cover;
     out += '?source=ft_ig_business_book_award_search&amp;width=120" class="tipue_drop_image" alt=""></div>';
     out += '<div class="tipue_drop_right"><div class="tipue_drop_right_title">' + book.title + '</div>';
     out += '<div class="tipue_drop_right_text">' + book.author + '<br />' + book.year + '</div></div></div></a>';
     return out;
-  }).join('') + '</div>';
+  }).join('');
+  html += '</div>';
 
-  var dropdown = document.getElementById('tipue_drop_content');
-  dropdown.innerHTML = html;
-  dropdown.style.display = 'block';
-  // $('#tipue_drop_content').fadeIn(set.speed);
-
+  show_results(html);
 }

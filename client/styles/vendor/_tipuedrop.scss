@@ -24,6 +24,9 @@ http://www.tipue.com/drop
   width: 100%;
   font-size: 13px;
   box-shadow: 0 15px 40px oColorsGetPaletteColor(pink-tint3);
+  &.tipue_drop_show {
+    display: block;
+  }
 }
 #tipue_drop_wrapper {
 }
@@ -33,10 +36,20 @@ http://www.tipue.com/drop
   clear: both;
 }
 .tipue_drop_item {
+  display: block;
   background-color: #ffffff;
 }
 .tipue_drop_item:hover {
   background-color: #f7f7f7;
+}
+.tipue_drop_item.selected {
+  background-color: #EBF1FF;
+  .tipue_drop_right_title {
+    text-decoration: underline;
+  }
+  .tipue_drop_right_text {
+    text-decoration: underline;
+  }
 }
 .tipue_drop_head {
   display: none;
@@ -63,3 +76,5 @@ http://www.tipue.com/drop
   padding-top: 3px;
   font-size: 11px;
 }
+
+

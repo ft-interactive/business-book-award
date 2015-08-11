@@ -166,7 +166,7 @@ function onDataReceived(data) {
     }
     
     if (row.cover) {
-      row.cover = 'http://im.ft-static.com/content/images/'+ row.cover +'.img';
+      row.cover = 'http://im.ft-static.com/content/images/' + row.cover + '.img';
     } else if (row.coveralt) {
       row.cover = 'http://ig.ft.com/static/sites/business-book-of-the-year/covers/' + row.coveralt;
     } else {
