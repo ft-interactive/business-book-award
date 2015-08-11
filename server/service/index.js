@@ -175,6 +175,12 @@ function onDataReceived(data) {
 
     row.synopsis = !row.synopsis ? null : ('http://ig.ft.com/static/sites/business-book-of-the-year/synopses/' + row.synopsis);
     row.slug = getSlug(row.title + ' by ' + row.author.replace(/\,\ */g, '&').replace(/\'/, ''));
+
+    // ensure not null
+    row.highlight.text = row.highlight.text || '';
+    // swap last space for a non breaking space.
+    row.highlight.text = row.highlight.text.replace(/\s(?=[^\s]*$)/g, ' ');
+
     row.highlight.text = row.highlight.text + '&nbsp;—&nbsp;' + (row.highlight.type === 'FT' && row.link ? '<a href="' + row.link + '" target="_blank">Read&nbsp;the&nbsp;complete&nbsp;FT&nbsp;review</a>' : '_' + row.highlight.type + '_');
     row.highlight.html = md.render(row.highlight.text);
     books[row.slug] = row;
