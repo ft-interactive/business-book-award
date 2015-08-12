@@ -18,18 +18,18 @@ Object.keys(filters).forEach(function(name) {
 var assets;
 var getAsset;
 
-if (prod) {
-  assets = require('../../public/rev-manifest.json');
-  console.log('Load asset paths', assets);
-  getAsset = function(name) {
-    if (!assets[name]) return '';
-    return site.baseurl.static + '/' + assets[name];
-  };
-} else {
+// if (prod) {
+//   assets = require('../../public/rev-manifest.json');
+//   console.log('Load asset paths', assets);
+//   getAsset = function(name) {
+//     if (!assets[name]) return '';
+//     return site.baseurl.static + '/' + assets[name];
+//   };
+// } else {
   getAsset = function(name) {
     return site.baseurl.static + '/' + name;
   };
-}
+// }
 
 function getNow() {
   return Date.now();
