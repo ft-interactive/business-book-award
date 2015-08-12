@@ -64,6 +64,7 @@
 }
 .book__highlight {
   @include text-size(small);
+  line-height: 1.1;
   float: left;
   margin: 1.5em 15% 1.5em -70%;
   padding-left: 1em;
