@@ -1,6 +1,6 @@
 var qs = require('querystring');
 
-exports.image_service = function (input, width, height) {
+exports.image_service = function (input, width, height, quality, compression) {
 
   if (!input) {
     return '';
@@ -16,6 +16,14 @@ exports.image_service = function (input, width, height) {
 
   if (height) {
     args.height = height;
+  }
+
+  if (quality) {
+    args.quality = quality;
+  }
+
+  if (compression) {
+    args.compression = compression;
   }
 
   return 'https://image.webservices.ft.com/v1/images/raw/' + input + '?' + qs.stringify(args, '&amp;');

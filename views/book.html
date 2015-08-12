@@ -6,7 +6,7 @@
 
 <article class="book" itemscope itemtype="http://schema.org/Book">
     <div class="book__media">
-        <img itemprop="image" src="{{ book.cover | image_service(400) }}" alt="{{ book.title }} by {{ book.author }}" />
+        <img itemprop="image" src="{{ book.cover | image_service(400, null, 'high') }}" alt="{{ book.title }} by {{ book.author }}" />
     </div>
     <div class="book__details">
         <h1 class="book__title" itemprop="name">{{ book.title }}</h1>
