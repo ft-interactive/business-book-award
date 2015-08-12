@@ -75,8 +75,8 @@ gulp.task('scripts', () => {
 gulp.task('styles', () => {
   return obt.build.sass(gulp, {
     buildFolder: 'public',
-    sass: './client/styles/main.scss',
-    buildCss: 'styles/main.css',
+    sass: ['./client/styles/main.scss', './client/styles/oldie.scss'],
+    buildCss: ['styles/main.css', 'styles/oldie.scss'],
   }).on('error', function (error) {
     console.error(error);
     this.emit('end');
