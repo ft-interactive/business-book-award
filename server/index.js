@@ -57,7 +57,11 @@ module.exports = function () {
   app.use(function*(next) {
     this.locals.page = {
       title: null,
-      canonicalUrl: this.request.url
+      canonicalUrl: this.request.url,
+      social: {
+        description: null,
+        image: null
+      }
     };
     this.locals.router = {
       url: function(routeName, params) {
@@ -143,12 +147,12 @@ module.exports = function () {
   app.get('category', '/categories/:slug', stdPageMiddleware, require('./controllers/category'));
 
   // redirects for user convenience.
-  app.redirect('/winners', '/#winners');
-  app.redirect('/books', '/');
-  app.redirect('/years', '/');
+  app.redirect('/winners', app.url('home') + '#winners');
+  app.redirect('/books', app.url('home'));
+  app.redirect('/years', app.url('home'));
   app.get('/years/:year', function*(next){
     this.status = 301;
-    this.redirect('/books/' + this.params.year);
+    this.redirect(app.url('year', {year: this.params.year}));
     yield next;
   });
 
