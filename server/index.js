@@ -1,7 +1,6 @@
 var koa = require('koa');
 var router = require('koa-router');
 var trace = require('koa-trace');
-var favicon = require('koa-favicon');
 var requestId = require('koa-request-id');
 var conditional = require('koa-conditional-get');
 var etag = require('koa-etag');
@@ -48,7 +47,6 @@ module.exports = function () {
   app.use(helmet.ienoopen());
   app.use(helmet.contentTypeOptions());
   app.use(helmet.hidePoweredBy());
-  app.use(favicon(path.resolve(__dirname, '../public/favicon.ico')));
   app.use(conditional());
   app.use(etag());
   app.use(serve(path.resolve(__dirname, '../public'), {maxage: 2629740000 /* 1 month */}));
