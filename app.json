@@ -1,5 +1,5 @@
 {
-  "name": "FT Business book award",
+  "name": "ft-ig-bbya",
   "repository": "https://github.com/ft-interactive/business-book-award",
   "success_url": "/",
   "env": {
