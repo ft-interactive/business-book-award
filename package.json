@@ -1,5 +1,5 @@
 {
-  "name": "business-book-of-the-year",
+  "name": "ft-ig-bbya",
   "private": true,
   "scripts": {
     "postinstall": "bower install && gulp",
