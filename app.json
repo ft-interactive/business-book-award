@@ -4,7 +4,7 @@
   "success_url": "/",
   "env": {
     "NODE_ENV": {
-      "value": "development",
+      "value": "development"
     },
     "NPM_CONFIG_PRODUCTION": {
       "value": "false"
