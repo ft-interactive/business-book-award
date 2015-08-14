@@ -20,6 +20,7 @@ gulp.task('images', () => {
 gulp.task('copy', () => {
   return gulp.src([
     'client/**/*',
+    '!client/styles/**',
     '!client/**/*.{scss,js,jpg,png,gif,svg}', // all handled by other tasks
   ], {dot: true})
     .pipe(gulp.dest('public'));
@@ -76,7 +77,7 @@ gulp.task('styles', () => {
   return obt.build.sass(gulp, {
     buildFolder: 'public',
     sass: ['./client/styles/main.scss', './client/styles/oldie.scss'],
-    buildCss: ['styles/main.css', 'styles/oldie.scss'],
+    buildCss: {dirname: 'styles'},
   }).on('error', function (error) {
     console.error(error);
     this.emit('end');
