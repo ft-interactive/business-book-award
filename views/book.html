@@ -10,6 +10,9 @@
 {% for category in book.categories %}
 <meta name="book:tag" content="{{ category.name }}">
 {% endfor %}
+{% if book.isbn %}
+<meta name="book:isbn" content="{{ book.isbn }}">
+{% endif %}
 <meta name="twitter:card" content="product">
 <meta name="twitter:label1" content="Year">
 <meta name="twitter:data1" content="{{ book.rank | capitalize }}, {{ book.year }}">
@@ -20,6 +23,9 @@
 {% block content_primary %}
 
 <article class="book" itemscope itemtype="http://schema.org/Book">
+    {% if book.isbn %}
+    <meta itemprop="isbn" content="{{ book.isbn }}">
+    {% endif %}
     <div class="book__media">
         <img itemprop="image" src="{{ book.cover | image_service(400, null, 'high') }}" alt="{{ book.title }} by {{ book.author }}" />
     </div>
