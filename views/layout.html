@@ -64,17 +64,6 @@
     </head>
     <body itemscope itemtype="http://schema.org/WebPage">
 
-        {# FT Tracking module (iJento) #}
-        <script>
-            var FT = FT || {}; FT.Properties = FT.Properties || {}; FT.Properties.ENV = 'p';
-        </script>
-        <!-- FT tracking module 1.2.5 -->
-        <script src="http://static-render-p.ft.com/scripts/a03ca392/bundles/tracking.js"></script>
-        <noscript>
-            <img alt="" border="0" width="1" height="1" src="http://track.ft.com/track/track.js?javascript=disabled"/>
-            <img alt="" border="0" width="1" height="1" src="http://stats.ft.com/si/track.gif?WT.js=No"/>
-        </noscript>
-
         <header class="header">
             <div class="top-bar">
                 <div class="container">
@@ -216,5 +205,15 @@
             var _sf_async_config={};_sf_async_config.uid = 14181;_sf_async_config.domain = 'ft.com';_sf_async_config.useCanonical = true;_sf_async_config.sections = 'Books';_sf_async_config.authors = 'Interactive';(function(){function loadChartbeat() {window._sf_endpt=(new Date()).getTime();var e = document.createElement('script');e.setAttribute('src', '//static.chartbeat.com/js/chartbeat.js');document.body.appendChild(e);}var oldonload = window.onload;window.onload = (typeof window.onload != 'function') ?loadChartbeat : function() { oldonload(); loadChartbeat(); };})();
         </script>
 
+        {# FT Tracking module (iJento) #}
+        <script>
+            var FT = FT || {}; FT.Properties = FT.Properties || {}; FT.Properties.ENV = 'p';
+        </script>
+        <!-- FT tracking module 1.2.5 -->
+        <script src="https://h2.ft.com/static-render-p.ft.com/scripts/a03ca392/bundles/tracking.js"></script>
+        <noscript>
+            <img alt="" border="0" width="1" height="1" src="//track.ft.com/track/track.js?javascript=disabled"/>
+            <img alt="" border="0" width="1" height="1" src="//stats.ft.com/si/track.gif?WT.js=No"/>
+        </noscript>
     </body>
 </html>
