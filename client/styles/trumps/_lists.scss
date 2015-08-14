@@ -18,7 +18,9 @@
     display: inline-block;
     line-height: 1.8;
     @if $is-oldie {
+      // scss-lint:disable PropertySpelling
       *display: inline; // IE7 doesn't understand inline-block other than on naturally inline elements
+      // scss-lint:enable PropertySpelling
       zoom: 1;
     }
   }

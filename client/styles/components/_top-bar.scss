@@ -21,7 +21,9 @@
     display: none;
   }
 
+  // scss-lint:disable ImportantRule
   .no-js & {
     display: none !important;
   }
+  // scss-lint:enable ImportantRule
 }

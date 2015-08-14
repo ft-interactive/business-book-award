@@ -24,9 +24,11 @@
     max-width: 1060px;
   }
 
+  // scss-lint:disable ImportantRule
   .no-js & {
     display: none !important;
   }
+  // scss-lint:enable ImportantRule
 }
 .filter-bar--hidden {
   display: none;

@@ -3,7 +3,9 @@
 }
 
 @mixin clearfix {
+  // scss-lint:disable PropertySpelling
   *zoom: 1;
+  // scss-lint:enable PropertySpelling
 
   &:before,
   &:after {
