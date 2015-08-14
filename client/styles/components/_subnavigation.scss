@@ -1,0 +1,51 @@
+.subnavigation {
+  padding: 5px $gutter/2;
+  margin-top: 2.1em;
+  margin-left: -$gutter/2;
+  margin-right: -$gutter/2;
+  background: oColorsGetColorFor(box, background);
+  border-top: 2px solid oColorsGetPaletteColor(grey-tint1);
+
+  @include mq(tablet) {
+    max-width: 800px;
+    margin: 2.1em auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+}
+.subnavigation__item {
+
+}
+.subnavigation__action {
+  display: block;
+  max-width: 200px;
+}
+
+
+.subnavigation__item--1 {
+  width: 0;
+  padding-right: $gutter;
+  white-space: nowrap;
+}
+.subnavigation__item--2 {
+  width: 100%;
+
+  .subnavigation__action {
+    float: right;
+    text-align: right;
+    padding-right: 1.5em;
+    position: relative;
+
+    &:after {
+      content: "›";
+      position: absolute;
+      display: block;
+      top: 50%;
+      right: 0.0625em;
+      margin-top: -0.625em;
+      font-size: 2em;
+      line-height: 1;
+    }
+  }
+}

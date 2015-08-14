@@ -1,16 +1,15 @@
 {
-  "name": "business-books-of-the-decade",
-  "main": "app.js",
+  "name": "business-book-of-the-year",
   "private": true,
   "scripts": {
-    "start": "node --harmony ./app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon --harmony ./app.js -e js,html,css,csv"
+    "postinstall": "bower install && gulp",
+    "watch": "nodemon --harmony ./app.js -e js,html,css,csv",
+    "serve": "nodemon --watch gulpfile.js --watch .scss-lint.yml --exec 'gulp clean && gulp serve'",
+    "test": "eslint . && gulp build"
   },
   "author": "Luke Kavanagh <luke.kavanagh@ft.com> (http://github.com/kavanagh)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "business-books-of-the-decade-frontend": "ft-interactive/business-books-of-the-decade-frontend#master",
     "co": "^3.1.0",
     "co-request": "^0.2.0",
     "dsv": "0.0.3",
@@ -34,6 +33,7 @@
     "koa-views": "^2.1.0",
     "lodash": "^2.4.1",
     "lru-cache": "^2.5.0",
+    "markdown-it": "^4.4.0",
     "mime-db": "^1.1.2",
     "ms": "^0.6.2",
     "mz": "^1.0.2",
@@ -46,9 +46,35 @@
     "wordwrap": "0.0.2"
   },
   "engines": {
-    "node": "0.11.13"
+    "node": "0.12.x",
+    "npm": "2.9.x"
   },
   "devDependencies": {
-    "nodemon": "^1.2.1"
-  }
+    "auto-plug": "^1.0.2",
+    "babel-core": "^5.8.12",
+    "babel-eslint": "^4.0.5",
+    "bower": "^1.4.1",
+    "browser-sync": "^2.8.0",
+    "debowerify": "^1.3.1",
+    "del": "^1.2.0",
+    "eslint": "^0.24.1",
+    "gulp": "^3.9.0",
+    "gulp-if": "^1.2.5",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-smoosher": "0.0.7",
+    "gulp-uglify": "^1.2.0",
+    "gulp-useref": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "load-grunt-tasks": "~0.6.0",
+    "nodemon": "^1.4.0",
+    "origami-build-tools": "^3.3.0",
+    "run-sequence": "^1.1.2",
+    "time-grunt": "~1.0.0"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "bower_components"
+  ]
 }

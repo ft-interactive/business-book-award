@@ -1,0 +1,63 @@
+.shelf__item {
+  padding: 0 $gutter/2 1.5em;
+  width: 50%;
+  box-sizing: border-box;
+
+  @include mq(mobileLandscape) {
+    width: 33.3333333333333%;
+  }
+  @include mq(tablet) {
+    width: 25%;
+  }
+  @include mq(document) {
+    width: 14.285714%;
+  }
+}
+
+.shelf--small {
+  .book-promo__prizes {
+    @include visuallyhidden;
+  }
+  .book-promo__title {
+    @include text-size(tiny);
+  }
+  .book-promo__byline {
+    @include text-size(tinier);
+  }
+}
+
+.shelf--medium,
+.shelf--big {
+  font-size: (3em/4);
+
+  .shelf__item > * {
+    font-size: (1em/(3/4));
+  }
+  .book-promo__prizes {
+    @include text-size(small);
+  }
+  .book-promo__content {
+    @include visuallyhidden;
+  }
+}
+.shelf--big {
+  @include mq(mobileLandscape) {
+    .shelf__item {
+      width: 50%;
+    }
+  }
+  @include mq(tablet) {
+    .shelf__item {
+      width: 33.3333333333333%;
+    }
+    &,
+    .shelf__item > * {
+      font-size: 1em;
+    }
+  }
+  @include mq(document) {
+    .shelf__item {
+      width: 20%;
+    }
+  }
+}

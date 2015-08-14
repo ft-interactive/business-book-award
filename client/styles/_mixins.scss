@@ -1,0 +1,29 @@
+// scss-lint:disable ImportantRule
+
+// Simplify the Origami grid function
+@function grid-span($n-columns, $context: 12) {
+  @return oGridColumnWidth($n-columns, $context);
+}
+
+@mixin grid-column($n-columns, $context: 12) {
+  box-sizing: border-box;
+  width: span($n-columns, $context);
+  padding-left: $gutter/2;
+  padding-right: $gutter/2;
+}
+
+@mixin text-size($keyword) {
+  font-size: map-get($text-sizes, $keyword);
+}
+
+// Hide content visually, still readable by screen readers
+@mixin visuallyhidden {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+}

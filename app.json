@@ -1,0 +1,21 @@
+{
+  "name": "FT Business book award",
+  "repository": "https://github.com/ft-interactive/business-book-award",
+  "success_url": "/",
+  "env": {
+    "NODE_ENV": {
+      "value": "development",
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "value": "false"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-ruby"
+    }
+  ]
+}

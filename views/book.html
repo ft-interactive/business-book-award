@@ -1,0 +1,131 @@
+{% extends 'page.html' %}
+
+{% block title %}{{ book.title }} by {{ book.author }}{% endblock %}
+
+{% block social_meta %}
+<meta name="og:type" content="books.book">
+{% for author in book.author|split(',') %}
+<meta name="book:author" content="{{ author | trim }}">
+{% endfor %}
+{% for category in book.categories %}
+<meta name="book:tag" content="{{ category.name }}">
+{% endfor %}
+{% if book.isbn %}
+<meta name="book:isbn" content="{{ book.isbn }}">
+{% endif %}
+<meta name="twitter:card" content="product">
+<meta name="twitter:label1" content="Year">
+<meta name="twitter:data1" content="{{ book.rank | capitalize }}, {{ book.year }}">
+<meta name="twitter:label2" content="Category">
+<meta name="twitter:data2" content="{{ book.categories | pluck('name') | join(', ') }}">
+{% endblock %}
+
+{% block content_primary %}
+
+<article class="book" itemscope itemtype="http://schema.org/Book">
+    <meta itemprop="publisher" content="{{ book.publisher }}">
+    {% if book.isbn %}
+    <meta itemprop="isbn" content="{{ book.isbn }}">
+    {% endif %}
+    {% if book.rank === "winner" %}
+    <meta itemprop="award" content="FT Business book of the year">
+    {% endif %}
+    <div class="book__media">
+        <img itemprop="image" src="{{ book.cover | image_service(400, null, 'high') }}" alt="{{ book.title }} by {{ book.author }}" />
+    </div>
+    <div class="book__details">
+        <h1 class="book__title" itemprop="name">{{ book.title }}</h1>
+        <div class="book__byline">
+            <span class="text-quiet" itemprop="author">{{ book.author }}</span>
+        </div>
+        <div class="book__prizes">
+            <a href="{{ router.url('home') }}#{{ book.year }}" class="text-quiet">
+                <i class="badge badge--{{ book.rank|lower }}"></i>
+                {{ book.rank }} {{ book.year }}
+            </a>
+        </div>
+        {% if book.highlight.html %}
+        <div class="book__highlight" itemprop="review">
+            {% autoescape false %}
+            {{ book.highlight.html }}
+            {% endautoescape %}
+        </div>
+        {% endif %}
+        <div class="book__meta">
+            <dl class="meta">
+                <dt class="meta__title">Categories</dt>
+                {% for category in book.categories %}
+                <dd class="meta__item text-quiet">
+                    <a href="{{router.url('category', category) }}" class="text-quiet" itemprop="genre">{{ category.name }}</a>{% if !loop.last %},&#8199;{% endif %}
+                </dd>
+                {% endfor %}
+            </dl>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="book__content">
+        {% if book.synopsisHTML %}
+        <div class="book__synopsis content-block">
+            <h2 class="headline content-block__headline">Synopsis</h2>
+            {% autoescape false %}{{ book.synopsisHTML }}{% endautoescape %}
+        </div>
+        {% endif %}
+    </div>
+
+    {% if book.buyitnow %}
+    <div class="book__actions">
+        <a href="{{ book.buyitnow }}" class="o-buttons">Buy it now</a>
+    </div>
+    {% endif %}
+
+</article>
+
+<nav class="subnavigation">
+    <ul class="row-list text-tiny">
+        <li class="subnavigation__item subnavigation__item--1">
+            <a href="{{ router.url('year', book) }}" class="fauxlink subnavigation__action">
+                <div class="text-uppercase text-quiet">More in <span class="fauxlink__target">{{ book.year }}</span></div>
+            </a>
+        </li>
+        {% if nextBook %}
+        <li class="subnavigation__item subnavigation__item--2">
+            <a href="{{ router.url('book', nextBook) }}" class="subnavigation__action">
+                {{ nextBook.title }}
+                <br />
+                {{ nextBook.author }}
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content_secondary %}
+
+{% for category in relatedBooks %}
+    {% for book in category.books|slice(0, 3) %}
+            {% if loop.first %}
+            <div class="browsebox" id="{{ category.slug }}">
+                <div class="browsebox__header">
+                    <a href="{{ router.url('category', category) }}" class="fauxlink">
+                        <h2 class="text-uppercase text-tiny text-quiet">Also in <span class="fauxlink__target">{{ category.name }}</span></h2>
+                    </a>
+                </div>
+                <nav class="browsebox__content">
+                    <ul class="shelf row-list row-list--thirds shelf--small">
+            {% endif %}
+                        <li class="shelf__item">
+                            {% include "./book-promo.html" %}
+                        </li>
+            {% if loop.last %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+<div class="text-center">
+    <a href="{{ router.url('home') }}" class="o-buttons o-buttons--standout text-small">Show all books</a>
+</div>
+
+{% endblock %}

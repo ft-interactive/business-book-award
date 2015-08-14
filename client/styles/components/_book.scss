@@ -1,0 +1,89 @@
+.book {}
+.book__media {
+  float: left;
+  width: 40%;
+  margin-right: 12px;
+  padding-top: 3px; // align with top of text
+
+  @include mq(tablet) {
+    width: 28%;
+  }
+
+  @include mq(document) {
+    width: 25%;
+  }
+}
+.book__details {
+  margin-left: 41%;
+  @include mq(tablet) {
+    margin-left: 29%;
+  }
+  @include mq(document) {
+    margin-left: 27%;
+  }
+}
+.book__title {
+  margin-bottom: 0.2em;
+  font-size: 1.3em;
+
+  @include mq(tablet) {
+    font-size: 1.45em;
+  }
+}
+.book__byline {
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+
+  @include mq(tablet) {
+    font-size: 1em;
+  }
+}
+.book__prizes {
+  font-size: 0.8125em;
+
+  @include mq(tablet) {
+    font-size: 1em;
+  }
+}
+.book__meta {}
+.book__content {
+  margin-top: 2em;
+  @include mq(document) {
+    margin-top: 3em;
+  }
+}
+.book__synopsis {
+  font-family: $font-serif;
+  p {
+    line-height: 1.2;
+    max-width: 620px;
+  }
+}
+.book__actions {
+  margin-bottom: 2em;
+}
+.book__highlight {
+  @include text-size(small);
+  line-height: 1.1;
+  float: left;
+  margin: 1.5em 15% 1.5em -70%;
+  padding-left: 1em;
+  font-style: italic;
+  border-left: 8px solid oColorsGetPaletteColor(grey-tint1);
+
+  @include mq(tablet) {
+    margin-left: 0;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border: 0;
+    padding: 0;
+    float: none;
+  }
+
+  p:first-child {
+    margin-top: 2px;
+  }
+  p:last-child {
+    margin-bottom: 4px;
+  }
+}

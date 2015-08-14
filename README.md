@@ -1,20 +1,8 @@
-FT Business Books of the Decade
+Business book of the year award
 ===============================
 
-In development you'll want to start the server and watch for changes
+In development:
 
 ```
-$ npm run watch
+$ gulp && foreman start
 ```
-
-To start the server.
-
-```
-$ npm start
-```
-
-...or to set environment variables and mimic heroku...
-
-
-```
-$ foreman start

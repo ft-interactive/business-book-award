@@ -1,0 +1,43 @@
+$badge-offset: -2px; // align with middle of text
+$badge-text-size: 12px;
+$badge-size: 20px;
+
+.badge {
+  position: relative;
+  top: $badge-offset;
+  border-radius: 999px; // because 50% won't render well in older Webkits
+  color: #ffffff;
+  font-weight: normal;
+  display: inline-block;
+  font-style: normal;
+  font-size: $badge-text-size;
+  line-height: $badge-size;
+  width: $badge-size;
+  vertical-align: middle;
+  text-align: center;
+
+  &:after {
+    line-height: $badge-size;
+  }
+}
+.badge--winner {
+  background-color: #af526c;
+
+  &:after {
+    content: "W";
+  }
+}
+.badge--shortlist {
+  background-color: #2a72a2;
+
+  &:after {
+    content: "SL";
+  }
+}
+.badge--longlist {
+  background-color: #959288;
+
+  &:after {
+    content: "LL";
+  }
+}

@@ -1,0 +1,43 @@
+.search-form {
+  margin-bottom: 12px;
+
+  @include mq(tablet) {
+    float: right;
+    width: 60%;
+    margin-bottom: 0;
+    max-width: 310px;
+  }
+}
+.search-form__inner {
+  position: relative;
+}
+.search-form__label {
+}
+// Tripe class name, to override Origami's specificity
+.search-form__field.search-form__field.search-form__field {
+  padding-left: 36px;
+}
+.search-form__submit {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 32px;
+  height: 32px;
+  top: 2px;
+  left: 3px;
+  background: white url('//build.origami.ft.com/files/o-ft-icons@2.2.3/svg/search.svg') 50% 50% no-repeat;
+  background-size: 22px 22px;
+  color: white;
+  font-size: 1px;
+  opacity: 0.3;
+  transition: 0.2s opacity ease-in;
+
+  &:hover,
+  &:focus,
+  .search-form__field:focus + & {
+    opacity: 8;
+  }
+}

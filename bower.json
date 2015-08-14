@@ -1,0 +1,13 @@
+{
+  "name": "business-book-of-the-year",
+  "private": true,
+  "dependencies": {
+    "ondomready": "~1.4.0",
+    "fastclick": "~1.0.0",
+    "sass-mq": "^3.1.0",
+    "o-grid": "^3.1.0",
+    "o-forms": "^1.0.2",
+    "o-fonts": "^1.8.2",
+    "o-colors": "^3.0"
+  }
+}

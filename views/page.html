@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <div class="content-primary">
+            {% block content_primary %}{% endblock %}
+        </div>
+    </div>
+</main>
+<div class="container">
+    <div class="content-secondary">
+        {% block content_secondary %}{% endblock %}
+    </div>
+</div>
+{% endblock %}
