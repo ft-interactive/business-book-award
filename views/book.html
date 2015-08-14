@@ -23,8 +23,12 @@
 {% block content_primary %}
 
 <article class="book" itemscope itemtype="http://schema.org/Book">
+    <meta itemprop="publisher" content="{{ book.publisher }}">
     {% if book.isbn %}
     <meta itemprop="isbn" content="{{ book.isbn }}">
+    {% endif %}
+    {% if book.rank === "winner" %}
+    <meta itemprop="award" content="FT Business book of the year">
     {% endif %}
     <div class="book__media">
         <img itemprop="image" src="{{ book.cover | image_service(400, null, 'high') }}" alt="{{ book.title }} by {{ book.author }}" />
@@ -41,7 +45,7 @@
             </a>
         </div>
         {% if book.highlight.html %}
-        <div class="book__highlight">
+        <div class="book__highlight" itemprop="review">
             {% autoescape false %}
             {{ book.highlight.html }}
             {% endautoescape %}
