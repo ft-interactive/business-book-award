@@ -6,7 +6,6 @@
         <title>{% block title %}{% endblock %}</title>
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <script>
         document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, 'js');
 
@@ -28,10 +27,19 @@
 
         {#
         FB/OpenGraph #}
-        <meta property="og:site_name" content="Financial Times"/>
+        <meta property="og:site_name" content="FT Business book of the year award"/>
         <meta property="og:type" content="article"/>
-        <meta property="og:image" content="http://im.ft-static.com/m/img/social/og-ft-logo.png"/>
         <meta property="fb:page_id" content="8860325749" />
+
+        {# social images #}
+        {% if page.social.image %}
+        <meta property="og:image" content="{{ page.social.image }}"/>
+        <link rel="image_src" href="{{ page.social.image }}"/>
+        <link rel="twitter:image" href="{{ page.social.image }}"/>
+        {% endif %}
+
+        {% block social_meta %}{% endblock %}
+
 
         {#
         google plus #}

@@ -2,6 +2,21 @@
 
 {% block title %}{{ book.title }} by {{ book.author }}{% endblock %}
 
+{% block social_meta %}
+<meta name="og:type" content="books.book">
+{% for author in book.author|split(',') %}
+<meta name="book:author" content="{{ author | trim }}">
+{% endfor %}
+{% for category in book.categories %}
+<meta name="book:tag" content="{{ category.name }}">
+{% endfor %}
+<meta name="twitter:card" content="product">
+<meta name="twitter:label1" content="Year">
+<meta name="twitter:data1" content="{{ book.rank | capitalize }}, {{ book.year }}">
+<meta name="twitter:label2" content="Category">
+<meta name="twitter:data2" content="{{ book.categories | pluck('name') | join(', ') }}">
+{% endblock %}
+
 {% block content_primary %}
 
 <article class="book" itemscope itemtype="http://schema.org/Book">

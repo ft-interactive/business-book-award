@@ -1,3 +1,5 @@
+const image_service = require('../util/filters').image_service;
+
 module.exports = function *(next) {
   var book = yield this.service.find.bookBySlug(this.params.slug);
   var exists = book && this.params.year === book.year;
@@ -13,10 +15,14 @@ module.exports = function *(next) {
 
   var nextBook = yield this.service.selectedBook.nextBook(book);
   var relatedBooks = yield this.service.selectedBook.relatedBooks(book);
+
+  this.locals.page.social.image = image_service(book.cover, 300);
+
   yield this.render('book', {
     book: book,
     nextBook: nextBook,
     relatedBooks: relatedBooks
   });
+
   yield next;
 };

@@ -1,4 +1,5 @@
 var qs = require('querystring');
+const _ = require('lodash');
 
 exports.image_service = function (input, width, height, quality, compression) {
 
@@ -27,6 +28,19 @@ exports.image_service = function (input, width, height, quality, compression) {
   }
 
   return 'https://image.webservices.ft.com/v1/images/raw/' + input + '?' + qs.stringify(args, '&amp;');
+};
+
+exports.trim = function(input) {
+  if (!input || typeof input !== 'string') return input;
+  return input.trim();
+};
+
+exports.split = function(input, delimeter) {
+  return (input || []).split(delimeter);
+};
+
+exports.pluck = function(input, prop) {
+  return _.pluck(input, prop);
 };
 
 exports.slice = function(input, a, b) {
