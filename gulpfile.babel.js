@@ -2,6 +2,9 @@ import runSequence from 'run-sequence';
 import obt from 'origami-build-tools';
 import gulp from 'gulp';
 import del from 'del';
+import rev from 'gulp-rev';
+import revReplace from 'gulp-rev-replace';
+import revNapkin from 'gulp-rev-napkin';
 
 const $ = require('auto-plug')('gulp');
 
@@ -65,6 +68,7 @@ gulp.task('scripts', () => {
     buildFolder: 'public',
     js: './client/scripts/main.js',
     buildJs: 'scripts/main.bundle.js',
+    env: process.env.NODE_ENV
   }).on('error', function (error) {
     console.error(error);
     this.emit('end');
@@ -78,10 +82,26 @@ gulp.task('styles', () => {
     buildFolder: 'public',
     sass: ['./client/styles/main.scss', './client/styles/oldie.scss'],
     buildCss: {dirname: 'styles'},
+    env: process.env.NODE_ENV
   }).on('error', function (error) {
     console.error(error);
     this.emit('end');
   });
+});
+
+gulp.task('rev', () => {
+  return gulp.src([
+            'public/styles/**/*.css',
+            'public/scripts/**/*.js',
+            'public/images/**/*.{png,svg,gif,jpg}'
+        ], {base: 'assets'})
+        .pipe(gulp.dest('public'))  // copy original assets to build dir
+        .pipe(rev())
+        .pipe(revReplace({replaceInExtensions: ['.css']}))
+        .pipe(revNapkin({verbose:false}))
+        .pipe(gulp.dest('public')) // write rev'd assets to build dir
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('public')); // write manifest to build dir
 });
 
 
@@ -124,5 +144,6 @@ gulp.task('default', done => {
     ['clean', 'scsslint'/*, 'jshint'*/],
     ['scripts', 'styles', 'copy'],
     ['images'],
+    ['rev'],
   done);
 });
