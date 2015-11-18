@@ -35,7 +35,7 @@ gulp.task('clean', del.bind(null, ['public/*', '!public/.git'], {dot: true}));
 
 
 // runs a development server (serving up .tmp and client)
-gulp.task('serve', ['watch'], done => {
+gulp.task('serve', ['watch', 'images'], done => {
   const bs = require('browser-sync').create();
 
   bs.init({
@@ -132,6 +132,7 @@ gulp.task('watch', done => {
   runSequence('clean', ['scripts', 'styles'], () => {
     gulp.watch('./client/**/*.scss', ['styles', 'scsslint']);
     gulp.watch('./client/**/*.{js,hbs}', ['scripts'/*, 'jshint'*/]);
+    gulp.watch('./client/**/*.{jpg,png,gif,svg}', ['images']);
     done();
   });
 });
