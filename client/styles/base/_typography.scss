@@ -27,14 +27,23 @@ h6 {
   line-height: 1.1;
   text-align: center;
   margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0;
   padding-left: $gutter;
   padding-right: $gutter;
   letter-spacing: -0.01em;
   @include mq(tablet) {
-    margin-bottom: 0.75em;
     font-size: 3em;
   }
+}
+
+.microsite-description {
+  margin: .25em auto 1.25em auto;
+  padding: 0 5px;
+  max-width: 600px;
+  font-size: 22px;
+  text-align: center;
+  color: #666;
+  line-height: 1.2;
 }
 
 .headline {
