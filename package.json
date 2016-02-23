@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "postinstall": "bower install && gulp",
-    "watch": "nodemon --harmony ./app.js -e js,html,css,csv",
+    "watch": "nodemon ./app.js -e js,html,css,csv",
     "serve": "nodemon --watch gulpfile.js --watch .scss-lint.yml --exec 'gulp clean && gulp serve'",
     "test": "eslint . && gulp build"
   },
@@ -46,8 +46,7 @@
     "wordwrap": "0.0.2"
   },
   "engines": {
-    "node": "0.12.x",
-    "npm": "2.9.x"
+    "node": "5.x.x"
   },
   "devDependencies": {
     "auto-plug": "^1.0.2",
