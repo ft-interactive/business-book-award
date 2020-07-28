@@ -15,23 +15,23 @@ Object.keys(filters).forEach(function(name) {
   swig.setFilter(name, filters[name]);
 });
 
-var assets;
+// var assets;
 var getAsset;
 
-if (prod) {
-  assets = require('../../public/rev-manifest.json');
-  console.log('Load asset paths', assets);
-  getAsset = function(name) {
-    console.log('get asset')
-    if (!assets[name]) return '';
-    console.log('>>', assets[name])
-    return site.baseurl.static + '/' + assets[name];
-  };
-} else {
+// if (prod) {
+//   assets = require('../../public/rev-manifest.json');
+//   console.log('Load asset paths', assets);
+//   getAsset = function(name) {
+//     console.log('get asset')
+//     if (!assets[name]) return '';
+//     console.log('>>', assets[name])
+//     return site.baseurl.static + '/' + assets[name];
+//   };
+// } else {
   getAsset = function(name) {
     return site.baseurl.static + '/' + name;
   };
-}
+// }
 
 function getNow() {
   return Date.now();
