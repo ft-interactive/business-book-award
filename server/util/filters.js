@@ -40,7 +40,7 @@ exports.split = function(input, delimeter) {
 };
 
 exports.pluck = function(input, prop) {
-  return _.pluck(input, prop);
+  return _.map(input, prop);
 };
 
 exports.slice = function(input, a, b) {
