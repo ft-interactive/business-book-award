@@ -5,9 +5,9 @@
     "ondomready": "~1.4.0",
     "fastclick": "~1.0.0",
     "sass-mq": "^5.0.1",
-    "o-grid": "^3.1.0",
-    "o-forms": "^1.0.2",
-    "o-fonts": "^1.8.2",
-    "o-colors": "^3.0"
+    "o-grid": "^5.2.6",
+    "o-forms": "^8.3.10",
+    "o-fonts": "^4.4.0",
+    "o-colors": "^5.0"
   }
 }
