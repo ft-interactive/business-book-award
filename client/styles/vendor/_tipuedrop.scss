@@ -16,7 +16,7 @@ http://www.tipue.com/drop
   position: absolute;
   box-sizing: border-box;
   background-color: #ffffff;
-  border: 1px solid oColorsGetPaletteColor(pink-tint3);
+  border: 1px solid oColorsByName(black-20);
   margin-top: 2px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -24,7 +24,7 @@ http://www.tipue.com/drop
   border-radius: 5px;
   width: 100%;
   font-size: 13px;
-  box-shadow: 0 15px 40px oColorsGetPaletteColor(pink-tint3);
+  box-shadow: 0 15px 40px oColorsByName(black-20);
   &.tipue_drop_show {
     display: block;
   }

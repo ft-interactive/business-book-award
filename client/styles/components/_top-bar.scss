@@ -3,7 +3,7 @@
   background: transparent; // Not in Origami's Palette
   position: relative;
   padding: 15px 0 0;
-  border-bottom: 1px solid oColorsGetPaletteColor(pink-tint3);
+  border-bottom: 1px solid oColorsByName(black-20);
 }
 .top-bar__action {
   display: block;

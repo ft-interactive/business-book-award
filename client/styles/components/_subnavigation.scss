@@ -4,7 +4,7 @@
   margin-left: -$gutter/2;
   margin-right: -$gutter/2;
   background: oColorsByUsecase(box, background);
-  border-top: 2px solid oColorsGetPaletteColor(grey-tint1);
+  border-top: 2px solid oColorsByName(black-30);
 
   @include mq(tablet) {
     max-width: 800px;
