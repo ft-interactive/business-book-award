@@ -69,7 +69,7 @@
   margin: 1.5em 15% 1.5em -70%;
   padding-left: 1em;
   font-style: italic;
-  border-left: 8px solid oColorsGetPaletteColor(grey-tint1);
+  border-left: 8px solid oColorsByName(black-30);
 
   @include mq(tablet) {
     margin-left: 0;
