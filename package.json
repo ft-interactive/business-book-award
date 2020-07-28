@@ -46,7 +46,7 @@
     "wordwrap": "0.0.2"
   },
   "engines": {
-    "node": "5.x.x"
+    "node": "14.x.x"
   },
   "devDependencies": {
     "auto-plug": "^1.0.2",
