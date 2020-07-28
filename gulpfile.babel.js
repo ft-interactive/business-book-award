@@ -43,17 +43,12 @@ gulp.task('styles', function() {
 });
 
 // builds scripts with browserify
-// gulp.task('scripts', () => {
-//   return obt.build.js(gulp, {
-//     buildFolder: 'public',
-//     js: './client/scripts/main.js',
-//     buildJs: 'scripts/main.bundle.js',
-//     env: process.env.NODE_ENV
-//   }).on('error', function (error) {
-//     console.error(error);
-//     this.emit('end');
-//   });
-// });
+gulp.task('scripts', () => {
+  return gulp.src(['./client/scripts/main.js'])
+    .pipe(plumber({ errorHandler: onError }))
+    .pipe(rename('main.bundle.js'))
+    .pipe(gulp.dest('public/scripts'));
+});
 
 // copies over miscellaneous files (client => dist)
 gulp.task('copy', () => {
@@ -85,7 +80,7 @@ gulp.task('rev', () => {
 });
 
 // makes a production build (client => dist)
-gulp.task('default', gulp.series('clean', 'copy', 'styles', 'images', 'rev'), done => {
+gulp.task('default', gulp.series('clean', 'copy', 'styles', 'scripts', 'images', 'rev'), done => {
   done();
 });
 
