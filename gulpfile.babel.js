@@ -124,18 +124,6 @@ gulp.task('serve:dist', gulp.series(['default']), done => {
   }, done);
 });
 
-// builds stylesheets with sass/autoprefixer
-// gulp.task('styles', () => {
-//   return obt.build.sass(gulp, {
-//     buildFolder: 'public',
-//     sass: ['./client/styles/main.scss', './client/styles/oldie.scss'],
-//     buildCss: {dirname: 'styles'},
-//     env: process.env.NODE_ENV
-//   }).on('error', function (error) {
-//     console.error(error);
-//     this.emit('end');
-//   });
-// });
 
 // lints JS files (DISABLED for poor ES6 support; we're going to switch to ESLint)
 // gulp.task('jshint', () => {
