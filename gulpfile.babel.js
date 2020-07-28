@@ -3,8 +3,23 @@ import del from 'del';
 import rev from 'gulp-rev';
 import revReplace from 'gulp-rev-replace';
 import revNapkin from 'gulp-rev-napkin';
+import plumber from 'gulp-plumber';
+import sourcemaps from 'gulp-sourcemaps';
+import sass from 'gulp-sass';
+import rename from 'gulp-rename';
+import notify from 'gulp-notify';
 
 const $ = require('auto-plug')('gulp');
+
+var onError = function(err) {
+  notify.onError({
+    title:    'Gulp',
+    subtitle: 'Failure!',
+    message:  'Error: <%= error.message %>',
+    sound:    'Basso'
+  })(err);
+  this.emit('end');
+};
 
 // compresses images (client => dist)
 gulp.task('images', () => {
@@ -16,6 +31,29 @@ gulp.task('images', () => {
     .pipe(gulp.dest('public'));
 });
 
+gulp.task('styles', function() {
+  return gulp.src(['./client/styles/main.scss', './client/styles/oldie.scss'])
+    .pipe(plumber({ errorHandler: onError }))
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      includePaths: 'bower_components',
+    }))
+    .pipe(rename('main.css'))
+    .pipe(gulp.dest('public/styles'));
+});
+
+// builds scripts with browserify
+// gulp.task('scripts', () => {
+//   return obt.build.js(gulp, {
+//     buildFolder: 'public',
+//     js: './client/scripts/main.js',
+//     buildJs: 'scripts/main.bundle.js',
+//     env: process.env.NODE_ENV
+//   }).on('error', function (error) {
+//     console.error(error);
+//     this.emit('end');
+//   });
+// });
 
 // copies over miscellaneous files (client => dist)
 gulp.task('copy', () => {
@@ -38,7 +76,7 @@ gulp.task('rev', () => {
             'public/images/**/*.{png,svg,gif,jpg}'
         ], {base: 'assets'})
         .pipe(gulp.dest('public'))  // copy original assets to build dir
-        .pipe(rev())
+        // .pipe(rev())
         .pipe(revReplace({replaceInExtensions: ['.css']}))
         .pipe(revNapkin({verbose:false}))
         .pipe(gulp.dest('public')) // write rev'd assets to build dir
@@ -47,7 +85,7 @@ gulp.task('rev', () => {
 });
 
 // makes a production build (client => dist)
-gulp.task('default', gulp.series('clean', 'copy', 'images', 'rev'), done => {
+gulp.task('default', gulp.series('clean', 'copy', 'styles', 'images', 'rev'), done => {
   done();
 });
 
@@ -85,21 +123,6 @@ gulp.task('serve:dist', gulp.series(['default']), done => {
     server: 'public',
   }, done);
 });
-
-
-// builds scripts with browserify
-// gulp.task('scripts', () => {
-//   return obt.build.js(gulp, {
-//     buildFolder: 'public',
-//     js: './client/scripts/main.js',
-//     buildJs: 'scripts/main.bundle.js',
-//     env: process.env.NODE_ENV
-//   }).on('error', function (error) {
-//     console.error(error);
-//     this.emit('end');
-//   });
-// });
-
 
 // builds stylesheets with sass/autoprefixer
 // gulp.task('styles', () => {
