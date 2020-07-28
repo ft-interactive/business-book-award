@@ -1,5 +1,5 @@
-'use strict';
-require('fastclick')(document.body);
+// 'use strict';
+// require('fastclick')(document.body);
 
 function on(selector, event, callback) {
   document.querySelector(selector).addEventListener(event, callback);
