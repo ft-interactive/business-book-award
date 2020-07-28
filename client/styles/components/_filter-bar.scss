@@ -5,9 +5,9 @@
   padding: 15px $gutter;
   z-index: 1;
   width: 100%;
-  border-bottom: 2px solid oColorsGetPaletteColor(grey-tint1);
+  border-bottom: 2px solid oColorsByName(black-30);
   margin-bottom: 1em;
-  background: oColorsGetColorFor(box, background);
+  background: oColorsByUsecase(box, background);
 
   @include mq(tablet) {
     border-top-left-radius: 2px;

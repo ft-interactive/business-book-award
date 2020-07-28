@@ -164,7 +164,7 @@ function onDataReceived(data) {
     if (row.rank === 'winner') {
       winners.push(row);
     }
-    
+
     if (row.cover) {
       row.cover = 'http://im.ft-static.com/content/images/' + row.cover + '.img';
     } else if (row.coveralt) {
@@ -191,7 +191,7 @@ function onDataReceived(data) {
       var name = titlecase(d.trim());
       var slug = getSlug(name);
 
-      // prevent long names with ampersands getting 
+      // prevent long names with ampersands getting
       // wield line breaks.
       name = name.replace(' ', ' '); // replace with non-breaking character.
 
@@ -313,7 +313,7 @@ function nextBook(selectedBook, callback) {
 }
 
 function relatedBooks(selectedBook, callback) {
-  var slugs = _.pluck(selectedBook.categories, 'slug');
+  var slugs = _.map(selectedBook.categories, 'slug');
   var c = [];
   var got = {};
 

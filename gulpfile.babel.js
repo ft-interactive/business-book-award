@@ -1,12 +1,25 @@
-import runSequence from 'run-sequence';
-import obt from 'origami-build-tools';
 import gulp from 'gulp';
 import del from 'del';
 import rev from 'gulp-rev';
 import revReplace from 'gulp-rev-replace';
 import revNapkin from 'gulp-rev-napkin';
+import plumber from 'gulp-plumber';
+import sourcemaps from 'gulp-sourcemaps';
+import sass from 'gulp-sass';
+import rename from 'gulp-rename';
+import notify from 'gulp-notify';
 
 const $ = require('auto-plug')('gulp');
+
+var onError = function(err) {
+  notify.onError({
+    title:    'Gulp',
+    subtitle: 'Failure!',
+    message:  'Error: <%= error.message %>',
+    sound:    'Basso'
+  })(err);
+  this.emit('end');
+};
 
 // compresses images (client => dist)
 gulp.task('images', () => {
@@ -18,6 +31,24 @@ gulp.task('images', () => {
     .pipe(gulp.dest('public'));
 });
 
+gulp.task('styles', function() {
+  return gulp.src(['./client/styles/main.scss', './client/styles/oldie.scss'])
+    .pipe(plumber({ errorHandler: onError }))
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      includePaths: 'bower_components',
+    }))
+    .pipe(rename('main.css'))
+    .pipe(gulp.dest('public/styles'));
+});
+
+// builds scripts with browserify
+gulp.task('scripts', () => {
+  return gulp.src(['./client/scripts/main.js'])
+    .pipe(plumber({ errorHandler: onError }))
+    .pipe(rename('main.bundle.js'))
+    .pipe(gulp.dest('public/scripts'));
+});
 
 // copies over miscellaneous files (client => dist)
 gulp.task('copy', () => {
@@ -33,9 +64,36 @@ gulp.task('copy', () => {
 // clears out the dist and .tmp folders
 gulp.task('clean', del.bind(null, ['public/*', '!public/.git'], {dot: true}));
 
+gulp.task('rev', () => {
+  return gulp.src([
+            'public/styles/**/*.css',
+            'public/scripts/**/*.js',
+            'public/images/**/*.{png,svg,gif,jpg}'
+        ], {base: 'assets'})
+        .pipe(gulp.dest('public'))  // copy original assets to build dir
+        // .pipe(rev())
+        .pipe(revReplace({replaceInExtensions: ['.css']}))
+        .pipe(revNapkin({verbose:false}))
+        .pipe(gulp.dest('public')) // write rev'd assets to build dir
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('public')); // write manifest to build dir
+});
+
+// makes a production build (client => dist)
+gulp.task('default', gulp.series('clean', 'copy', 'styles', 'scripts', 'images', 'rev'), done => {
+  done();
+});
+
+// sets up watch-and-rebuild for JS and CSS
+gulp.task('watch', gulp.series('clean'), done => {
+  gulp.watch('./client/**/*.scss', ['styles', 'scsslint']);
+  gulp.watch('./client/**/*.{js,hbs}', ['scripts'/*, 'jshint'*/]);
+  gulp.watch('./client/**/*.{jpg,png,gif,svg}', ['images']);
+  done();
+});
 
 // runs a development server (serving up .tmp and client)
-gulp.task('serve', ['watch', 'images'], done => {
+gulp.task('serve', gulp.series(['watch', 'images']), done => {
   const bs = require('browser-sync').create();
 
   bs.init({
@@ -53,55 +111,12 @@ gulp.task('serve', ['watch', 'images'], done => {
 
 
 // builds and serves up the 'public' directory
-gulp.task('serve:dist', ['default'], done => {
+gulp.task('serve:dist', gulp.series(['default']), done => {
   require('browser-sync').create().init({
     open: false,
     notify: false,
     server: 'public',
   }, done);
-});
-
-
-// builds scripts with browserify
-gulp.task('scripts', () => {
-  return obt.build.js(gulp, {
-    buildFolder: 'public',
-    js: './client/scripts/main.js',
-    buildJs: 'scripts/main.bundle.js',
-    env: process.env.NODE_ENV
-  }).on('error', function (error) {
-    console.error(error);
-    this.emit('end');
-  });
-});
-
-
-// builds stylesheets with sass/autoprefixer
-gulp.task('styles', () => {
-  return obt.build.sass(gulp, {
-    buildFolder: 'public',
-    sass: ['./client/styles/main.scss', './client/styles/oldie.scss'],
-    buildCss: {dirname: 'styles'},
-    env: process.env.NODE_ENV
-  }).on('error', function (error) {
-    console.error(error);
-    this.emit('end');
-  });
-});
-
-gulp.task('rev', () => {
-  return gulp.src([
-            'public/styles/**/*.css',
-            'public/scripts/**/*.js',
-            'public/images/**/*.{png,svg,gif,jpg}'
-        ], {base: 'assets'})
-        .pipe(gulp.dest('public'))  // copy original assets to build dir
-        .pipe(rev())
-        .pipe(revReplace({replaceInExtensions: ['.css']}))
-        .pipe(revNapkin({verbose:false}))
-        .pipe(gulp.dest('public')) // write rev'd assets to build dir
-        .pipe(rev.manifest())
-        .pipe(gulp.dest('public')); // write manifest to build dir
 });
 
 
@@ -117,34 +132,11 @@ gulp.task('rev', () => {
 
 
 // lints SCSS files
-gulp.task('scsslint', () => {
-  return obt.verify.scssLint(gulp, {
-    sass: './client/styles/*.scss',
-  }).on('error', function (error) {
-    console.error('\n', error, '\n');
-    this.emit('end');
-  });
-});
-
-
-// sets up watch-and-rebuild for JS and CSS
-gulp.task('watch', done => {
-  runSequence('clean', ['scripts', 'styles'], () => {
-    gulp.watch('./client/**/*.scss', ['styles', 'scsslint']);
-    gulp.watch('./client/**/*.{js,hbs}', ['scripts'/*, 'jshint'*/]);
-    gulp.watch('./client/**/*.{jpg,png,gif,svg}', ['images']);
-    done();
-  });
-});
-
-
-// makes a production build (client => dist)
-gulp.task('default', done => {
-
-  runSequence(
-    ['clean', 'scsslint'/*, 'jshint'*/],
-    ['scripts', 'styles', 'copy'],
-    ['images'],
-    ['rev'],
-  done);
-});
+// gulp.task('scsslint', () => {
+//   return obt.verify.scssLint(gulp, {
+//     sass: './client/styles/*.scss',
+//   }).on('error', function (error) {
+//     console.error('\n', error, '\n');
+//     this.emit('end');
+//   });
+// });

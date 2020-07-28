@@ -1,9 +1,9 @@
 a {
   text-decoration: none;
-  color: oColorsGetColorFor(link, text);
+  color: oColorsByUsecase(link, text);
 
   &:focus,
   &:hover {
-    color: oColorsGetColorFor(link-hover, text);
+    color: oColorsByUsecase(link-hover, text);
   }
 }
