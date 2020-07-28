@@ -4,7 +4,7 @@
   "dependencies": {
     "ondomready": "~1.4.0",
     "fastclick": "~1.0.0",
-    "sass-mq": "^3.1.0",
+    "sass-mq": "^5.0.1",
     "o-grid": "^3.1.0",
     "o-forms": "^1.0.2",
     "o-fonts": "^1.8.2",
