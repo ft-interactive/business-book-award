@@ -3,7 +3,7 @@ html {
 }
 html,
 body {
-  background: oColorsGetColorFor(page, background);
+  background: oColorsByUsecase(page, background);
 }
 .container {
   box-sizing: border-box;
@@ -50,7 +50,7 @@ body {
     width: 40%;
     margin-top: -1em;
     padding: 1em 0.5em;
-    background: oColorsGetColorFor(box, background);
+    background: oColorsByUsecase(box, background);
     min-height: 720px;
   }
 }

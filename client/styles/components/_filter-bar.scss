@@ -7,7 +7,7 @@
   width: 100%;
   border-bottom: 2px solid oColorsGetPaletteColor(grey-tint1);
   margin-bottom: 1em;
-  background: oColorsGetColorFor(box, background);
+  background: oColorsByUsecase(box, background);
 
   @include mq(tablet) {
     border-top-left-radius: 2px;

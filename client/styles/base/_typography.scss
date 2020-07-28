@@ -4,7 +4,7 @@ html {
   font-family: $font-sans;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: oColorsGetColorFor(body, text);
+  color: oColorsByUsecase(body, text);
 }
 body {
   font-size: 18px;
