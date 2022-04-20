@@ -86,7 +86,7 @@
                     </label>
                     <input type="text" class="o-forms-text search-form__field js-tipue-drop" autocomplete="off" id="tipue_drop_input" placeholder="Search for a book title or author" value="" data-trackable="search-box" />
                     <label type="submit" value="Submit" class="search-form__submit" tabindex="-1" for="tipue_drop_input" ></label>
-                    <div id="tipue_drop_content" data-trackable="search-results"></div>
+                    <div id="tipue_drop_content" ></div>
                 </div>
             </form>
             <form class="filter-form js-filter-form" action="{{ router.url('home') }}" method="get">
@@ -196,6 +196,33 @@
         </script>
 
         {# FT Tracking module (Spoor) #}
-        <script>(function(){function init(){var oTracking=Origami['o-tracking'];oTracking.init({server:'https://spoor-api.ft.com/ingest',system:{is_live:true},context:{product:'IG'}});oTracking.click.init('cta');oTracking.page({content:{asset_type:'interactive',microsite_name: 'BBYA'}});}var o=document.createElement('script');o.async=o.defer=true;o.src='https://origami-build.ft.com/v3/bundles/js?components=o-tracking@4.3.0&system_code=business-books-of-the-year';var s=document.getElementsByTagName('script')[0];if(o.hasOwnProperty('onreadystatechange')){o.onreadystatechange=function(){if(o.readyState==='loaded'){init();}};}else{o.onload=init;}s.parentNode.insertBefore(o,s);}());</script><noscript data-o-component="o-tracking"><img src="https://spoor-api.ft.com/px.gif?data=%7B%22action%22%3A%22view%22%2C%22category%22%3A%22page%22%2C%22context%22%3A%7B%22content%22%3A%7B%22asset_type%22%3A%22interactive%22%7D%2C%22product%22%3A%22IG%22%2C%22microsite_name%22%3A%22BBYA%22%7D%2C%22system%22%3A%7B%22is_live%22%3Atrue%2C%22apiKey%22%3A%22qUb9maKfKbtpRsdp0p2J7uWxRPGJEP%22%2C%22source%22%3A%22o-tracking-ns%22%2C%22version%22%3A%221.0.0%22%7D%7D" height="1" width="1" /></noscript>
+        <script> 
+            (function(){
+                function init(){
+                    var oTracking=Origami['o-tracking'];
+                    oTracking.init({server:'https://spoor-api.ft.com/ingest',system:{is_live:true},context:{product:'IG'}});
+                    oTracking.click.init('cta');
+                    oTracking.page({content:{asset_type:'interactive',microsite_name: 'BBYA'}});
+                    window.oTracking = oTracking; 
+                }
+                var o=document.createElement('script');
+                o.async=o.defer=true;
+                o.src='https://origami-build.ft.com/v3/bundles/js?components=o-tracking@4.3.0&system_code=business-books-of-the-year';
+                var s=document.getElementsByTagName('script')[0];
+                if(o.hasOwnProperty('onreadystatechange')){
+                    o.onreadystatechange=function(){
+                        if(o.readyState==='loaded'){
+                            init();
+                        }
+                    };
+                }else{
+                    o.onload=init;
+                }
+                s.parentNode.insertBefore(o,s);
+            }());
+        </script>
+        <noscript data-o-component="o-tracking">
+            <img src="https://spoor-api.ft.com/px.gif?data=%7B%22action%22%3A%22view%22%2C%22category%22%3A%22page%22%2C%22context%22%3A%7B%22content%22%3A%7B%22asset_type%22%3A%22interactive%22%7D%2C%22product%22%3A%22IG%22%2C%22microsite_name%22%3A%22BBYA%22%7D%2C%22system%22%3A%7B%22is_live%22%3Atrue%2C%22apiKey%22%3A%22qUb9maKfKbtpRsdp0p2J7uWxRPGJEP%22%2C%22source%22%3A%22o-tracking-ns%22%2C%22version%22%3A%221.0.0%22%7D%7D" height="1" width="1" />
+        </noscript> 
     </body>
 </html>
