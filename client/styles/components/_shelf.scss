@@ -21,6 +21,15 @@
   }
 }
 
+.book-promo__title {
+  margin-top: 1em;
+  margin-bottom: 0em;
+}
+
+.book-promo__byline {
+  line-height: 0.5;
+}
+
 .shelf--small {
   .book-promo__prizes {
     @include visuallyhidden;

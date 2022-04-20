@@ -1,13 +1,14 @@
 .filter-bar {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   position: absolute;
   top: 50px;
-  padding: 15px $gutter;
+  padding: 30px $gutter;
   z-index: 1;
   width: 100%;
-  border-bottom: 2px solid oColorsByName(black-30);
   margin-bottom: 1em;
-  background: oColorsByUsecase(box, background);
+  background: #ffebd9;
 
   @include mq(tablet) {
     border-top-left-radius: 2px;
@@ -15,8 +16,8 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: $gutter*0.75;
-    padding-right: $gutter*0.75;
+    padding-left: $gutter * 0.75;
+    padding-right: $gutter * 0.75;
     position: static;
   }
 
@@ -30,11 +31,11 @@
   }
   // scss-lint:enable ImportantRule
 }
-.filter-bar--hidden {
-  display: none;
+// .filter-bar--hidden {
+//   // display: none;
 
-  @include mq(tablet) {
-    // Always display the filter bar on large screens
-    display: block;
-  }
-}
+//   @include mq(tablet) {
+//     // Always display the filter bar on large screens
+//     display: block;
+//   }
+// }
