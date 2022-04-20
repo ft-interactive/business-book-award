@@ -41,7 +41,7 @@ on(".js-filter-form-select", "change", function (event) {
     window.oTracking.event({ detail: eventConfig });
   }
 
-  // document.querySelector(".js-filter-form").submit();
+  document.querySelector(".js-filter-form").submit();
 });
 
 var books_request;
