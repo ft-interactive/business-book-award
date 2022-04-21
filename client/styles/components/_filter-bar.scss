@@ -29,8 +29,7 @@
   }
 
   @include mq(document) {
-    // flex-direction: row-reverse;
-    justify-content: space-around;
+    justify-content: center;
     max-width: 1060px;
     padding-left: $gutter * 0.75;
     padding-right: $gutter * 0.75;

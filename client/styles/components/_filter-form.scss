@@ -1,7 +1,9 @@
 .filter-form {
-  @include mq(tablet) {
-    float: left;
-    width: 35%;
+  flex-basis: 34px;
+
+  @include mq(largeTablet) {
+    flex-basis: 330px;
+    margin: 0 20px;
   }
 }
 .filter-form__inner {

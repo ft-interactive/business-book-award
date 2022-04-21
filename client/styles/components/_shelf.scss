@@ -14,11 +14,9 @@
     width: 33.3333333333333%;
   }
   @include mq(tablet) {
-    // width: 25%;
     width: 33.3333333333333%;
   }
   @include mq(document) {
-    // width: 14.285714%;
     width: 25%;
   }
 }
@@ -26,10 +24,11 @@
 .book-promo__title {
   margin-top: 1em;
   margin-bottom: 0em;
+  line-height: 1.2;
 }
 
 .book-promo__byline {
-  line-height: 1.2;
+  line-height: 0.8;
 }
 
 // Recommended books
