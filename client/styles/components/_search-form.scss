@@ -2,7 +2,6 @@
   margin-bottom: 12px;
 
   @include mq(tablet) {
-    // float: right;
     width: 60%;
     max-width: 310px;
   }
@@ -10,16 +9,20 @@
 .search-form__inner {
   position: relative;
 }
-// visually hidden for screen readers only
-.search-form__label {
-}
+
 // Tripe class name, to override Origami's specificity
 .search-form__field.search-form__field.search-form__field {
-  padding: 4.5px 0px 4.55px 36px;
+  padding: 5.5px 0px 4.55px 36px;
   width: 244px;
+
+  @include mq(largeTablet) {
+    width: 162px;
+    margin-left: 100px;
+  }
 
   @include mq(document) {
     width: 200px;
+    margin-left: 0px;
   }
 }
 .search-form__submit {
@@ -46,5 +49,13 @@
   &:focus,
   .search-form__field:focus + & {
     opacity: 8;
+  }
+
+  @include mq(largeTablet) {
+    left: 100px;
+  }
+
+  @include mq(document) {
+    left: 3px;
   }
 }

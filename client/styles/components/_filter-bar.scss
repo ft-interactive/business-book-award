@@ -11,7 +11,7 @@
 
   @include mq($from: tablet) {
     align-items: flex-start;
-    padding-left: 125px;
+    padding-left: 96px;
     width: 80%;
 
     border-top-left-radius: 2px;
@@ -22,8 +22,14 @@
     position: static;
   }
 
+  @include mq(largeTablet) {
+    padding-left: 51px;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+
   @include mq(document) {
-    flex-direction: row;
+    // flex-direction: row-reverse;
     justify-content: space-around;
     max-width: 1060px;
     padding-left: $gutter * 0.75;

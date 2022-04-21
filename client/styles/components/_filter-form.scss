@@ -26,6 +26,10 @@
   padding-top: 5px;
   padding-bottom: 4px;
 
+  @include mq(largeTablet) {
+    width: 180px;
+  }
+
   @include mq(document) {
     width: 250px;
   }
