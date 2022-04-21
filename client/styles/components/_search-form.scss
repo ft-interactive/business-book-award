@@ -51,11 +51,11 @@
     opacity: 8;
   }
 
-  @include mq(largeTablet) {
+  @include mq($from: largeTablet) {
     left: 100px;
   }
 
-  @include mq(document) {
+  @include mq($from: document) {
     left: 3px;
   }
 }
