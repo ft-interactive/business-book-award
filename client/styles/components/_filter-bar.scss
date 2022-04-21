@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  position: absolute;
   top: 50px;
   padding: 30px $gutter;
   z-index: 1;
@@ -10,19 +9,25 @@
   margin-bottom: 1em;
   background: #ffebd9;
 
-  @include mq(tablet) {
+  @include mq($from: tablet) {
+    align-items: flex-start;
+    padding-left: 125px;
+    width: 80%;
+
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: $gutter * 0.75;
-    padding-right: $gutter * 0.75;
     position: static;
   }
 
   @include mq(document) {
+    flex-direction: row;
+    justify-content: space-around;
     max-width: 1060px;
+    padding-left: $gutter * 0.75;
+    padding-right: $gutter * 0.75;
   }
 
   // scss-lint:disable ImportantRule
@@ -31,11 +36,3 @@
   }
   // scss-lint:enable ImportantRule
 }
-// .filter-bar--hidden {
-//   // display: none;
-
-//   @include mq(tablet) {
-//     // Always display the filter bar on large screens
-//     display: block;
-//   }
-// }

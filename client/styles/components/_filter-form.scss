@@ -13,10 +13,11 @@
   padding-top: 10px;
 }
 .filter-form__select {
+  background-color: white;
   float: left;
+  width: 205px;
 
   // Reposition background and prevent text from appearing above it
-  padding-right: 25px;
   background-size: 18px 18px;
   background-origin: padding-box;
   background-position: 98% center;
@@ -24,7 +25,8 @@
   // Normalize height and size with the text fields
   padding-top: 5px;
   padding-bottom: 4px;
-}
-.filter-form__submit {
-  
+
+  @include mq(document) {
+    width: 250px;
+  }
 }

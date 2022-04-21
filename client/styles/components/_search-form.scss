@@ -2,9 +2,8 @@
   margin-bottom: 12px;
 
   @include mq(tablet) {
-    float: right;
+    // float: right;
     width: 60%;
-    // margin-bottom: 0;
     max-width: 310px;
   }
 }
@@ -16,8 +15,12 @@
 }
 // Tripe class name, to override Origami's specificity
 .search-form__field.search-form__field.search-form__field {
-  padding: 4.5px 36px;
-  width: 275px;
+  padding: 4.5px 0px 4.55px 36px;
+  width: 244px;
+
+  @include mq(document) {
+    width: 200px;
+  }
 }
 .search-form__submit {
   position: absolute;
