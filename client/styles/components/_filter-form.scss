@@ -7,17 +7,19 @@
   }
 }
 .filter-form__inner {
-  padding-left: 80px;
+  display: flex;
+  align-items: center;
 }
 .filter-form__label {
-  float: left;
-  margin-left: -80px;
-  padding-top: 10px;
+  margin-right: 10px;
 }
 .filter-form__select {
   background-color: white;
-  float: left;
-  width: 205px;
+  border-radius: 2px;
+  // float: left;
+  min-width: 205px;
+  flex-grow: 1;
+  flex-shrink: 1;
 
   // Reposition background and prevent text from appearing above it
   background-size: 18px 18px;

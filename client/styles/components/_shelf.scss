@@ -14,9 +14,7 @@
     width: 33.3333333333333%;
   }
   @include mq(tablet) {
-    width: 33.3333333333333%;
-  }
-  @include mq(document) {
+    // width: 33.3333333333333%;
     width: 25%;
   }
 }
@@ -24,7 +22,7 @@
 .book-promo__title {
   margin-top: 1em;
   margin-bottom: 0em;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .book-promo__byline {
@@ -79,17 +77,12 @@
   }
   @include mq(tablet) {
     .shelf__item {
-      width: 50%;
-      // width: 33.3333333333333%;
+      // width: 50%;
+      width: 33.3333333333333%;
     }
     &,
     .shelf__item > * {
       font-size: 1em;
-    }
-  }
-  @include mq(document) {
-    .shelf__item {
-      width: 33.3333333333333%;
     }
   }
 }

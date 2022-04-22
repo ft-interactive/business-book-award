@@ -13,17 +13,19 @@
 
 // Tripe class name, to override Origami's specificity
 .search-form__field.search-form__field.search-form__field {
-  padding: 5px 0px 4px 36px;
-  width: 244px;
+  padding: 5px 0px 5px 36px;
+  // width: 244px;
+  width: 100%;
+  box-sizing: border-box;
 
-  @include mq(largeTablet) {
-    width: 162px;
+  @include mq(tablet) {
+    min-width: 329px;
     // margin-left: 100px;
   }
 
-  @include mq(document) {
-    width: 200px;
-    // margin-left: 0px;
+  @include mq(largeTablet) {
+    min-width: 240px;
+    max-width: 260px;
   }
 }
 .search-form__submit {
