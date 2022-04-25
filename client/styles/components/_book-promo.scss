@@ -1,23 +1,35 @@
-.book-promo {}
+.book-promo {
+}
 .book-promo__prizes {
   margin-bottom: 0.2em;
-  font-feature-settings: 'tnum' 1;
+  font-feature-settings: "tnum" 1;
 }
+
 .book-promo__media {
+  height: 0;
+  padding-bottom: 112%;
+  position: relative;
   img {
     display: block;
     margin: 0 auto;
-    max-width: 70%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: auto;
+    height: 100%;
+    width: auto;
+    transform: translateX(-50%);
   }
 }
 .book-promo__content {
-
 }
 .book-promo__title {
   margin-top: 0.25em;
   margin-bottom: 0.25em;
 }
-.book-promo__byline {}
+.book-promo__byline {
+}
 
 .book-promo__year {
   font-size: 0.85em;
