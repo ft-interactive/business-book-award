@@ -13,4 +13,5 @@ $ npm run watch
 ```
 
 Go to http://localhost:3000
+
 If you see a page with content but no styling, try running 'gulp' in a third terminal tab and refresh
