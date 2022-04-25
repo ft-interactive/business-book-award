@@ -10,8 +10,6 @@
   background: #ffebd9;
 
   @include mq($from: tablet) {
-    align-items: flex-start;
-    padding-left: 96px;
     width: 80%;
 
     border-top-left-radius: 2px;
@@ -23,13 +21,11 @@
   }
 
   @include mq(largeTablet) {
-    padding-left: 51px;
     flex-direction: row-reverse;
     justify-content: center;
   }
 
   @include mq(document) {
-    justify-content: center;
     max-width: 1060px;
     padding-left: $gutter * 0.75;
     padding-right: $gutter * 0.75;

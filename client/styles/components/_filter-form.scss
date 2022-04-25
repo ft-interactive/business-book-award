@@ -1,6 +1,4 @@
 .filter-form {
-  flex-basis: 34px;
-
   @include mq(largeTablet) {
     flex-basis: 330px;
     margin: 0 20px;
@@ -14,10 +12,8 @@
   margin-right: 10px;
 }
 .filter-form__select {
-  background-color: white;
   border-radius: 2px;
-  // float: left;
-  min-width: 205px;
+  min-width: 100px;
   flex-grow: 1;
   flex-shrink: 1;
 

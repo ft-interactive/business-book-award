@@ -42,19 +42,6 @@
   }
 }
 
-// Main page - YEAR books
-// .shelf--medium{
-//   @include mq(tablet) {
-//     .shelf__item {
-//       // width: 50%;
-//       width: 33.3333333333333%;
-//     }
-//   @include mq(document) {
-//     .shelf__item {
-//       width: 25%;
-//     }
-// }
-
 // Main page - Winners
 .shelf--big {
   font-size: (3em/4);
@@ -65,9 +52,6 @@
   .book-promo__prizes {
     @include text-size(small);
   }
-  // .book-promo__content {
-  // @include visuallyhidden;
-  // }
 }
 .shelf--big {
   @include mq(mobileLandscape) {
@@ -77,7 +61,6 @@
   }
   @include mq(tablet) {
     .shelf__item {
-      // width: 50%;
       width: 33.3333333333333%;
     }
     &,
