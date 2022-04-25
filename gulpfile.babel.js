@@ -8,7 +8,6 @@ import sourcemaps from "gulp-sourcemaps";
 import sass from "gulp-sass";
 import rename from "gulp-rename";
 import notify from "gulp-notify";
-import resolveDependencies from "gulp-resolve-dependencies";
 
 const $ = require("auto-plug")("gulp");
 
@@ -43,12 +42,15 @@ gulp.task("styles", function () {
     .pipe(
       sass({
         includePaths: "node_modules",
-      })
-    )
-    .pipe(
-      resolveDependencies({
-        pattern: new RegExp("@financial-times/math"),
-        resolvePath: "@financial-times/math/index.scss",
+        importer: function importer(url, prev, done) {
+          if (url === "@financial-times/math") {
+            url = "@financial-times/math/index.scss";
+          }
+          if (url === "@financial-times/sass-mq") {
+            url = "@financial-times/sass-mq/index.scss";
+          }
+          return { file: url };
+        },
       })
     )
     .pipe(rename("main.css"))
