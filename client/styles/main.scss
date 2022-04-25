@@ -1,7 +1,12 @@
 @import "origami-settings";
-@import "o-fonts/main";
-@import "o-grid/main";
-@import "o-forms/main";
+// @import "o-fonts/main";
+// @import "o-grid/main";
+// @import "o-forms/main";
+
+@import "@financial-times/o-grid/main.scss";
+@import "@financial-times/o-forms/main.scss";
+@import "@financial-times/o-fonts/main.scss";
+@import "@financial-times/o-colors/main.scss";
 
 @import "origami-overrides/o-footer";
 @import "origami-overrides/o-forms";
@@ -20,7 +25,6 @@ img {
 @import "base/links";
 @import "base/layout";
 @import "base/typography";
-
 
 @import "components/badge";
 @import "components/book";
