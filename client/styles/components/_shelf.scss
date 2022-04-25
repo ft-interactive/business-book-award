@@ -1,3 +1,10 @@
+// Added this in to make sure that all the books are aligned
+.shelf {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .shelf__item {
   padding: 0 $gutter/2 1.5em;
   width: 50%;
@@ -7,13 +14,22 @@
     width: 33.3333333333333%;
   }
   @include mq(tablet) {
+    // width: 33.3333333333333%;
     width: 25%;
-  }
-  @include mq(document) {
-    width: 14.285714%;
   }
 }
 
+.book-promo__title {
+  margin-top: 1em;
+  margin-bottom: 0em;
+  line-height: 1;
+}
+
+.book-promo__byline {
+  line-height: 0.8;
+}
+
+// Recommended books
 .shelf--small {
   .book-promo__prizes {
     @include visuallyhidden;
@@ -26,18 +42,15 @@
   }
 }
 
-.shelf--medium,
+// Main page - Winners
 .shelf--big {
   font-size: (3em/4);
 
   .shelf__item > * {
-    font-size: (1em/(3/4));
+    font-size: (1em/ (3/4));
   }
   .book-promo__prizes {
     @include text-size(small);
-  }
-  .book-promo__content {
-    @include visuallyhidden;
   }
 }
 .shelf--big {
@@ -53,11 +66,6 @@
     &,
     .shelf__item > * {
       font-size: 1em;
-    }
-  }
-  @include mq(document) {
-    .shelf__item {
-      width: 20%;
     }
   }
 }

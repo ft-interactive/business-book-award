@@ -1,21 +1,20 @@
 .search-form {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 
-  @include mq(tablet) {
-    float: right;
-    width: 60%;
-    margin-bottom: 0;
-    max-width: 310px;
+  @include mq(largeTablet) {
+    flex-basis: 330px;
+    margin: 0px 20px 12px 20px;
   }
 }
 .search-form__inner {
   position: relative;
 }
-.search-form__label {
-}
+
 // Tripe class name, to override Origami's specificity
 .search-form__field.search-form__field.search-form__field {
-  padding-left: 36px;
+  padding: 5px 0px 5px 36px;
+  width: 100%;
+  box-sizing: border-box;
 }
 .search-form__submit {
   position: absolute;
@@ -25,10 +24,12 @@
   margin: 0;
   border: 0;
   width: 32px;
-  height: 32px;
+  height: 29px;
   top: 2px;
   left: 3px;
-  background: white url('//build.origami.ft.com/v2/files/o-ft-icons@2.2.3/svg/search.svg') 50% 50% no-repeat;
+  background: white
+    url("//build.origami.ft.com/v2/files/o-ft-icons@2.2.3/svg/search.svg") 50%
+    50% no-repeat;
   background-size: 22px 22px;
   color: white;
   font-size: 1px;

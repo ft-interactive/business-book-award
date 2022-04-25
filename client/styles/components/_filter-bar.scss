@@ -1,27 +1,34 @@
 .filter-bar {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-  position: absolute;
   top: 50px;
-  padding: 15px $gutter;
+  padding: 30px $gutter;
   z-index: 1;
   width: 100%;
-  border-bottom: 2px solid oColorsByName(black-30);
   margin-bottom: 1em;
-  background: oColorsByUsecase(box, background);
+  background: #ffebd9;
 
-  @include mq(tablet) {
+  @include mq($from: tablet) {
+    width: 80%;
+
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: $gutter*0.75;
-    padding-right: $gutter*0.75;
     position: static;
+  }
+
+  @include mq(largeTablet) {
+    flex-direction: row-reverse;
+    justify-content: center;
   }
 
   @include mq(document) {
     max-width: 1060px;
+    padding-left: $gutter * 0.75;
+    padding-right: $gutter * 0.75;
   }
 
   // scss-lint:disable ImportantRule
@@ -29,12 +36,4 @@
     display: none !important;
   }
   // scss-lint:enable ImportantRule
-}
-.filter-bar--hidden {
-  display: none;
-
-  @include mq(tablet) {
-    // Always display the filter bar on large screens
-    display: block;
-  }
 }
