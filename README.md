@@ -24,4 +24,4 @@ $ gulp
 
 ```
 
-Within the views/layout.html, update the query string on the link tag of the main.css or script tag of the main.bundle.js depending on changes. 
+Within the views/layout.html file, update the query string on the link tag of the main.css or script tag of the main.bundle.js, depending on changes implemented. 
