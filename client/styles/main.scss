@@ -14,7 +14,8 @@
 @import "var";
 @import "mixins";
 
-@import "sass-mq/mq";
+// @import "sass-mq/mq";
+@import "@financial-times/sass-mq";
 
 img {
   display: block;
