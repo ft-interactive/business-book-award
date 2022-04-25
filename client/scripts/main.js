@@ -26,7 +26,6 @@ on(".js-search-form", "submit", function (event) {
 
 // Submit the filter form on change
 on(".js-filter-form-select", "change", function (event) {
-  console.log(event);
   if (window.oTracking) {
     const context =
       event.target.value == "_" || !event.target.value
