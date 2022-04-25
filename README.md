@@ -1,7 +1,7 @@
 Business book of the year award
 ===============================
 
-In development:
+## In development:
 
 ```
 $ npm install 
@@ -14,4 +14,14 @@ $ npm run watch
 
 Go to http://localhost:3000
 
-If you see a page with content but no styling, try running 'gulp' in a third terminal tab and refresh
+If you see a page with content but no styling, try running 'gulp' in a third terminal tab and refresh.
+
+
+## See changes on your local host:
+
+```
+$ gulp
+
+```
+
+Within the views/layout.html, update the query string on the link tag of the main.css or script tag of the main.bundle.js depending on changes. 
