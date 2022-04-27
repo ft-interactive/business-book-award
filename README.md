@@ -3,6 +3,15 @@ Business book of the year award
 
 ## In development
 
+If you don't already have gulp and foreman installed on your machine, run the below in your terminal.   
+```
+$ npm install --global gulp-cli
+$ npm install -g foreman
+
+```
+
+If you already have these packages installed, you can skip to the below: 
+
 ```
 $ npm install 
 $ gulp && nf start --port=5001
