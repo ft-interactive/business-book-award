@@ -20,6 +20,13 @@ body {
     max-width: 1060px;
     padding-left: 0;
     padding-right: 0;
+    overflow: hidden;
+
+    &--page {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 
@@ -35,22 +42,7 @@ body {
 
 .content-primary {
   margin-bottom: 2em;
-  @include mq(document) {
-    float: left;
-    width: 60%;
-    box-sizing: border-box;
-    padding: 0 $gutter 0 0;
-  }
 }
 .content-secondary {
   margin-bottom: 3em; // Create extra space at the bottom of the page
-  @include mq(document) {
-    float: right;
-    box-sizing: border-box;
-    width: 40%;
-    margin-top: -1em;
-    padding: 1em 0.5em;
-    background: oColorsByUsecase(box, background);
-    min-height: 720px;
-  }
 }

@@ -8,6 +8,12 @@ $system-code: "ig-projects";
 @import "@financial-times/o-colors/main.scss";
 @import "@financial-times/o-footer/main.scss";
 
+@include oFonts(
+  $opts: (
+    "recommended": true,
+  )
+);
+
 @include oFooter(
   $opts: (
     "themes": (

@@ -1,5 +1,11 @@
-.browsebox {}
+.browsebox {
+}
 
 .browsebox__content {
   padding-top: 10px;
+}
+
+.browsebox__header .text-tiny {
+  font-weight: 500;
+  font-size: 16px;
 }

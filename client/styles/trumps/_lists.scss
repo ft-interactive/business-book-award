@@ -34,18 +34,13 @@
 
 .row-list {
   @extend %unstyled-list;
-  table-layout: fixed;
-  display: table;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
   width: 100%;
 
-  > li {
-    display: table-cell;
-    vertical-align: top;
-  }
-}
-.row-list--thirds {
-  > li {
-    width: 33%;
-    max-width: 33%;
+  & > li {
+    flex-grow: 0;
+    flex-shrink: 0;
   }
 }

@@ -3,25 +3,20 @@
   margin-top: 2.1em;
   margin-left: -$gutter/2;
   margin-right: -$gutter/2;
-  background: oColorsByUsecase(box, background);
-  border-top: 2px solid oColorsByName(black-30);
+  background: #ffebd9;
 
   @include mq(tablet) {
-    max-width: 800px;
     margin: 2.1em auto;
     padding-top: 10px;
     padding-bottom: 10px;
   }
-
 }
 .subnavigation__item {
-
 }
 .subnavigation__action {
   display: block;
   max-width: 200px;
 }
-
 
 .subnavigation__item--1 {
   width: 0;
