@@ -53,7 +53,7 @@
         Serve a different stylesheet for IE8 :
         http://www.theguardian.com/info/developer-blog/2013/oct/14/mobile-first-responsive-ie8 #}
         <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="{{ asset('styles/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles/main.css') }}?v=1">
         <!--<![endif]-->
 
         <!--[if lte IE 8]>
@@ -260,7 +260,7 @@
         </footer>
 
         <script src="https://origami-build.ft.com/v3/bundles/js?modules=o-hoverable@^3.2,o-fonts@^5.3,o-forms@^9.3,o-colors@^6.4,o-grid@^6.1,o-buttons@^7.5,o-footer@^9.2"></script>
-        <script src="{{ asset('scripts/main.bundle.js') }}"></script>
+        <script src="{{ asset('scripts/main.bundle.js') }}?v=1"></script>
 
         <script>
             {# IG Google Analytics account #}
