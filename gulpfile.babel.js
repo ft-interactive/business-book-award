@@ -114,11 +114,19 @@ gulp.task(
 );
 
 // sets up watch-and-rebuild for JS and CSS
-gulp.task("watch", gulp.series("clean"), (done) => {
-  gulp.watch("./client/**/*.scss", ["styles", "scsslint"]);
-  gulp.watch("./client/**/*.{js,hbs}", ["scripts" /*, 'jshint'*/]);
-  gulp.watch("./client/**/*.{jpg,png,gif,svg}", ["images"]);
-  done();
+gulp.task("watch", () => {
+  gulp.watch(
+    "./client/**/*.scss",
+    gulp.series(["clean", "styles", "scripts", "images"])
+  );
+  gulp.watch(
+    "./client/**/*.{js,hbs}",
+    gulp.series(["clean", "styles", "scripts", "images"])
+  );
+  gulp.watch(
+    "./client/**/*.{jpg,png,gif,svg}",
+    gulp.series(["clean", "styles", "scripts", "images"])
+  );
 });
 
 // runs a development server (serving up .tmp and client)
