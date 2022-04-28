@@ -2,6 +2,12 @@ $o-teaser-is-silent: false;
 
 @import "@financial-times/o-teaser/main";
 
+.onward-journey {
+  border-top: 1px solid #ccc1b7;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
 .onward-journey .o-teaser a {
   border-bottom: none;
 }

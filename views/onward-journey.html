@@ -1,1 +1,11 @@
-<section id="onward-journey" className="onward-journey__section"></section>
+<section
+  id="onward-journey"
+  className="onward-journey__section"
+  {%
+  if
+  site.relatedContentList
+  %}data-related-content="{{site.relatedContentList}}"
+  {%
+  endif
+  %}
+></section>

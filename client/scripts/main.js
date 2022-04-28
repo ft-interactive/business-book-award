@@ -285,10 +285,8 @@ function make_cancelable(promise) {
   };
 }
 
-async function get_onward_journey_section() {
-  const relatedContent = [
-    { rows: 2, list: "thing/ddd12879-bf49-4ea7-b5a4-fd4c6b7dfc18" },
-  ];
+async function get_onward_journey_section(list) {
+  const relatedContent = [{ rows: 2, list: list }];
   const urlBase = "https://ig.ft.com/onwardjourney/v3/";
   const sectionsAttempt = make_cancelable(
     Promise.all(
@@ -311,10 +309,14 @@ async function get_onward_journey_section() {
 }
 
 async function show_onward_journey() {
-  if (document.getElementById("onward-journey")) {
-    const section = await get_onward_journey_section();
-    if (section) {
-      document.getElementById("onward-journey").innerHTML = section;
+  const onwardJourneySection = document.getElementById("onward-journey");
+  if (onwardJourneySection) {
+    const list = onwardJourneySection.getAttribute("data-related-content");
+    if (list) {
+      const section = await get_onward_journey_section(list);
+      if (section && section[0] !== "Not Found") {
+        onwardJourneySection.innerHTML = section[0];
+      }
     }
   }
 }
