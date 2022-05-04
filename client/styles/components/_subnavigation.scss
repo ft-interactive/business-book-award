@@ -10,6 +10,10 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
+
+  .row-list {
+    justify-content: space-between;
+  }
 }
 .subnavigation__item {
 }
@@ -19,13 +23,10 @@
 }
 
 .subnavigation__item--1 {
-  width: 0;
   padding-right: $gutter;
   white-space: nowrap;
 }
 .subnavigation__item--2 {
-  width: 100%;
-
   .subnavigation__action {
     float: right;
     text-align: right;
