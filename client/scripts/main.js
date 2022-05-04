@@ -244,7 +244,8 @@ function view_search_results(search_results) {
         '"';
       out += '><div ><div class="tipue_drop_left">';
       out +=
-        '<img src="http://image.webservices.ft.com/v1/images/raw/' + book.cover;
+        '<img src="https://image.webservices.ft.com/v1/images/raw/' +
+        book.cover;
       out +=
         '?source=ft_ig_business_book_award_search&amp;width=120" class="tipue_drop_image" alt=""></div>';
       out +=

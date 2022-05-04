@@ -1,20 +1,20 @@
-var thunkify = require('thunkify');
-var _ = require('lodash');
-var getSlug = require('speakingurl');
-var request = require('co-request');
-var co = require('co');
-var LRU = require('lru-cache');
-var events = require('events');
-var util = require('util');
-var md = require('markdown-it')({
+var thunkify = require("thunkify");
+var _ = require("lodash");
+var getSlug = require("speakingurl");
+var request = require("co-request");
+var co = require("co");
+var LRU = require("lru-cache");
+var events = require("events");
+var util = require("util");
+var md = require("markdown-it")({
   html: true,
   linkify: true,
-  typographer: true
+  typographer: true,
 });
 
-function Service(){
+function Service() {
   return this;
-};
+}
 
 util.inherits(Service, events.EventEmitter);
 
@@ -25,12 +25,12 @@ Service.prototype.find = {
   booksByCategoryName: thunkify(findBooksByCategoryName),
   allCategories: thunkify(findAllCategories),
   allBooks: thunkify(findAllBooks),
-  winners: thunkify(findWinners)
+  winners: thunkify(findWinners),
 };
 
 Service.prototype.selectedBook = {
   nextBook: thunkify(nextBook),
-  relatedBooks: thunkify(relatedBooks)
+  relatedBooks: thunkify(relatedBooks),
 };
 
 Service.prototype.refresh = thunkify(getBethaData);
@@ -43,37 +43,45 @@ module.exports = instance;
 
 var lastEtag;
 var bertha = {
-  view: 'http://bertha.ig.ft.com/view/publish/gss/'+ (process.env.SPREADSHEET_KEY || '0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc') + '/books',
-  republish: 'http://bertha.ig.ft.com/republish/publish/gss/'+ (process.env.SPREADSHEET_KEY || '0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc') + '/books'
+  view:
+    "https://bertha.ig.ft.com/view/publish/gss/" +
+    (process.env.SPREADSHEET_KEY ||
+      "0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc") +
+    "/books",
+  republish:
+    "https://bertha.ig.ft.com/republish/publish/gss/" +
+    (process.env.SPREADSHEET_KEY ||
+      "0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc") +
+    "/books",
 };
 
-console.log('Bertha data', bertha.view);
+console.log("Bertha data", bertha.view);
 
 function getBethaData(purge, callback) {
-  callback = callback || function(){};
-  co(function*(){
+  callback = callback || function () {};
+  co(function* () {
     var r = yield request(!!purge ? bertha.republish : bertha.view);
     if (r.statusCode === 200) {
-      var timestamp = (new Date()).toUTCString();
+      var timestamp = new Date().toUTCString();
       var message;
       if (lastEtag !== r.headers.etag) {
         lastEtag = r.headers.etag;
-        message = 'Refreshed data';
+        message = "Refreshed data";
         var d = JSON.parse(r.body);
         onDataReceived(d);
-        process.nextTick(function() {
+        process.nextTick(function () {
           callback(null, true);
-          instance.emit('refresh', d);
+          instance.emit("refresh", d);
         });
       } else {
-        message = 'No data change';
+        message = "No data change";
         callback(null, false);
       }
-      console.log('%s at %s', message, timestamp);
+      console.log("%s at %s", message, timestamp);
     } else {
       // Don't overwrite the data if there's a
       // Betha error, serve stale instead.
-      console.error('Problem getting data');
+      console.error("Problem getting data");
       callback(null, false);
     }
   })();
@@ -93,7 +101,7 @@ setInterval(getBethaData, refreshInterval);
 var ranks = {
   winner: 100,
   shortlist: 10,
-  longlist: 1
+  longlist: 1,
 };
 
 var categories = {};
@@ -104,10 +112,8 @@ var categoriesArray = [];
 var yearsArray = [];
 var allBooks = [];
 
-
-
 var synopsisErrorCache = LRU({
-  maxAge: 1000 * 60 * 5
+  maxAge: 1000 * 60 * 5,
 });
 
 function sortBySlug(a, b) {
@@ -133,7 +139,6 @@ function titlecase(str) {
 }
 
 function onDataReceived(data) {
-
   // make sure to drop the data
   // from before
   categories = {};
@@ -144,15 +149,15 @@ function onDataReceived(data) {
   yearsArray = [];
   allBooks = [];
 
-  data.forEach(function (row){
+  data.forEach(function (row) {
     if (!row || !row.year || !row.title || !row.author) return;
-    row.year = Number((row.year || '').toString().trim());
+    row.year = Number((row.year || "").toString().trim());
     if (!row.year) return;
     if (!years[row.year]) {
       years[row.year] = {
         slug: row.year,
         name: row.year,
-        books: []
+        books: [],
       };
     }
 
@@ -161,30 +166,47 @@ function onDataReceived(data) {
     row.title = row.title.trim();
     row.rank = row.rank.toLowerCase().trim();
 
-    if (row.rank === 'winner') {
+    if (row.rank === "winner") {
       winners.push(row);
     }
 
     if (row.cover) {
-      row.cover = 'http://im.ft-static.com/content/images/' + row.cover + '.img';
+      row.cover =
+        "https://im.ft-static.com/content/images/" + row.cover + ".img";
     } else if (row.coveralt) {
-      row.cover = 'http://ig.ft.com/static/sites/business-book-of-the-year/covers/' + row.coveralt;
+      row.cover =
+        "https://ig.ft.com/static/sites/business-book-of-the-year/covers/" +
+        row.coveralt;
     } else {
       row.cover = null;
     }
 
-    row.synopsis = !row.synopsis ? null : ('http://ig.ft.com/static/sites/business-book-of-the-year/synopses/' + row.synopsis);
-    row.slug = getSlug(row.title + ' by ' + row.author.replace(/\,\ */g, '&').replace(/\'/, ''));
+    row.synopsis = !row.synopsis
+      ? null
+      : "https://ig.ft.com/static/sites/business-book-of-the-year/synopses/" +
+        row.synopsis;
+    row.slug = getSlug(
+      row.title + " by " + row.author.replace(/\,\ */g, "&").replace(/\'/, "")
+    );
 
     // ensure not null
-    row.highlight.text = row.highlight.text || '';
+    row.highlight.text = row.highlight.text || "";
     // swap last space for a non breaking space.
-    row.highlight.text = row.highlight.text.replace(/\s(?=[^\s]*$)/g, ' ');
+    row.highlight.text = row.highlight.text.replace(/\s(?=[^\s]*$)/g, " ");
 
-    row.highlight.text = row.highlight.text + '&nbsp;—&nbsp;' + (row.highlight.type === 'FT' && row.link ? '<a href="' + row.link + '" target="_blank">Read&nbsp;the&nbsp;complete&nbsp;FT&nbsp;review</a>' : '_' + row.highlight.type + '_');
+    row.highlight.text =
+      row.highlight.text +
+      "&nbsp;—&nbsp;" +
+      (row.highlight.type === "FT" && row.link
+        ? '<a href="' +
+          row.link +
+          '" target="_blank">Read&nbsp;the&nbsp;complete&nbsp;FT&nbsp;review</a>'
+        : "_" + row.highlight.type + "_");
     row.highlight.html = md.render(row.highlight.text);
     books[row.slug] = row;
-    var list = Array.isArray(row.category) ? row.category : (row.category || '').split(/,\s*/g);
+    var list = Array.isArray(row.category)
+      ? row.category
+      : (row.category || "").split(/,\s*/g);
     row.categories = [];
     list.forEach(function (d) {
       if (!d) return;
@@ -193,17 +215,17 @@ function onDataReceived(data) {
 
       // prevent long names with ampersands getting
       // wield line breaks.
-      name = name.replace(' ', ' '); // replace with non-breaking character.
+      name = name.replace(" ", " "); // replace with non-breaking character.
 
       if (!slug) return;
       if (!categories[slug]) {
         categories[slug] = {
           slug: slug,
           name: name,
-          books: []
+          books: [],
         };
       }
-      row.categories.push({name: name, slug: slug});
+      row.categories.push({ name: name, slug: slug });
       categories[slug].books.push(row);
     });
 
@@ -234,7 +256,7 @@ function onDataReceived(data) {
     year.books.sort(sortByRank);
   });
 
-  allBooks = yearsArray.reduce(function(arr, a) {
+  allBooks = yearsArray.reduce(function (arr, a) {
     return arr.concat(a.books);
   }, []);
 
@@ -242,7 +264,7 @@ function onDataReceived(data) {
 }
 
 function findBookBySlug(slug, callback) {
-  co(function*(){
+  co(function* () {
     var book = books[slug];
 
     if (!book) {
@@ -266,45 +288,45 @@ function findBookBySlug(slug, callback) {
 }
 
 function findAllBooks(callback) {
-  setTimeout(function() {
+  setTimeout(function () {
     callback(null, allBooks);
   }, 1);
 }
 
 function findBooksByYear(year, callback) {
-  setTimeout(function() {
+  setTimeout(function () {
     callback(null, years[year] || null);
   }, 1);
 }
 
 function findAllBooksGroupedByYear(callback) {
-  setTimeout(function() {
+  setTimeout(function () {
     callback(null, yearsArray);
   }, 1);
 }
 
 function findBooksForMostRecentYear(callback) {
-  setTimeout(function() {
+  setTimeout(function () {
     callback(null, yearsArray[0]);
   }, 1);
 }
 
 function findBooksByCategoryName(name, callback) {
-  setTimeout(function() {
+  setTimeout(function () {
     callback(null, categories[name] || null);
   }, 1);
 }
 
 function findAllCategories(callback) {
-  setTimeout(function() {
+  setTimeout(function () {
     callback(null, categoriesArray);
   }, 1);
 }
 
 function nextBook(selectedBook, callback) {
-  setTimeout(function() {
-    findBooksByYear(selectedBook.year, function(err, year) {
-      var index = _.findIndex(year.books, {slug: selectedBook.slug});
+  setTimeout(function () {
+    findBooksByYear(selectedBook.year, function (err, year) {
+      var index = _.findIndex(year.books, { slug: selectedBook.slug });
       var isLast = index >= year.books.length - 1;
       var nextIndex = isLast ? 0 : index + 1;
       callback(null, year.books[nextIndex]);
@@ -313,7 +335,7 @@ function nextBook(selectedBook, callback) {
 }
 
 function relatedBooks(selectedBook, callback) {
-  var slugs = _.map(selectedBook.categories, 'slug');
+  var slugs = _.map(selectedBook.categories, "slug");
   var c = [];
   var got = {};
 
@@ -323,10 +345,14 @@ function relatedBooks(selectedBook, callback) {
 
     // remove selected book and reorder the results
     // so that the books after the selected book appear first
-    var selectedIndex = _.findIndex(category.books, {slug: selectedBook.slug});
+    var selectedIndex = _.findIndex(category.books, {
+      slug: selectedBook.slug,
+    });
 
     if (selectedIndex !== -1) {
-      clone.books = category.books.slice(selectedIndex + 1).concat(category.books.slice(0, selectedIndex));
+      clone.books = category.books
+        .slice(selectedIndex + 1)
+        .concat(category.books.slice(0, selectedIndex));
     }
 
     //remove duplicates across all the category lists.
@@ -342,14 +368,14 @@ function relatedBooks(selectedBook, callback) {
     var aL = a.books.length;
     var bL = b.books.length;
     return bL < aL ? -1 : bL > aL ? 1 : 0;
-  })
-  setTimeout(function() {
+  });
+  setTimeout(function () {
     callback(null, c);
   }, 2);
 }
 
 function findWinners(callback) {
-  setTimeout(function() {
+  setTimeout(function () {
     callback(null, winners);
   }, 1);
 }
