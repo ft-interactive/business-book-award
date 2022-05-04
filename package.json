@@ -14,6 +14,7 @@
     "@financial-times/o-brand": "^4.2.1",
     "@financial-times/o-buttons": "^7.5.0",
     "@financial-times/o-colors": "^6.4.2",
+    "@financial-times/o-editorial-typography": "^2.3.2",
     "@financial-times/o-fonts": "^5.3.3",
     "@financial-times/o-footer": "^9.2.2",
     "@financial-times/o-forms": "^9.4.0",
