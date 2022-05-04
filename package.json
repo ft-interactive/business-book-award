@@ -22,6 +22,7 @@
     "@financial-times/o-loading": "^5.2.1",
     "@financial-times/o-normalise": "^3.2.2",
     "@financial-times/o-spacing": "^3.2.1",
+    "@financial-times/o-teaser": "^6.2.2",
     "@financial-times/o-typography": "^7.3.2",
     "@financial-times/sass-mq": "^5.0.1",
     "co": "^3.1.0",

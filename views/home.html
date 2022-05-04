@@ -1,62 +1,45 @@
-{% extends 'index.html' %}
+{% extends 'index.html' %} {% block title %}{% if page.title %}{{ page.title }}
+(list) - {% endif %}{{ site.name }}{% endblock %} {% block content_primary %} {%
+spaceless %}
+<div class="text-center">
+  <ul class="inline-list inline-list--spaced">
+    <li>
+      <i class="badge badge--winner"></i>
+      Winner
+    </li>
+    <li>
+      <i class="badge badge--shortlist"></i>
+      Short listed
+    </li>
+    <li>
+      <i class="badge badge--longlist"></i>
+      Long listed
+    </li>
+  </ul>
+</div>
 
-{% block title %}{% if page.title %}{{ page.title }} (list) - {% endif %}{{ site.name }}{% endblock %}
-
-{% block content_primary %}
-
-{% spaceless %}
-    <div class="text-center">
-        <ul class="inline-list inline-list--spaced">
-            <li>
-                <i class="badge badge--winner"></i>
-                Winner
-            </li>
-            <li>
-                <i class="badge badge--shortlist"></i>
-                Short listed
-            </li>
-            <li>
-                <i class="badge badge--longlist"></i>
-                Long listed
-            </li>
-        </ul>
-    </div>
-
-    {% if winners and winners.length %}
-    <section class="winners">
-        <h2 class="section-title" id="winners">The Winners</h2>
-        {% spaceless %}
-        {% for book in winners %}
-            {% if loop.first %}
-            <ul class="shelf inline-list shelf--big text-center">
-            {% endif %}
-                <li class="shelf__item" id="winner-{{ book.year }}">
-                    {% include "./book-promo.html" %}
-                </li>
-            {% if loop.last %}
-            </ul>
-            {% endif %}
-        {% endfor %}
-        {% endspaceless %}
-    </section>
+{% if winners and winners.length %}
+<section class="winners">
+  <h2 class="section-title" id="winners">The Winners</h2>
+  {% spaceless %} {% for book in winners %} {% if loop.first %}
+  <ul class="shelf inline-list shelf--big text-center">
     {% endif %}
-
-    {% for group in groups %}
-        <h2 class="section-title js-category-name" id="{{ group.slug }}">{{ group.name }}</h2>
-        {% for book in group.books %}
-            {% spaceless %}
-            {% if loop.first %}
-            <ul class="shelf inline-list shelf--medium text-center">
-            {% endif %}
-                <li class="shelf__item">
-                    {% include "./book-promo.html" %}
-                </li>
-            {% if loop.last %}
-            </ul>
-            {% endif %}
-            {% endspaceless %}
-        {% endfor %}
-    {% endfor %}
-{% endspaceless %}
-
-{% endblock %}
+    <li class="shelf__item" id="winner-{{ book.year }}">
+      {% include "./book-promo.html" %}
+    </li>
+    {% if loop.last %}
+  </ul>
+  {% endif %} {% endfor %} {% endspaceless %}
+</section>
+{% endif %} {% for group in groups %}
+<h2 class="section-title js-category-name" id="{{ group.slug }}">
+  {{ group.name }}
+</h2>
+{% for book in group.books %} {% spaceless %} {% if loop.first %}
+<ul class="shelf inline-list shelf--medium text-center">
+  {% endif %}
+  <li class="shelf__item">{% include "./book-promo.html" %}</li>
+  {% if loop.last %}
+</ul>
+{% endif %} {% endspaceless %} {% endfor %} {% endfor %} {% endspaceless %} {%
+include "./onward-journey.html" %} {% endblock %}

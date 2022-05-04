@@ -264,3 +264,61 @@ function view_search_results(search_results) {
 
   show_results(html);
 }
+
+function make_cancelable(promise) {
+  let hasCanceled = false;
+
+  const wrappedPromise = new Promise((resolve, reject) => {
+    /* eslint-disable prefer-promise-reject-errors */
+    promise.then(
+      (val) => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
+      (error) => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
+    );
+    /* eslint-enable */
+  });
+
+  return {
+    promise: wrappedPromise,
+    cancel() {
+      hasCanceled = true;
+    },
+  };
+}
+
+async function get_onward_journey_section(list) {
+  const relatedContent = [{ rows: 2, list: list }];
+  const urlBase = "https://ig.ft.com/onwardjourney/v3/";
+  const sectionsAttempt = make_cancelable(
+    Promise.all(
+      relatedContent.map(({ list, rows = 1 }) => {
+        const limit = rows * 4;
+        const url = `${urlBase}${list}/html/?limit=${limit}`;
+        return fetch(url).then((res) => res.text());
+      })
+    )
+  );
+
+  try {
+    const sections = await sectionsAttempt.promise;
+    return sections;
+  } catch (e) {
+    if (e.isCanceled) return;
+    console.error(e); // eslint-disable-line no-console
+    return null;
+  }
+}
+
+async function show_onward_journey() {
+  const onwardJourneySection = document.getElementById("onward-journey");
+  if (onwardJourneySection) {
+    const list = onwardJourneySection.getAttribute("data-related-content");
+    if (list) {
+      const section = await get_onward_journey_section(list);
+      if (section && section[0] !== "Not Found") {
+        onwardJourneySection.innerHTML = section[0];
+      }
+    }
+  }
+}
+
+show_onward_journey();
