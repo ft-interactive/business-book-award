@@ -59,11 +59,17 @@ gulp.task("styles", function () {
 
 // builds scripts with browserify
 gulp.task("scripts", () => {
-  return gulp
+  var main = gulp
     .src(["./client/scripts/main.js"])
     .pipe(plumber({ errorHandler: onError }))
     .pipe(rename("main.bundle.js"))
     .pipe(gulp.dest("public/scripts"));
+  var scroll = gulp
+    .src(["./client/scripts/scroll-depth-tracking.js"])
+    .pipe(plumber({ errorHandler: onError }))
+    .pipe(rename("scroll-depth-tracking.bundle.js"))
+    .pipe(gulp.dest("public/scripts"));
+  return main && scroll;
 });
 
 // copies over miscellaneous files (client => dist)
