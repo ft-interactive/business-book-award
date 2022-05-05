@@ -46,12 +46,14 @@ var bertha = {
   view:
     "https://bertha.ig.ft.com/view/publish/gss/" +
     (process.env.SPREADSHEET_KEY ||
-      "0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc") +
+      "18M1ONqs0wCEqY9-nSTygwenQ0cA_uxG1_BOtttN-EOM") + //TODO: DON'T LEAVE THIS HERE ON MERGE, THIS IS JUST FOR LOCAL TESTING
+    //"0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc") +
     "/books",
   republish:
     "https://bertha.ig.ft.com/republish/publish/gss/" +
     (process.env.SPREADSHEET_KEY ||
-      "0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc") +
+      "18M1ONqs0wCEqY9-nSTygwenQ0cA_uxG1_BOtttN-EOM") + //TODO: DON'T LEAVE THIS HERE ON MERGE, THIS IS JUST FOR LOCAL TESTING
+    // "0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc") +
     "/books",
 };
 
@@ -112,10 +114,6 @@ var categoriesArray = [];
 var yearsArray = [];
 var allBooks = [];
 
-var synopsisErrorCache = LRU({
-  maxAge: 1000 * 60 * 5,
-});
-
 function sortBySlug(a, b) {
   return a.slug.toString().localeCompare(b.slug.toString());
 }
@@ -171,38 +169,29 @@ function onDataReceived(data) {
     }
 
     if (row.cover) {
-      row.cover =
-        "https://im.ft-static.com/content/images/" + row.cover + ".img";
-    } else if (row.coveralt) {
-      row.cover =
-        "https://ig.ft.com/static/sites/business-book-of-the-year/covers/" +
-        row.coveralt;
+      row.cover = row.cover.substr(0, row.cover.indexOf("?"));
     } else {
       row.cover = null;
     }
 
-    row.synopsis = !row.synopsis
-      ? null
-      : "https://ig.ft.com/static/sites/business-book-of-the-year/synopses/" +
-        row.synopsis;
+    row.synopsistext = row.synopsistext || null;
     row.slug = getSlug(
       row.title + " by " + row.author.replace(/\,\ */g, "&").replace(/\'/, "")
     );
-
     // ensure not null
-    row.highlight.text = row.highlight.text || "";
+    row.highlighttext = row.highlighttext || "";
     // swap last space for a non breaking space.
-    row.highlight.text = row.highlight.text.replace(/\s(?=[^\s]*$)/g, " ");
+    row.highlighttext = row.highlighttext.replace(/\s(?=[^\s]*$)/g, " ");
 
-    row.highlight.text =
-      row.highlight.text +
+    row.highlighttext =
+      row.highlighttext +
       "&nbsp;—&nbsp;" +
-      (row.highlight.type === "FT" && row.link
+      (row.highlighttype === "FT" && row.link
         ? '<a href="' +
           row.link +
           '" target="_blank">Read&nbsp;the&nbsp;complete&nbsp;FT&nbsp;review</a>'
-        : "_" + row.highlight.type + "_");
-    row.highlight.html = md.render(row.highlight.text);
+        : "_" + row.highlighttype + "_");
+    row.highlighthtml = md.render(row.highlighttext);
     books[row.slug] = row;
     var list = Array.isArray(row.category)
       ? row.category
@@ -272,18 +261,9 @@ function findBookBySlug(slug, callback) {
       return;
     }
 
-    if (book.synopsisHTML || synopsisErrorCache.has(slug) || !book.synopsis) {
+    setTimeout(function () {
       callback(null, book);
-      return;
-    }
-
-    var res = yield request(book.synopsis);
-    if (res.statusCode !== 200) {
-      synopsisErrorCache.set(slug, slug);
-    } else {
-      book.synopsisHTML = md.render(res.body);
-    }
-    callback(null, book);
+    }, 2);
   })();
 }
 
