@@ -284,9 +284,9 @@
             (function(){
                 function init(){
                     var oTracking=Origami['o-tracking'];
-                    oTracking.init({server:'https://spoor-api.ft.com/ingest',system:{is_live:true},context:{product:'IG'}});
+                    oTracking.init({server:'https://spoor-api.ft.com/ingest',system:{is_live:true},context:{product:'IG', content:{asset_type:'interactive',microsite_name: 'BBYA'}}});
                     oTracking.click.init('cta');
-                    oTracking.page({content:{asset_type:'interactive',microsite_name: 'BBYA'}});
+                    oTracking.page();
                     window.oTracking = oTracking; 
                 }
                 var o=document.createElement('script');
