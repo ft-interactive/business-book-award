@@ -7,6 +7,7 @@ var site = {
     api: process.env.API_BASE || "",
   },
   relatedContentList: process.env.RELATED_CONTENT_LIST || null,
+  uuid: process.env.UUID || "",
 };
 
 module.exports = site;

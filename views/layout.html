@@ -284,7 +284,7 @@
             (function(){
                 function init(){
                     var oTracking=Origami['o-tracking'];
-                    oTracking.init({server:'https://spoor-api.ft.com/ingest',system:{is_live:true},context:{product:'IG', content:{asset_type:'interactive',microsite_name: 'BBYA'}}});
+                    oTracking.init({server:'https://spoor-api.ft.com/ingest',system:{is_live:true},context:{product:'IG', content:{asset_type:'interactive',microsite_name: 'BBYA',uuid: '{{site.uuid}}'}}});
                     oTracking.click.init('cta');
                     oTracking.page();
                     window.oTracking = oTracking; 
