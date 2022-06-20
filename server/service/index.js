@@ -46,14 +46,12 @@ var bertha = {
   view:
     "https://bertha.ig.ft.com/view/publish/gss/" +
     (process.env.SPREADSHEET_KEY ||
-      "18M1ONqs0wCEqY9-nSTygwenQ0cA_uxG1_BOtttN-EOM") + //TODO: DON'T LEAVE THIS HERE ON MERGE, THIS IS JUST FOR LOCAL TESTING
-    //"0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc") +
+      "18M1ONqs0wCEqY9-nSTygwenQ0cA_uxG1_BOtttN-EOM") +
     "/books",
   republish:
     "https://bertha.ig.ft.com/republish/publish/gss/" +
     (process.env.SPREADSHEET_KEY ||
-      "18M1ONqs0wCEqY9-nSTygwenQ0cA_uxG1_BOtttN-EOM") + //TODO: DON'T LEAVE THIS HERE ON MERGE, THIS IS JUST FOR LOCAL TESTING
-    // "0AksZmOEwjADJdGJmV0VBbjJQRlVmX2RwSDNhVHFmSnc") +
+      "18M1ONqs0wCEqY9-nSTygwenQ0cA_uxG1_BOtttN-EOM") + 
     "/books",
 };
 
