@@ -46,9 +46,9 @@
         {{ book.rank }} {{ book.year }}
       </a>
     </div>
-    {% if book.highlight.html %}
+    {% if book.highlighthtml %}
     <div class="book__highlight" itemprop="review">
-      {% autoescape false %} {{ book.highlight.html }} {% endautoescape %}
+      {% autoescape false %} {{ book.highlighthtml }} {% endautoescape %}
     </div>
     {% endif %}
     <div class="book__meta">
@@ -69,10 +69,10 @@
   </div>
   <div class="clear"></div>
   <div class="book__content">
-    {% if book.synopsisHTML %}
+    {% if book.synopsistext %}
     <div class="book__synopsis content-block">
       <h2 class="headline content-block__headline">Synopsis</h2>
-      {% autoescape false %}{{ book.synopsisHTML }}{% endautoescape %}
+      {% autoescape false %}{{ book.synopsistext }}{% endautoescape %}
     </div>
     {% endif %}
   </div>
