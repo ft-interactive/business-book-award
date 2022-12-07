@@ -144,9 +144,6 @@ gulp.task("serve", gulp.series(["watch", "images"]), (done) => {
       files: ["public/**/*", "client/**/*"],
       server: {
         baseDir: ["public", "client"],
-        routes: {
-          "/bower_components": "bower_components",
-        },
       },
       open: false,
       notify: false,

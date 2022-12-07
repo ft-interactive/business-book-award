@@ -2,7 +2,7 @@
   "name": "ft-ig-bbya",
   "private": true,
   "scripts": {
-    "postinstall": "bower install && gulp",
+    "postinstall": "gulp",
     "watch": "nodemon ./app.js -e js,html,css,csv",
     "serve": "nodemon --watch gulpfile.js --watch .scss-lint.yml --exec 'gulp clean && gulp serve'",
     "test": "eslint . && gulp build"
@@ -78,9 +78,7 @@
     "auto-plug": "^1.0.2",
     "babel-core": "^5.8.12",
     "babel-eslint": "^4.0.5",
-    "bower": "^1.4.1",
     "browser-sync": "^2.8.0",
-    "debowerify": "^1.3.1",
     "del": "^1.2.0",
     "eslint": "^7.5.0",
     "gulp": "^4.0.2",
@@ -103,7 +101,6 @@
     "time-grunt": "~1.0.0"
   },
   "cacheDirectories": [
-    "node_modules",
-    "bower_components"
+    "node_modules"
   ]
 }

@@ -1,8 +1,0 @@
-{
-  "name": "business-book-of-the-year",
-  "private": true,
-  "dependencies": {
-    "ondomready": "~1.4.0",
-    "fastclick": "~1.0.0"
-  }
-}
