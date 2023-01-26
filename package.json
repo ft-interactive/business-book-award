@@ -96,7 +96,7 @@
     "gulp-util": "^3.0.6",
     "load-grunt-tasks": "~0.6.0",
     "nodemon": "^1.4.0",
-    "origami-build-tools": "^10.5.10",
+    "origami-build-tools": "^10.9.2",
     "run-sequence": "^1.1.2",
     "time-grunt": "~1.0.0"
   },
