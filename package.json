@@ -35,7 +35,7 @@
     "gulp-plumber": "^1.2.1",
     "gulp-prefix": "0.0.15",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.0",
+    "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-wait": "0.0.2",
     "koa": "^0.12.2",
@@ -72,7 +72,7 @@
     "wordwrap": "0.0.2"
   },
   "engines": {
-    "node": "14.x.x"
+    "node": "18.x.x"
   },
   "devDependencies": {
     "auto-plug": "^1.0.2",
@@ -98,6 +98,7 @@
     "nodemon": "^1.4.0",
     "origami-build-tools": "^10.5.10",
     "run-sequence": "^1.1.2",
+    "sass": "^1.60.0",
     "time-grunt": "~1.0.0"
   },
   "cacheDirectories": [
