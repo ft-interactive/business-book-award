@@ -5,11 +5,13 @@ import revReplace from "gulp-rev-replace";
 import revNapkin from "gulp-rev-napkin";
 import plumber from "gulp-plumber";
 import sourcemaps from "gulp-sourcemaps";
-import sass from "gulp-sass";
+import gulpSass from "gulp-sass";
+import dartSass from "sass";
 import rename from "gulp-rename";
 import notify from "gulp-notify";
 
 const $ = require("auto-plug")("gulp");
+const sass = gulpSass(dartSass);
 
 var onError = function (err) {
   notify.onError({
