@@ -1,0 +1,18 @@
+application: business-books-of-the-year
+environment: story-finding-dev
+
+stacks:
+  web:
+    type: public-load-balanced-web-service
+    parameters:
+      TaskCount: 1
+      TaskCpu: 256
+      TaskCpuArchitecture: ARM64
+      TaskMemory: 512
+      ContainerRegistry: docker.packages.ft.com/container-workshop-2024
+      ContainerRegistryCredentialsSecretName: /hako/registry-credential/cloudsmith/filip-hristov
+      ContainerGoodToGoEndpoint: /__gtg
+
+tags:
+  systemCode: business-books-of-the-year
+  environment: d

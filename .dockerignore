@@ -1,0 +1,10 @@
+.git
+.github
+.toolkitstate
+**/.gitignore
+**/node_modules
+**/test
+coverage
+Dockerfile
+LICENSE
+README.md
