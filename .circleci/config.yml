@@ -20,7 +20,7 @@ workflows:
       - build_to_cloudsmith:
           name: Build Image
           requires: 
-            - docker/hadolint
+            - Lint Dockerfile
           image_name: $CIRCLE_PROJECT_REPONAME
           version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
           filters:
@@ -64,15 +64,15 @@ jobs:
           docker_layer_caching: true # Enable Docker layer caching for faster builds and reduced cloudsmith costs
 
       - cloudsmith-docker/build_image:
-        custom_tag: << parameters.version >>
-        image_name: << parameters.image_name >>
-        system_code: << parameters.image_name >>
-        platform: linux/arm64  # Built for Graviton
-        image_registry: docker.packages.ft.com/ft-interactive-container-registry
+          custom_tag: << parameters.version >>
+          image_name: << parameters.image_name >>
+          system_code: << parameters.image_name >>
+          platform: linux/arm64  # Built for Graviton
+          image_registry: docker.packages.ft.com/ft-interactive-container-registry
 
       - cloudsmith-docker/push_image:
-        image_name: << parameters.image_name >>
-        image_registry: docker.packages.ft.com/ft-interactive-container-registry
+          image_name: << parameters.image_name >>
+          image_registry: docker.packages.ft.com/ft-interactive-container-registry
 
 
 
