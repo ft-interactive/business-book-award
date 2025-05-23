@@ -52,7 +52,7 @@ jobs:
       - run:
           name: "Skip build if not in PR"
           command: |
-            if [[ -z "$CIRCLE_PULL_REQUEST" && "$CIRCLE_BRANCH" != "main" ]]; then
+            if [[ -z "$CIRCLE_PULL_REQUEST"]]; then
               echo "No PR detected and not on main branch. Stopping workflow."
               exit 1
             fi
