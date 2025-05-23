@@ -10,7 +10,6 @@ orbs:
 workflows:
   container-lifecycle:
     jobs:
-      - hello-job
 
       - docker/hadolint:
           name: Lint Dockerfile
@@ -18,7 +17,6 @@ workflows:
           hadolint-tag: 2.12.0-debian
 
       - build_to_cloudsmith:
-          type: approval
           name: Build Image
           requires: 
             - Lint Dockerfile
@@ -30,13 +28,6 @@ workflows:
       
 
 jobs:
-  hello-job:
-    docker:
-      - image: cimg/node:22.16.0 # the primary container, where your job's commands are run
-    steps:
-      - checkout # check out the code in the project directory
-      - run: echo "hello world" # run the `echo` command
-
   build_to_cloudsmith:
     parameters:
       image_name:
@@ -49,14 +40,6 @@ jobs:
       - image: cimg/node:22.16.0 # Ubuntu 22.04.3 LTS, Node 22.15
 
     steps:
-      - run:
-          name: "Skip build if not in PR"
-          command: |
-            if [[ -z "$CIRCLE_PULL_REQUEST"]]; then
-              echo "No PR detected and not on main branch. Stopping workflow."
-              exit 1
-            fi
-
       - checkout
 
       - setup_remote_docker:
