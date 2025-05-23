@@ -9,8 +9,8 @@ stacks:
       TaskCpu: 256
       TaskCpuArchitecture: ARM64
       TaskMemory: 512
-      ContainerRegistry: docker.packages.ft.com/container-workshop-2024
-      ContainerRegistryCredentialsSecretName: /hako/registry-credential/cloudsmith/filip-hristov
+      ContainerRegistry: docker.packages.ft.com/ft-interactive-container-registry
+      ContainerRegistryCredentialsSecretName: /hako/registry-credential/cloudsmith/ft-interactive-read-only
       ContainerGoodToGoEndpoint: /__gtg
 
 tags:

@@ -1,5 +1,11 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@2.8.2
+  hako: ft-circleci-orbs/hako@1.0
+  cloudsmith-npm: ft-circleci-orbs/cloudsmith-npm@1.0
+  cloudsmith-docker: ft-circleci-orbs/cloudsmith-docker@1.0
+
 jobs:
   hello-job:
     docker:
@@ -8,7 +14,63 @@ jobs:
       - checkout # check out the code in the project directory
       - run: echo "hello world" # run the `echo` command
 
+  build_to_cloudsmith:
+    paramaters:
+      image_name:
+        type: string
+        default: ${CIRCLE_PROJECT_REPONAME}
+      version:
+        type: string
+
+    docker:
+      - image: cimg/node:22:15 # Ubuntu 22.04.3 LTS, Node 22.15
+
+    steps:
+      - run:
+          name: "Skip build if not in PR"
+          command: |
+            if [[ -z "$CIRCLE_PULL_REQUEST" && "$CIRCLE_BRANCH" != "main" ]]; then
+              echo "No PR detected and not on main branch. Stopping workflow."
+              exit 1
+            fi
+
+      - checkout
+
+      - setup_remote_docker:
+          docker_layer_caching: true # Enable Docker layer caching for faster builds and reduced cloudsmith costs
+
+      - cloudsmith-docker/build_image:
+        custom_tag: << parameters.version >>
+        image_name: << parameters.image_name >>
+        system_code: << parameters.image_name >>
+        platform: linux/arm64  # Built for Graviton
+        image_registry: docker.packages.ft.com/ft-interactive-container-registry
+
+      - cloudsmith-docker/push_image:
+        image_name: << parameters.image_name >>
+        image_registry: docker.packages.ft.com/ft-interactive-container-registry
+
 workflows:
-  my-workflow:
+  container-lifecycle:
     jobs:
       - hello-job
+
+      - docker/hadolint:
+          name: Lint Dockerfile
+          dockerfiles: Dockerfile
+          hadolint-tag: 2.12.0-debian
+      
+      - build_to_cloudsmith:
+          name: Build Image
+          requires: 
+            - docker/hadolin
+          image_name: $CIRCLE_PROJECT_REPONAME
+          version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
+          filters:
+            branches:
+              only:
+                - SI-* # for current testing, to be changed, for example feature-*
+              ignore: main
+
+
+
