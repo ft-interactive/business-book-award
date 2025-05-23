@@ -6,16 +6,40 @@ orbs:
   cloudsmith-npm: ft-circleci-orbs/cloudsmith-npm@1.0
   cloudsmith-docker: ft-circleci-orbs/cloudsmith-docker@1.0
 
+
+workflows:
+  container-lifecycle:
+    jobs:
+      - hello-job
+
+      - docker/hadolint:
+          name: Lint Dockerfile
+          dockerfiles: Dockerfile
+          hadolint-tag: 2.12.0-debian
+
+      - build_to_cloudsmith:
+          name: Build Image
+          requires: 
+            - docker/hadolint
+          image_name: $CIRCLE_PROJECT_REPONAME
+          version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
+          filters:
+            branches:
+              only:
+                - SI-* # for current testing, to be changed, for example feature-*
+              ignore: main
+      
+
 jobs:
   hello-job:
     docker:
-      - image: cimg/node:17.2.0 # the primary container, where your job's commands are run
+      - image: cimg/node:22.16.0 # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
       - run: echo "hello world" # run the `echo` command
 
   build_to_cloudsmith:
-    paramaters:
+    parameters:
       image_name:
         type: string
         default: ${CIRCLE_PROJECT_REPONAME}
@@ -23,7 +47,7 @@ jobs:
         type: string
 
     docker:
-      - image: cimg/node:22:15 # Ubuntu 22.04.3 LTS, Node 22.15
+      - image: cimg/node:22.16.0 # Ubuntu 22.04.3 LTS, Node 22.15
 
     steps:
       - run:
@@ -49,28 +73,6 @@ jobs:
       - cloudsmith-docker/push_image:
         image_name: << parameters.image_name >>
         image_registry: docker.packages.ft.com/ft-interactive-container-registry
-
-workflows:
-  container-lifecycle:
-    jobs:
-      - hello-job
-
-      - docker/hadolint:
-          name: Lint Dockerfile
-          dockerfiles: Dockerfile
-          hadolint-tag: 2.12.0-debian
-      
-      - build_to_cloudsmith:
-          name: Build Image
-          requires: 
-            - docker/hadolin
-          image_name: $CIRCLE_PROJECT_REPONAME
-          version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
-          filters:
-            branches:
-              only:
-                - SI-* # for current testing, to be changed, for example feature-*
-              ignore: main
 
 
 
