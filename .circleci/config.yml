@@ -2,8 +2,7 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@2.8.2
-  hako: ft-circleci-orbs/hako@1.0
-  cloudsmith-npm: ft-circleci-orbs/cloudsmith-npm@1.0
+  hako: ft-circleci-orbs/hako@1.0.9
   cloudsmith-docker: ft-circleci-orbs/cloudsmith-docker@1.0
 
 
@@ -20,11 +19,29 @@ workflows:
           name: Build Image
           requires: 
             - Lint Dockerfile
-          image_name: $CIRCLE_PROJECT_REPONAME
+          image_name: ${CIRCLE_PROJECT_REPONAME}
           version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
           filters:
             branches:
               ignore: main # development branch, not production/main release
+
+      # - hako/deploy_image:
+      #     context: circleci-oidc-empty-context
+      #     name: Deploy Ephemeral App Image to AWS (Test EU)
+      #     requires:
+      #       - Build Image
+      #     filters:
+      #       branches:
+      #         ignore: main
+      #       tags:
+      #         ignore: /.*/
+      #     aws_account_id: ${AWS_ACCOUNT_ID}  # Container Blueprint Test Account
+      #     aws_region: eu-west-1
+      #     hako_env: ${HAKO_ENVIRONMENT}
+      #     hako_app: ${HAKO_APPLICATION}
+      #     image_tag: 0.0.0-rc.<< pipeline.number >>
+      #     image_name: ${CIRCLE_PROJECT_REPONAME}
+      #     pr_number: ${CIRCLE_PULL_REQUEST}  # Extracting the PR number from an Env Var URL
       
 
 jobs:
@@ -55,5 +72,3 @@ jobs:
       - cloudsmith-docker/push_image:
           image_name: << parameters.image_name >>
           image_registry: docker.packages.ft.com/ft-interactive-container-registry
-
-

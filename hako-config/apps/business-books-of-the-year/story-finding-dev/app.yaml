@@ -12,6 +12,12 @@ stacks:
       ContainerRegistry: docker.packages.ft.com/ft-interactive-container-registry
       ContainerRegistryCredentialsSecretName: /hako/registry-credential/cloudsmith/ft-interactive-read-only
       ContainerGoodToGoEndpoint: /__gtg
+  
+  circleci-deployment-role:
+    type: circleci-deployment-role
+    parameters:
+      CircleciProjectId: a51c70ec-bd06-4070-b764-d337ea76a2ba
+      CircleciOrgName: ft-interactive
 
 tags:
   systemCode: business-books-of-the-year
