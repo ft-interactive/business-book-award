@@ -49,7 +49,7 @@ jobs:
           custom_tag: << parameters.version >>
           image_name: << parameters.image_name >>
           system_code: << parameters.image_name >>
-          platform: linux/arm64  # Built for Graviton
+          platform: linux/arm64
           image_registry: docker.packages.ft.com/ft-interactive-container-registry
 
       - cloudsmith-docker/push_image:
