@@ -20,7 +20,7 @@ workflows:
           requires: 
             - Lint Dockerfile
           image_name: business-books-of-the-year
-          # -rc.<< pipeline.number >> temporary removing taging convetion to create a new image with 0.0.1 tag
+          # version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
           version: 0.0.1 # identifier for development versions rc:= release candidate
           filters:
             branches:
@@ -38,7 +38,8 @@ workflows:
           aws_region: eu-west-1
           hako_env: story-finding-dev
           hako_app: business-books-of-the-year
-          image_tag: 0.0.0-rc.<< pipeline.number >>
+          # image_tag: 0.0-rc.<< pipeline.number >>
+          image_tag: 0.0.1
           image_name: ${CIRCLE_PROJECT_REPONAME}
       
 
