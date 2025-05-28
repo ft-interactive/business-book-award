@@ -20,7 +20,8 @@ workflows:
           requires: 
             - Lint Dockerfile
           image_name: business-books-of-the-year
-          version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
+          # -rc.<< pipeline.number >> temporary removing taging convetion to create a new image with 0.0.1 tag
+          version: 0.0.1 # identifier for development versions rc:= release candidate
           filters:
             branches:
               ignore: main # development branch, not production/main release
