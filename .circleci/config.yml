@@ -33,10 +33,10 @@ workflows:
           filters:
             branches:
               ignore: main
-          aws_account_id: ${AWS_ACCOUNT_ID}  # Container Blueprint Test Account
+          aws_account_id: "882770872968"  # Container Blueprint Test Account
           aws_region: eu-west-1
-          hako_env: ${HAKO_ENVIRONMENT}
-          hako_app: ${HAKO_APPLICATION}
+          hako_env: story-finding-dev
+          hako_app: business-books-of-the-year
           image_tag: 0.0.0-rc.<< pipeline.number >>
           image_name: ${CIRCLE_PROJECT_REPONAME}
           pr_number: ${CIRCLE_PULL_REQUEST}  # Extracting the PR number from an Env Var URL
