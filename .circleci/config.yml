@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@2.8.2
-  hako: ft-circleci-orbs/hako@1.0.9
+  hako: ft-circleci-orbs/hako@1.0
   cloudsmith-docker: ft-circleci-orbs/cloudsmith-docker@1.0
 
 
@@ -39,7 +39,6 @@ workflows:
           hako_app: business-books-of-the-year
           image_tag: 0.0.0-rc.<< pipeline.number >>
           image_name: ${CIRCLE_PROJECT_REPONAME}
-          pr_number: ${CIRCLE_PULL_REQUEST}  # Extracting the PR number from an Env Var URL
       
 
 jobs:
