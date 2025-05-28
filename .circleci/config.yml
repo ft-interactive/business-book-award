@@ -19,7 +19,7 @@ workflows:
           name: Build Image
           requires: 
             - Lint Dockerfile
-          image_name: ${CIRCLE_PROJECT_REPONAME}
+          image_name: business-books-of-the-year
           version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
           filters:
             branches:
