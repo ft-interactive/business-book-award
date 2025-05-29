@@ -40,7 +40,7 @@ workflows:
           hako_app: business-books-of-the-year
           # image_tag: 0.0-rc.<< pipeline.number >>
           image_tag: 0.0.1
-          image_name: ${CIRCLE_PROJECT_REPONAME}
+          image_name: business-books-of-the-year
       
 
 jobs:
