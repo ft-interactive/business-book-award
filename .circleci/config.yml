@@ -21,7 +21,7 @@ workflows:
             - Lint Dockerfile
           image_name: business-books-of-the-year
           # version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
-          version: 0.0.1 # identifier for development versions rc:= release candidate
+          version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
           filters:
             branches:
               ignore: main # development branch, not production/main release
@@ -39,7 +39,7 @@ workflows:
           hako_env: story-finding-dev
           hako_app: business-books-of-the-year
           # image_tag: 0.0-rc.<< pipeline.number >>
-          image_tag: 0.0.1
+          image_tag: 0.0-rc.<< pipeline.number >>
           image_name: business-books-of-the-year
       
 
