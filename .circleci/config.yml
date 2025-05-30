@@ -16,21 +16,21 @@ workflows:
           hadolint-tag: 2.12.0-debian
 
       - build_to_cloudsmith:
-          name: Build Image
+          name: Build Image Ephemeral App Image
           requires: 
             - Lint Dockerfile
           image_name: business-books-of-the-year
           # version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
-          version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
+          version: 0.0.<< pipeline.number >>-rc # identifier for development versions rc:= release candidate
           filters:
             branches:
               ignore: main # development branch, not production/main release
-
+  
       - hako/deploy_image:
           context: circleci-oidc-empty-context
           name: Deploy Ephemeral App Image to AWS
           requires:
-            - Build Image
+            - Build Image Ephemeral App Image
           filters:
             branches:
               ignore: main
@@ -39,7 +39,7 @@ workflows:
           hako_env: story-finding-dev
           hako_app: business-books-of-the-year
           # image_tag: 0.0-rc.<< pipeline.number >>
-          image_tag: 0.0-rc.<< pipeline.number >>
+          image_tag: 0.0.<< pipeline.number >>-rc
           image_name: business-books-of-the-year
       
 

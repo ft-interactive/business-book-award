@@ -6,12 +6,13 @@ stacks:
     type: public-load-balanced-web-service
     parameters:
       TaskCount: 1
-      TaskCpu: 256
+      TaskCpu: 256 # to be changed to 512 when the app migration is ready
       TaskCpuArchitecture: ARM64
-      TaskMemory: 512
+      TaskMemory: 512 # to be changed to 1024 when the app migration is ready
       ContainerRegistry: docker.packages.ft.com/ft-interactive-container-registry
       ContainerRegistryCredentialsSecretName: /hako/registry-credential/cloudsmith/ft-interactive-read-only
       ContainerGoodToGoEndpoint: /__gtg
+      LogDestination: splunk
   
   circleci-deployment-role:
     type: circleci-deployment-role
