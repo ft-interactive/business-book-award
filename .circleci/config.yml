@@ -15,17 +15,18 @@ workflows:
           dockerfiles: Dockerfile
           hadolint-tag: 2.12.0-debian
 
+      # Job for DEVELOPMENT builds, which are not intended for production use.
       - build_to_cloudsmith:
           name: Build Image Ephemeral App Image
           requires: 
             - Lint Dockerfile
           image_name: business-books-of-the-year
-          # version: 0.0-rc.<< pipeline.number >> # identifier for development versions rc:= release candidate
           version: 0.0.<< pipeline.number >>-rc # identifier for development versions rc:= release candidate
           filters:
             branches:
               ignore: main # development branch, not production/main release
-  
+
+      # Job for DeVELOPMENT builds, which are not intended for production use.
       - hako/deploy_image:
           context: circleci-oidc-empty-context
           name: Deploy Ephemeral App Image to AWS
@@ -38,9 +39,37 @@ workflows:
           aws_region: eu-west-1
           hako_env: story-finding-dev
           hako_app: business-books-of-the-year
-          # image_tag: 0.0-rc.<< pipeline.number >>
           image_tag: 0.0.<< pipeline.number >>-rc
           image_name: business-books-of-the-year
+
+      # Job for PROD builds, which are not intended for production use.
+      # TODO: Adjust configuration
+      # - build_to_cloudsmith:
+      #     name: Build Image App Image
+      #     requires: 
+      #       - Lint Dockerfile
+      #     image_name: business-books-of-the-year
+      #     version: 0.0.<< pipeline.number >> # identifier for development versions rc:= release candidate
+      #     filters:
+      #       branches:
+      #         only: main # production/main release
+              
+      # # Job for PROD builds, which are not intended for production use.
+      # # TODO: Adjust configuration
+      # - hako/deploy_image:
+      #     context: circleci-oidc-empty-context
+      #     name: Deploy App Image to AWS
+      #     requires:
+      #       - Build Image App Image
+      #     filters:
+      #       branches:
+      #         only: main # production/main release
+      #     aws_account_id: "882770872968"
+      #     aws_region: eu-west-1
+      #     hako_env: story-finding-dev
+      #     hako_app: business-books-of-the-year
+      #     image_tag: 0.0.<< pipeline.number >>
+      #     image_name: business-books-of-the-year
       
 
 jobs:

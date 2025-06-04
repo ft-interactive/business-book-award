@@ -1,5 +1,5 @@
 application: business-books-of-the-year
-environment: story-finding-dev
+environment: story-innovation-prod
 
 stacks:
   web:
@@ -22,4 +22,4 @@ stacks:
 
 tags:
   systemCode: business-books-of-the-year
-  environment: d
+  environment: p
