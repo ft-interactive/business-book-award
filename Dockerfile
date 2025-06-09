@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18-slim
 
 # -alpine
 # need to be removed because of libraries compilation incompatibility with alpine images
@@ -30,7 +30,7 @@ RUN npm ci
 
 COPY . ./
 
-RUN npx gulp
+# RUN npx gulp
 
 USER root
 
