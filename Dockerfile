@@ -21,7 +21,7 @@ COPY --chown=node:node client/ ./client/
 # for debugging purposes
 # RUN node --version && npm --version && ls
 
-RUN npm ci 
+RUN npm ci
 # --production needs to be removed, because dev depencancies are needed for the build
 # TODO: investigate if dependencies need to be moved from devDependencies to dependencies
 
@@ -31,6 +31,10 @@ RUN npm ci
 COPY . ./
 
 RUN npx gulp
+
+USER root
+
+RUN npm prune --production
 
 CMD ["node", "--harmony", "./app.js"]
 
