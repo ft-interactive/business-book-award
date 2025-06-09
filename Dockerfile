@@ -18,20 +18,19 @@ COPY --chown=node:node package*.json ./
 COPY --chown=node:node gulp*.js ./
 COPY --chown=node:node client/ ./client/
 
-RUN node --version && npm --version 
-
-RUN ls 
+# for debugging purposes
+# RUN node --version && npm --version && ls
 
 RUN npm ci 
 # --production needs to be removed, because dev depencancies are needed for the build
 # TODO: investigate if dependencies need to be moved from devDependencies to dependencies
 
-RUN ls -l node_modules/.bin
+# for debugging purposes
+# RUN ls -l node_modules/.bin
 
 COPY . ./
 
 RUN npx gulp
-
 
 CMD ["node", "--harmony", "./app.js"]
 
