@@ -36,5 +36,7 @@ USER root
 
 RUN npm prune --production
 
+USER node
+
 CMD ["node", "--harmony", "./app.js"]
 
