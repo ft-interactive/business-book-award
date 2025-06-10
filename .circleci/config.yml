@@ -51,7 +51,7 @@ workflows:
           version: 0.0.<< pipeline.number >> # identifier for development versions rc:= release candidate
           filters:
             branches:
-              only: SI-85-hako-migration # main # production/main release
+              only: main # main # production/main release
               
       # # Job for PROD builds, which are not intended for production use.
       - hako/deploy_image:
@@ -61,7 +61,7 @@ workflows:
             - Build Image App Image
           filters:
             branches:
-              only: SI-85-hako-migration # main # production/main release
+              only: main # main # production/main release
           aws_account_id: "833471025268"
           aws_region: eu-west-1
           hako_env: story-innovation-prod

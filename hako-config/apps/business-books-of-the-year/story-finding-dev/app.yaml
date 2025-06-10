@@ -12,7 +12,6 @@ stacks:
       ContainerRegistry: docker.packages.ft.com/ft-interactive-container-registry
       ContainerRegistryCredentialsSecretName: /hako/registry-credential/cloudsmith/ft-interactive-read-only
       ContainerGoodToGoEndpoint: /__gtg
-      LogDestination: splunk # TODO: remove for test environment, only create splunk logging for production
   
   circleci-deployment-role:
     type: circleci-deployment-role
@@ -22,4 +21,4 @@ stacks:
 
 tags:
   systemCode: business-books-of-the-year
-  environment: d
+  environment: t
