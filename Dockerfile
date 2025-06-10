@@ -1,8 +1,5 @@
 FROM node:18-alpine
 
-# -alpine
-# need to be removed because of libraries compilation incompatibility with alpine images
-
 WORKDIR /app
 RUN chown node:node /app
 
@@ -14,6 +11,9 @@ USER node
 
 WORKDIR /app
 
+# Copy package.json and gulpfile.js first to leverage Docker cache
+# This is needed for npm ci step to install dependencies
+# gulp files and client directory are needed for serving static css, js, img files
 COPY --chown=node:node package*.json ./
 COPY --chown=node:node gulp*.js ./
 COPY --chown=node:node client/ ./client/
@@ -22,18 +22,17 @@ COPY --chown=node:node client/ ./client/
 # RUN node --version && npm --version && ls
 
 RUN npm ci
-# --production needs to be removed, because dev depencancies are needed for the build
-# TODO: investigate if dependencies need to be moved from devDependencies to dependencies
+
 
 # for debugging purposes
 # RUN ls -l node_modules/.bin
 
 COPY . ./
 
-# RUN npx gulp
-
+# Switch to root user to run npm prune
 USER root
 
+# Remove dev dependencies and unnecessary files
 RUN npm prune --production
 
 USER node

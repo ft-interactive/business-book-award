@@ -43,33 +43,31 @@ workflows:
           image_name: business-books-of-the-year
 
       # Job for PROD builds, which are not intended for production use.
-      # TODO: Adjust configuration
-      # - build_to_cloudsmith:
-      #     name: Build Image App Image
-      #     requires: 
-      #       - Lint Dockerfile
-      #     image_name: business-books-of-the-year
-      #     version: 0.0.<< pipeline.number >> # identifier for development versions rc:= release candidate
-      #     filters:
-      #       branches:
-      #         only: main # production/main release
+      - build_to_cloudsmith:
+          name: Build Image App Image
+          requires: 
+            - Lint Dockerfile
+          image_name: business-books-of-the-year
+          version: 0.0.<< pipeline.number >> # identifier for development versions rc:= release candidate
+          filters:
+            branches:
+              only: SI-85-hako-migration # main # production/main release
               
       # # Job for PROD builds, which are not intended for production use.
-      # # TODO: Adjust configuration
-      # - hako/deploy_image:
-      #     context: circleci-oidc-empty-context
-      #     name: Deploy App Image to AWS
-      #     requires:
-      #       - Build Image App Image
-      #     filters:
-      #       branches:
-      #         only: main # production/main release
-      #     aws_account_id: "882770872968"
-      #     aws_region: eu-west-1
-      #     hako_env: story-finding-dev
-      #     hako_app: business-books-of-the-year
-      #     image_tag: 0.0.<< pipeline.number >>
-      #     image_name: business-books-of-the-year
+      - hako/deploy_image:
+          context: circleci-oidc-empty-context
+          name: Deploy App Image to AWS
+          requires:
+            - Build Image App Image
+          filters:
+            branches:
+              only: SI-85-hako-migration # main # production/main release
+          aws_account_id: "833471025268"
+          aws_region: eu-west-1
+          hako_env: story-innovation-prod
+          hako_app: business-books-of-the-year
+          image_tag: 0.0.<< pipeline.number >>
+          image_name: business-books-of-the-year
       
 
 jobs:
