@@ -80,7 +80,7 @@ jobs:
         type: string
 
     docker:
-      - image: cimg/node:22.16.0 # Ubuntu 22.04.3 LTS, Node 22.15
+      - image: cimg/node:24.3.0
 
     steps:
       - checkout
