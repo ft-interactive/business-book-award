@@ -1,0 +1,24 @@
+application: business-books-of-the-year
+environment: story-finding-dev
+
+stacks:
+  web:
+    type: public-load-balanced-web-service
+    parameters:
+      TaskCount: 1
+      TaskCpu: 256 # to be changed to 512 when the app migration is ready
+      TaskCpuArchitecture: ARM64
+      TaskMemory: 512 # to be changed to 1024 when the app migration is ready
+      ContainerRegistry: docker.packages.ft.com/ft-interactive-container-registry
+      ContainerRegistryCredentialsSecretName: /hako/registry-credential/cloudsmith/ft-interactive-read-only
+      ContainerGoodToGoEndpoint: /__gtg
+  
+  circleci-deployment-role:
+    type: circleci-deployment-role
+    parameters:
+      CircleciProjectId: a51c70ec-bd06-4070-b764-d337ea76a2ba
+      CircleciOrgName: ft-interactive
+
+tags:
+  systemCode: business-books-of-the-year
+  environment: t

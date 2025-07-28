@@ -1,0 +1,101 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@2.8.2
+  hako: ft-circleci-orbs/hako@1.0
+  cloudsmith-docker: ft-circleci-orbs/cloudsmith-docker@1.0
+
+
+workflows:
+  container-lifecycle:
+    jobs:
+
+      - docker/hadolint:
+          name: Lint Dockerfile
+          dockerfiles: Dockerfile
+          hadolint-tag: 2.12.0-debian
+
+      # Job for DEVELOPMENT builds, which are not intended for production use.
+      - build_to_cloudsmith:
+          name: Build Image Ephemeral App Image
+          requires: 
+            - Lint Dockerfile
+          image_name: business-books-of-the-year
+          version: 0.0.<< pipeline.number >>-rc # identifier for development versions rc:= release candidate
+          filters:
+            branches:
+              ignore: main # development branch, not production/main release
+
+      # Job for DeVELOPMENT builds, which are not intended for production use.
+      - hako/deploy_image:
+          context: circleci-oidc-empty-context
+          name: Deploy Ephemeral App Image to AWS
+          requires:
+            - Build Image Ephemeral App Image
+          filters:
+            branches:
+              ignore: main
+          aws_account_id: "882770872968"  # Container Blueprint Test Account
+          aws_region: eu-west-1
+          hako_env: story-finding-dev
+          hako_app: business-books-of-the-year
+          image_tag: 0.0.<< pipeline.number >>-rc
+          image_name: business-books-of-the-year
+
+      # Job for PROD builds, which are not intended for production use.
+      - build_to_cloudsmith:
+          name: Build Image App Image
+          requires: 
+            - Lint Dockerfile
+          image_name: business-books-of-the-year
+          version: 0.0.<< pipeline.number >> # identifier for development versions rc:= release candidate
+          filters:
+            branches:
+              only: main # main # production/main release
+              
+      # # Job for PROD builds, which are not intended for production use.
+      - hako/deploy_image:
+          context: circleci-oidc-empty-context
+          name: Deploy App Image to AWS
+          requires:
+            - Build Image App Image
+          filters:
+            branches:
+              only: main # main # production/main release
+          aws_account_id: "833471025268"
+          aws_region: eu-west-1
+          hako_env: story-innovation-prod
+          hako_app: business-books-of-the-year
+          image_tag: 0.0.<< pipeline.number >>
+          image_name: business-books-of-the-year
+      
+
+jobs:
+  build_to_cloudsmith:
+    parameters:
+      image_name:
+        type: string
+        default: ${CIRCLE_PROJECT_REPONAME}
+      version:
+        type: string
+
+    docker:
+      - image: cimg/node:22.17.0
+
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          docker_layer_caching: true # Enable Docker layer caching for faster builds and reduced cloudsmith costs
+
+      - cloudsmith-docker/build_image:
+          custom_tag: << parameters.version >>
+          image_name: << parameters.image_name >>
+          system_code: << parameters.image_name >>
+          platform: linux/arm64
+          image_registry: docker.packages.ft.com/ft-interactive-container-registry
+
+      - cloudsmith-docker/push_image:
+          image_name: << parameters.image_name >>
+          image_registry: docker.packages.ft.com/ft-interactive-container-registry
+

@@ -1,0 +1,25 @@
+application: business-books-of-the-year
+environment: story-innovation-prod
+
+stacks:
+  web:
+    type: public-load-balanced-web-service
+    parameters:
+      TaskCount: 1
+      TaskCpu: 512 # matching heroku dyno equivalent
+      TaskCpuArchitecture: ARM64
+      TaskMemory: 1024 # matching heroku dyno equivalent
+      ContainerRegistry: docker.packages.ft.com/ft-interactive-container-registry
+      ContainerRegistryCredentialsSecretName: /hako/registry-credential/cloudsmith/ft-interactive-read-only
+      ContainerGoodToGoEndpoint: /__gtg
+      LogDestination: splunk
+  
+  circleci-deployment-role:
+    type: circleci-deployment-role
+    parameters:
+      CircleciProjectId: a51c70ec-bd06-4070-b764-d337ea76a2ba
+      CircleciOrgName: ft-interactive
+
+tags:
+  systemCode: business-books-of-the-year
+  environment: p
