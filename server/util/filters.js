@@ -7,7 +7,7 @@ exports.image_service = function (input, width, height, quality, compression) {
   }
 
   var args = {
-    source: "ft_ig_business_book_award",
+    source: "business-books-of-the-year",
   };
 
   if (width) {
