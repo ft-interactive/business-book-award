@@ -1,7 +1,7 @@
 var qs = require("querystring");
 const _ = require("lodash");
 
-exports.image_service = function (input, width, height, quality, compression) {
+exports.image_service = function (input, width, height, quality) {
   if (!input) {
     return "";
   }
@@ -20,10 +20,6 @@ exports.image_service = function (input, width, height, quality, compression) {
 
   if (quality) {
     args.quality = quality;
-  }
-
-  if (compression) {
-    args.compression = compression;
   }
 
   return input + "?" + qs.stringify(args, "&amp;");
