@@ -58,7 +58,7 @@
     "koa-views": "^2.1.0",
     "lodash": "^4.17.19",
     "lru-cache": "^2.5.0",
-    "markdown-it": "^4.4.0",
+    "markdown-it": "^12.3.2",
     "mathsass": "^0.10.1",
     "mime-db": "^1.1.2",
     "ms": "^2.1.2",
